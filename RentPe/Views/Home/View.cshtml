@@ -1,0 +1,24 @@
+﻿@model RentPe.ViewModels.AdminViewModel
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View Product</h2>
+
+<table class="table table-info table-striped">
+
+    <tr>
+        <td>Name : @Model.Product.Name</td>
+    </tr>
+    <tr>
+        <td>Type : @Model.Product.ProductType</td>
+    </tr>
+    <tr>
+        <td>Quantity : @Model.Product.Quantity</td>
+    </tr>
+    <tr>
+        <td>Invoice Price : @Model.Product.InvoicePrice</td>
+    </tr><tr>
+    <td>Sale Price : @Model.Product.SalePrice</td>
+    </tr>
+</table>
