@@ -3,10 +3,19 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class intialized : DbMigration
+    public partial class userinfodonebynomitech : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.ItemCategories",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        CategoryName = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -29,6 +38,19 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.UserInfoes",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Address = c.String(),
+                        Photo = c.String(),
+                        NIC = c.String(),
+                        ContactNo = c.String(),
+                        MemberSince = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -95,8 +117,10 @@
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.UserInfoes");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ItemCategories");
         }
     }
 }

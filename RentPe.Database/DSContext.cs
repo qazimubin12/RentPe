@@ -20,10 +20,11 @@ namespace RentPe.Database
         {
             return new DSContext();
         }
+        //Table NAme hoga
 
-
-
-
-
+        //Singular       Plural
+        //public DbSet<EntityKaNam> TableKaNaam { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<ItemCategory> ItemCategories { get; set; }
     }
 }

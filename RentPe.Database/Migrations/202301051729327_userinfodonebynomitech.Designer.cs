@@ -7,13 +7,13 @@ namespace RentPe.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class intialized : IMigrationMetadata
+    public sealed partial class userinfodonebynomitech : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(intialized));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(userinfodonebynomitech));
         
         string IMigrationMetadata.Id
         {
-            get { return "202212250537046_intialized"; }
+            get { return "202301051729327_userinfodonebynomitech"; }
         }
         
         string IMigrationMetadata.Source
