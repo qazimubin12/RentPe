@@ -26,5 +26,10 @@ namespace RentPe.Database
         //public DbSet<EntityKaNam> TableKaNaam { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<ItemCategory> ItemCategories { get; set; }
+        public DbSet<RentItem> RentItems { get; set; }
+        public DbSet<ItemImage> ItemImages { get; set; }
+        public DbSet<CustomOffer> CustomOffers { get; set; }
+
+
     }
 }
