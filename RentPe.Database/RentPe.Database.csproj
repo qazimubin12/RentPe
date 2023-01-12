@@ -57,9 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202301051729327_userinfodonebynomitech.cs" />
-    <Compile Include="Migrations\202301051729327_userinfodonebynomitech.designer.cs">
-      <DependentUpon>202301051729327_userinfodonebynomitech.cs</DependentUpon>
+    <Compile Include="Migrations\202301081444303_nomitech.cs" />
+    <Compile Include="Migrations\202301081444303_nomitech.designer.cs">
+      <DependentUpon>202301081444303_nomitech.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,8 +76,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202301051729327_userinfodonebynomitech.resx">
-      <DependentUpon>202301051729327_userinfodonebynomitech.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202301081444303_nomitech.resx">
+      <DependentUpon>202301081444303_nomitech.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
