@@ -492,6 +492,9 @@
     <Content Include="Content\template\login.html" />
     <Content Include="Content\template\my-account.html" />
     <Content Include="Content\template\order-completed.html" />
+    <Content Include="Content\template\RentPeContent\RentPeBanners-01.jpg" />
+    <Content Include="Content\template\RentPeContent\RentPeBanners-02.jpg" />
+    <Content Include="Content\template\RentPeContent\RentPeBanners-03.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoMobile.png" />
     <Content Include="Content\template\shop-cart.html" />
@@ -549,7 +552,9 @@
     <Content Include="Content\template\assets\fonts\themify.ttf" />
     <Content Include="Content\template\assets\fonts\themify.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\rentpe - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
