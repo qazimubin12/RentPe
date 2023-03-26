@@ -496,6 +496,7 @@
     <Content Include="Content\template\RentPeContent\RentPeBanners-05.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-06.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop.png" />
+    <Content Include="Content\template\RentPeContent\RentPeLogoDesktop2.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoMobile.png" />
     <Content Include="Content\template\shop-cart.html" />
     <Content Include="Content\template\shop-compare.html" />
