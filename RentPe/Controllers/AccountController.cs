@@ -75,7 +75,7 @@ namespace RentPe.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("Login","_AdminLayout");
         }
 
         //

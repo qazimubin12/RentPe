@@ -613,7 +613,7 @@
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\_Register.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\_Action.cshtml" />
     <Content Include="Views\User\_Listing.cshtml" />
     <Content Include="Views\User\_Delete.cshtml" />
