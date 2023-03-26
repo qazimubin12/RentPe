@@ -37,9 +37,9 @@
                                     <td>@item.Email</td>
                                     <td>@item.PhoneNumber</td>
                                     <td>
-                                        <button data-href="@Url.Action("Action", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-info btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-pencil"></i> EDIT</button>
-                                        <button data-href="@Url.Action("Delete", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
-                                        <button data-href="@Url.Action("UserRoles", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-success btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-account-details"></i>ROLES</button>
+                                        <button data-bs-href="@Url.Action("Action", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-info btn-icon-text" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="mdi mdi-pencil"></i> EDIT</button>
+                                        <button data-bs-href="@Url.Action("Delete", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-danger btn-icon-text" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
+                                        <button data-bs-href="@Url.Action("UserRoles", "User", new { ID = item.Id })" type="button" class="data-btn btn btn-success btn-icon-text" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="mdi mdi-account-details"></i>ROLES</button>
 
                                     </td>
                                 </tr>

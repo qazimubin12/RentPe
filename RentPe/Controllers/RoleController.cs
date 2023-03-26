@@ -73,7 +73,7 @@ namespace RentPe.Controllers
         {
             RoleListingViewModel model = new RoleListingViewModel();
             model.Roles = SearchRoles(searchterm);
-            return View(model);
+            return View("Index", "_AdminLayout", model);
         }
 
         public IEnumerable<IdentityRole> SearchRoles(string searchTerm)
