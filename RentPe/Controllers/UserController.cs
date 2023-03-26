@@ -67,7 +67,7 @@ namespace RentPe.Controllers
             UsersListingViewModel model = new UsersListingViewModel();
             model.Users = SearchUsers(searchterm);
             model.Roles = RolesManager.Roles.ToList();
-            return View(model);
+            return View("Index", "_AdminLayout", model);
         }
 
         public IEnumerable<User> SearchUsers(string searchTerm)
