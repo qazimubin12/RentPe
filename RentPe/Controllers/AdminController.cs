@@ -64,7 +64,7 @@ namespace RentPe.Controllers
             AdminViewModel model = new AdminViewModel();
             var user = UserManager.FindById(User.Identity.GetUserId());
             model.SignedInUser = user;
-            return View(model);
+            return View("Dashboard", "_AdminLayout", model);
         }
 
 
