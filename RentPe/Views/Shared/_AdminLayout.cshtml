@@ -1,143 +1,747 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="Anil z" name="author">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Shopwise is Powerful features and You Can Use The Perfect Build this Template For Any eCommerce Website. The template is built for sell Fashion Products, Shoes, Bags, Cosmetics, Clothes, Sunglasses, Furniture, Kids Products, Electronics, Stationery Products and Sporting Goods.">
-    <meta name="keywords" content="ecommerce, electronics store, Fashion store, furniture store,  bootstrap 4, clean, minimal, modern, online store, responsive, retail, shopping, ecommerce store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title> Dashboard</title>
 
-    <!-- SITE TITLE -->
-    <title>Rent Pe - Spend Less Save More </title>
-    <!-- Favicon Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="~/Content/template/RentPeContent/RentPeLogoMobile.png">
-    <!-- Animation CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/css/animate.css">
-    <!-- Latest Bootstrap min CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/bootstrap/css/bootstrap.min.css">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <!-- Icon Font CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/css/all.min.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/ionicons.min.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/linearicons.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/flaticon.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/simple-line-icons.css">
-    <!--- owl carousel CSS-->
-    <link rel="stylesheet" href="~/Content/template/assets/owlcarousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/Content/template/assets/owlcarousel/css/owl.theme.css">
-    <link rel="stylesheet" href="~/Content/template/assets/owlcarousel/css/owl.theme.default.min.css">
-    <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/css/magnific-popup.css">
-    <!-- Slick CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/css/slick.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/slick-theme.css">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="~/Content/template/assets/css/style.css">
-    <link rel="stylesheet" href="~/Content/template/assets/css/responsive.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <style>
-        .nav_block {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/template/AdminTemplate/assets/img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/font-awesome.min.css">
+
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/feathericon.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/style.css">
+
+    <!--[if lt IE 9]>
+        <script src="~/Content/template/AdminTemplate/assets/js/html5shiv.min.js"></script>
+        <script src="~/Content/template/AdminTemplate/assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
-
-
 <body>
 
-    <!-- LOADER -->
-    <div class="preloader">
-        <div class="lds-ellipsis">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-    <!-- END LOADER -->
-    <!-- Home Popup Section -->
-    
-    <!-- End Screen Load Popup Section -->
-    <!-- START HEADER -->
-    <header class="header_wrap">
-        
-        <div class="middle-header dark_skin">
-            <div class="container">
-                <div class="nav_block">
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
 
-                    <a class="navbar-brand" href="index.html">
-                        <img class="logo_light" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
-                        <img class="logo_dark" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
+        <!-- Header -->
+        <div class="header">
+
+            <!-- Logo -->
+            <div class="header-left">
+                <a href="index.html" class="logo">
+                    <img src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/logo.png" alt="Logo">
+                </a>
+                <a href="index.html" class="logo logo-small">
+                    <img src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                </a>
+            </div>
+            <!-- /Logo -->
+
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-center"></i>
+            </a>
+
+            <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control search-effect" placeholder="Search here">
+
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
+            <!-- /Mobile Menu Toggle -->
+            <!-- Header Right Menu -->
+            <ul class="nav user-menu">
+                <li class="nav-item  go-to-site">
+                    <a class="nav-link" aria-expanded="false" role="button" href="../"> <b><i class="fa fa-home"></i>  Go to the site</b></a>
+                </li>
+
+                <!-- App Lists -->
+                <li class="nav-item dropdown app-dropdown">
+                    <a class="nav-link dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#"><i class="fe fe-app-menu"></i></a>
+                    <ul class="dropdown-menu app-dropdown-menu">
+                        <li>
+                            <div class="app-list">
+                                <div class="row">
+                                    <div class="col"><a class="app-item" href="inbox.html"><i class="fa fa-envelope"></i><span>Email</span></a></div>
+                                    <div class="col"><a class="app-item" href="calendar.html"><i class="fa fa-calendar"></i><span>Calendar</span></a></div>
+                                    <div class="col"><a class="app-item" href="chat.html"><i class="fa fa-comments"></i><span>Chat</span></a></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /App Lists -->
+                <!-- Notifications -->
+                <li class="nav-item dropdown noti-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fe fe-bell noti-ring"></i> <span class="badge badge-pill">3</span>
                     </a>
-                    
-               
-                    
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/profiles/avatar-02.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Robert Martin </span> has ordered <span class="noti-title">MacBook</span></p>
+                                                <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/profiles/avatar-11.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Elaine Keenum </span> has request a invoice in the amount of <span class="noti-title">$899</span></p>
+                                                <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/profiles/avatar-17.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Erin Collins</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
+                                                <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/profiles/avatar-13.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Jennifer Walker</span> booked a new product <span class="noti-title">Apple MacBook Pro</span></p>
+                                                <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="#">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- /Notifications -->
+                <!-- User Menu -->
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img"><img class="rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>Ryan Taylor</h6>
+                                <p class="text-muted mb-0">Administrator</p>`
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="profile.html">My Profile</a>
+                        <a class="dropdown-item" href="general-settings.html">Account Settings</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </li>
+                <!-- /User Menu -->
+
+            </ul>
+            <!-- /Header Right Menu -->
+
+        </div>
+        <!-- /Header -->
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span>Main</span>
+                        </li>
+                        <li class="active">
+                            <a href="index.html"><i class="fe fe-home text-primary"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="users.html"><i class="fe fe-users text-success"></i> <span>Users</span></a>
+                        </li>
+                        <li>
+                            <a href="products.html"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
+                        </li>
+
+                        <li>
+                            <a href="orders.html"><i class="fe fe-book text-warning"></i> <span>Orders</span></a>
+                        </li>
+                        <li>
+                            <a href="categories.html"><i class="fe fe-layer text-success"></i> <span>Categories</span></a>
+                        </li>
+                        <li>
+                            <a href="sub-categories.html"><i class="fe fe-layer text-info"></i> <span>Subcategories</span></a>
+                        </li>
+                        <li>
+                            <a href="shops.html"><i class="fe fe-cart text-warning"></i> <span>Shops</span></a>
+                        </li>
+                        <li>
+                            <a href="coupons.html"><i class="fe fe-map text-danger"></i> <span>Coupons</span></a>
+                        </li>
+                        <li>
+                            <a href="reviews.html"><i class="fe fe-columns text-primary"></i> <span> Reviews</span></a>
+                        </li>
+
+                        <li>
+                            <a href="transactions.html"><i class="fe fe-money  text-info"></i> <span>Transactions</span></a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-gear  text-warning"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="general-settings.html">General Settings</a></li>
+                                <li><a href="email-settings.html">Email Settings</a></li>
+                                <li><a href="stripe-gateway.html">Payment Gateway</a></li>
+
+                                <li><a href="smtp-settings.html">SMTP</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-tiled  text-danger"></i> <span> Application</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="chat.html">Chat</a></li>
+                                <li><a href="calendar.html">Calendar</a></li>
+                                <li><a href="inbox.html">Email</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">
+                            <span>Pages</span>
+                        </li>
+                        <li>
+                            <a href="profile.html"><i class="fe fe-user-plus text-primary"></i> <span>Profile</span></a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-document text-success"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="login.html"> Login </a></li>
+                                <li><a href="register.html"> Register </a></li>
+                                <li><a href="forgot-password.html"> Forgot Password </a></li>
+                                <li><a href="lock-screen.html"> Lock Screen </a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-warning text-info"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="error-404.html">404 Error </a></li>
+                                <li><a href="error-500.html">500 Error </a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="blank-page.html"><i class="fe fe-file text-warning"></i> <span>Blank Page</span></a>
+                        </li>
+                        <li>
+                            <a href="maps-vector.html"><i class="fe fe-map text-danger"></i> <span>Vector Maps</span></a>
+                        </li>
+                        <li class="menu-title">
+                            <span>UI Interface</span>
+                        </li>
+                        <li>
+                            <a href="components.html"><i class="fe fe-vector text-primary"></i> <span>Components</span></a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-layout text-success"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
+                                <li><a href="form-input-groups.html">Input Groups </a></li>
+                                <li><a href="form-horizontal.html">Horizontal Form </a></li>
+                                <li><a href="form-vertical.html"> Vertical Form </a></li>
+                                <li><a href="form-mask.html"> Form Mask </a></li>
+                                <li><a href="form-validation.html"> Form Validation </a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-table text-info"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="tables-basic.html">Basic Tables </a></li>
+                                <li><a href="data-tables.html">Data Table </a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i class="fe fe-code text-warning"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li class="submenu">
+                                    <a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                                        <li class="submenu">
+                                            <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                                            <ul style="display: none;">
+                                                <li><a href="javascript:void(0);">Level 3</a></li>
+                                                <li><a href="javascript:void(0);">Level 3</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);"> <span>Level 1</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="bottom_header light_skin main_menu_uppercase mb-4">
-            <div style="border-bottom:1px solid black;" class="container">
-                <h1 class="text-center">Admin Dashboard</h1>
+        <!-- /Sidebar -->
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()}
+                @RenderBody()
+                <!-- Page Header -->
+                <!--<div class="page-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Welcome Admin!</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>-->
+                <!-- /Page Header -->
+                <!--<div class="row">
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card  widget-body">
+                            <div class="card-body bg-info widget-body">
+                                <div class="dash-widget-header">
+                                    <span class="dash-widget-icon bg-white">
+                                        <i class="fe fe-users text-primary"></i>
+                                    </span>
+                                    <div class="dash-count">
+                                        <h4 class="text-white">168</h4>
+                                    <h6 class="text-white">Customers</h6>
+                                    </div>
+                                </div>
+                                <div class="dash-widget-info text-white">
+
+                                    <i class="fa fa-arrow-up text-white"></i> 17%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card widget-body">
+                            <div class="card-body widget-body bg-success">
+                                <div class="dash-widget-header">
+                                    <span class="dash-widget-icon bg-white">
+                                        <i class="fe fe-layer text-success"></i>
+                                    </span>
+                                    <div class="dash-count">
+                                        <h4 class="text-white">21587</h4>
+                                    <h6 class="text-white">Products</h6>
+                                    </div>
+                                </div>
+                                <div class="dash-widget-info text-white">
+
+                                    <i class="fa fa-arrow-down text-white"></i> 12%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card widget-body">
+                            <div class="card-body widget-body bg-danger">
+                                <div class="dash-widget-header">
+                                    <span class="dash-widget-icon text-danger bg-white">
+                                        <i class="fe fe-credit-card"></i>
+                                    </span>
+                                    <div class="dash-count">
+                                        <h4 class="text-white">$56485</h4>
+                                        <h6 class="text-white">Sales</h6>
+                                    </div>
+                                </div>
+                                <div class="dash-widget-info text-white">
+
+                                    <i class="fa fa-arrow-down text-white"></i> 12%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card widget-body">
+                            <div class="card-body widget-body bg-warning">
+                                <div class="dash-widget-header">
+                                    <span class="dash-widget-icon bg-white text-warning">
+                                        <i class="fe fe-money"></i>
+                                    </span>
+                                    <div class="dash-count">
+                                        <h4 class="text-white">$62523</h4>
+                                        <h6 class="text-white">Revenue</h6>
+                                    </div>
+                                </div>
+                                <div class="dash-widget-info text-white">
+                                    <i class="fa fa-arrow-up text-white"></i> 17%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-6">-->
+                <!-- Sales Chart -->
+                <!--<div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-title">Income and Expenses</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>-->
+                <!-- /Sales Chart -->
+                <!--</div>
+                <div class="col-md-12 col-lg-6">-->
+                <!-- Sales Chart -->
+                <!--<div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-title">Customers</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="linechart" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>-->
+                <!-- /Sales Chart -->
+                <!--</div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="card card-table">
+                            <div class="card-header">
+                                <h4 class="card-title">Top Products</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Product</th>
+                                                <th>Brand Name</th>
+                                                <th>Selling</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-01.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">MacBook<span>#0001</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>Apple</td>
+                                                <td>$18815</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-02.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Samsung Galaxy S10 Plus<span>#P002</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>Samsung</td>
+                                                <td>$899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-03.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Apple iMac Pro<span>#P003</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>Apple</td>
+                                                <td>$7899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-04.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Fujifilm Digital Camera<span>#P004</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>Fujifilm</td>
+                                                <td>$5899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-05.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Apple Watch Series 4<span>#P005</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>Apple</td>
+                                                <td>$810</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+
+                        <div class="card card-table">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Purchases</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>User Name</th>
+                                                <th>Product</th>
+                                                <th>Selling</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-08.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">Robert Martin <span>#0006</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-01.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">MacBook<span>#0001</span></a>
+                                                    </h2>
+                                                </td>
+
+                                                <td>$18815</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-21.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">	Elaine Keenum <span>#0002</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-02.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Samsung Galaxy S10 Plus<span>#P002</span></a>
+                                                    </h2>
+                                                </td>
+
+                                                <td>$899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-17.jpg" alt="User Image"></a>
+                                                        <a href="profile.html"> Erin Collins<span>#0003</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-03.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Apple iMac Pro<span>#P003</span></a>
+                                                    </h2>
+                                                </td>
+
+                                                <td>$7899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-07.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">  Jennifer Walker<span>#0004</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-04.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Fujifilm Digital Camera<span>#P004</span></a>
+                                                    </h2>
+                                                </td>
+
+                                                <td>$5899</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-14.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">Marion Shannon<span>#0005</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="product-view.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded" src="~/Content/template/AdminTemplate/assets/img/product/product-05.jpg" alt="User Image"></a>
+                                                        <a href="product-view.html">Apple Watch Series 4<span>#P005</span></a>
+                                                    </h2>
+                                                </td>
+
+                                                <td>$810</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-table">
+                            <div class="card-header">
+                                <h4 class="card-title">List of Users</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-08.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">Robert Martin <span>#0006</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>robertmartin@example.com</td>
+                                                <td>850-386-7896</td>
+                                                <td>927  Rardin Drive, Redwood City, California-94063</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-21.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">	Elaine Keenum <span>#0002</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>elainekeenum@example.com</td>
+                                                <td>217-509-0538</td>
+                                                <td>Isaacs Creek Road,Golden, California-94060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-17.jpg" alt="User Image"></a>
+                                                        <a href="profile.html"> Erin Collins<span>#0003</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>erincollins@example.com</td>
+                                                <td> 315-224-9840</td>
+                                                <td>Gandy street,Syracuse, California-94060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-07.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">  Jennifer Walker<span>#0004</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td>jenniferwalker@example.com</td>
+                                                <td> 972-372-5354</td>
+                                                <td> Whispering Pines Circle,Dallas, California-94060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-14.jpg" alt="User Image"></a>
+                                                        <a href="profile.html">Marion Shannon<span>#0005</span></a>
+                                                    </h2>
+                                                </td>
+                                                <td> marionshannon@example.com</td>
+                                                <td> 972-874-9653</td>
+                                                <td>Ash street,Lewisville, California-94060</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
             </div>
         </div>
-    </header>
+        <!-- /Page Wrapper -->
 
-    
-    <!-- END HEADER -->
-    <!-- START SECTION BANNER -->
-    <!-- END SECTION BANNER -->
-    <!-- END MAIN CONTENT -->
-    <div class="main_content">
-
-
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()}
-        @RenderBody()
-        <br />
     </div>
-    <!-- END MAIN CONTENT -->
-    <!-- START FOOTER -->
-    
-    <!-- END FOOTER -->
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/jquery-3.2.1.min.js"></script>
 
-    <a href="~/Content/template/#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+    <!-- Bootstrap Core JS -->
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/popper.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/bootstrap.min.js"></script>
 
-    <!-- Latest jQuery -->
-    <script src="~/Content/template/assets/js/jquery-3.6.0.min.js"></script>
-    <!-- popper min js -->
-    <script src="~/Content/template/assets/js/popper.min.js"></script>
-    <!-- Latest compiled and minified Bootstrap -->
-    <script src="~/Content/template/assets/bootstrap/js/bootstrap.min.js"></script>
-    <!-- owl-carousel min js  -->
-    <script src="~/Content/template/assets/owlcarousel/js/owl.carousel.min.js"></script>
-    <!-- magnific-popup min js  -->
-    <script src="~/Content/template/assets/js/magnific-popup.min.js"></script>
-    <!-- waypoints min js  -->
-    <script src="~/Content/template/assets/js/waypoints.min.js"></script>
-    <!-- parallax js  -->
-    <script src="~/Content/template/assets/js/parallax.js"></script>
-    <!-- countdown js  -->
-    <script src="~/Content/template/assets/js/jquery.countdown.min.js"></script>
-    <!-- imagesloaded js -->
-    <script src="~/Content/template/assets/js/imagesloaded.pkgd.min.js"></script>
-    <!-- isotope min js -->
-    <script src="~/Content/template/assets/js/isotope.min.js"></script>
-    <!-- jquery.dd.min js -->
-    <script src="~/Content/template/assets/js/jquery.dd.min.js"></script>
-    <!-- slick js -->
-    <script src="~/Content/template/assets/js/slick.min.js"></script>
-    <!-- elevatezoom js -->
-    <script src="~/Content/template/assets/js/jquery.elevatezoom.js"></script>
-    <!-- scripts js -->
-    <script src="~/Content/template/assets/js/scripts.js"></script>
+    <!-- Slimscroll JS -->
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/chart.js"></script>
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/Chart.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/script.js"></script>
 
 </body>
 </html>

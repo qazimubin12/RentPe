@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title> Add Shop</title>
+		
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		
+		<!-- Feathericon CSS -->
+        <link rel="stylesheet" href="assets/css/feathericon.min.css">
+		
+		<!-- File Input Font -->
+		<link rel="stylesheet" href="assets/plugins/file-input/css/fileinput.min.css">
+
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="assets/css/style.css">
+		
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+    </head>
+    <body>
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+			<!-- Header -->
+            <div class="header">
+			
+				<!-- Logo -->
+                <div class="header-left">
+                    <a href="index.html" class="logo">
+						<img src="assets/img/logo.png" alt="Logo">
+					</a>
+					<a href="index.html" class="logo logo-small">
+						<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+					</a>
+                </div>
+				<!-- /Logo -->
+				
+				<a href="javascript:void(0);" id="toggle_btn">
+					<i class="fe fe-text-align-center"></i>
+				</a>
+				
+				<div class="top-nav-search">
+					<form>
+						<input type="text" class="form-control search-effect" placeholder="Search here">
+						
+						<button class="btn" type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+				
+				<!-- Mobile Menu Toggle -->
+				<a class="mobile_btn" id="mobile_btn">
+					<i class="fe fe-text-align-left"></i>
+				</a>
+				<!-- /Mobile Menu Toggle -->
+				
+				<!-- Header Right Menu -->
+				<ul class="nav user-menu">
+					<li class="nav-item  go-to-site">
+						<a class="nav-link" aria-expanded="false" role="button" href="../"> <b><i class="fa fa-home"></i>  Go to the site</b></a>
+					</li>
+					
+					<!-- App Lists -->
+					<li class="nav-item dropdown app-dropdown">
+						<a class="nav-link dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#"><i class="fe fe-app-menu"></i></a>
+						<ul class="dropdown-menu app-dropdown-menu">
+							<li>
+								<div class="app-list">
+									<div class="row">
+										<div class="col"><a class="app-item" href="inbox.html"><i class="fa fa-envelope"></i><span>Email</span></a></div>
+										<div class="col"><a class="app-item" href="calendar.html"><i class="fa fa-calendar"></i><span>Calendar</span></a></div>
+										<div class="col"><a class="app-item" href="chat.html"><i class="fa fa-comments"></i><span>Chat</span></a></div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<!-- /App Lists -->
+					
+					<!-- Notifications -->
+					<li class="nav-item dropdown noti-dropdown">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							<i class="fe fe-bell noti-ring"></i> <span class="badge badge-pill">3</span>
+						</a>
+						<div class="dropdown-menu notifications">
+							<div class="topnav-dropdown-header">
+								<span class="notification-title">Notifications</span>
+								<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+							</div>
+							<div class="noti-content">
+								<ul class="notification-list">
+									<li class="notification-message">
+										<a href="#">
+											<div class="media">
+												<span class="avatar avatar-sm">
+													<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+												</span>
+												<div class="media-body">
+													<p class="noti-details"><span class="noti-title">Robert Martin </span> has ordered <span class="noti-title">MacBook</span></p>
+													<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li class="notification-message">
+										<a href="#">
+											<div class="media">
+												<span class="avatar avatar-sm">
+													<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-11.jpg">
+												</span>
+												<div class="media-body">
+													<p class="noti-details"><span class="noti-title">Elaine Keenum </span> has request a invoice in the amount of <span class="noti-title">$899</span></p>
+													<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li class="notification-message">
+										<a href="#">
+											<div class="media">
+												<span class="avatar avatar-sm">
+													<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-17.jpg">
+												</span>
+												<div class="media-body">
+												<p class="noti-details"><span class="noti-title">Erin Collins</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
+												<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li class="notification-message">
+										<a href="#">
+											<div class="media">
+												<span class="avatar avatar-sm">
+													<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-13.jpg">
+												</span>
+												<div class="media-body">
+													<p class="noti-details"><span class="noti-title">Jennifer Walker</span> booked a new product <span class="noti-title">Apple MacBook Pro</span></p>
+													<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="topnav-dropdown-footer">
+								<a href="#">View all Notifications</a>
+							</div>
+						</div>
+					</li>
+					<!-- /Notifications -->
+					
+					<!-- User Menu -->
+					<li class="nav-item dropdown has-arrow">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							<span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+						</a>
+						<div class="dropdown-menu">
+							<div class="user-header">
+								<div class="avatar avatar-sm">
+									<img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+								</div>
+								<div class="user-text">
+									<h6>Ryan Taylor</h6>
+									<p class="text-muted mb-0">Administrator</p>
+								</div>
+							</div>
+							<a class="dropdown-item" href="profile.html">My Profile</a>
+							<a class="dropdown-item" href="general-settings.html">Account Settings</a>
+							<a class="dropdown-item" href="login.html">Logout</a>
+						</div>
+					</li>
+					<!-- /User Menu -->
+					
+				</ul>
+				<!-- /Header Right Menu -->
+				
+            </div>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+					<div id="sidebar-menu" class="sidebar-menu">
+						<ul>
+							<li class="menu-title"> 
+								<span>Main</span>
+							</li>
+							<li> 
+								<a href="index.html"><i class="fe fe-home text-primary"></i> <span>Dashboard</span></a>
+							</li>
+							<li> 
+								<a href="users.html"><i class="fe fe-users text-success"></i> <span>Users</span></a>
+							</li>
+							<li> 
+								<a href="products.html"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
+							</li>
+						
+							<li> 
+								<a href="orders.html"><i class="fe fe-book text-warning"></i> <span>Orders</span></a>
+							</li>
+							<li> 
+								<a href="categories.html"><i class="fe fe-layer text-success"></i> <span>Categories</span></a>
+							</li>
+							<li> 
+								<a href="sub-categories.html"><i class="fe fe-layer text-info"></i> <span>Subcategories</span></a>
+							</li>
+							<li class="active"> 
+								<a href="shops.html"><i class="fe fe-cart text-warning"></i> <span>Shops</span></a>
+							</li>
+							<li> 
+							<a href="coupons.html"><i class="fe fe-map text-danger"></i> <span>Coupons</span></a>
+							</li>
+							<li> 
+								<a href="reviews.html"><i class="fe fe-columns text-primary"></i> <span> Reviews</span></a>
+							</li>
+						
+							<li> 
+								<a href="transactions.html"><i class="fe fe-money  text-info"></i> <span>Transactions</span></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-gear  text-warning"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="general-settings.html">General Settings</a></li>
+									<li><a href="email-settings.html">Email Settings</a></li>
+									<li><a href="stripe-gateway.html">Payment Gateway</a></li>
+									
+									<li><a href="smtp-settings.html">SMTP</a></li>
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-tiled  text-danger"></i> <span> Application</span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="chat.html">Chat</a></li>
+									<li><a href="calendar.html">Calendar</a></li>
+									<li><a href="inbox.html">Email</a></li>
+								</ul>
+							</li>
+							<li class="menu-title"> 
+								<span>Pages</span>
+							</li>
+							<li> 
+								<a href="profile.html"><i class="fe fe-user-plus text-primary"></i> <span>Profile</span></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-document text-success"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="login.html"> Login </a></li>
+									<li><a href="register.html"> Register </a></li>
+									<li><a href="forgot-password.html"> Forgot Password </a></li>
+									<li><a href="lock-screen.html"> Lock Screen </a></li>
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-warning text-info"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="error-404.html">404 Error </a></li>
+									<li><a href="error-500.html">500 Error </a></li>
+								</ul>
+							</li>
+							
+							<li> 
+								<a href="blank-page.html"><i class="fe fe-file text-warning"></i> <span>Blank Page</span></a>
+							</li>
+							<li> 
+								<a href="maps-vector.html"><i class="fe fe-map text-danger"></i> <span>Vector Maps</span></a>
+							</li>
+							<li class="menu-title"> 
+								<span>UI Interface</span>
+							</li>
+							<li> 
+								<a href="components.html"><i class="fe fe-vector text-primary"></i> <span>Components</span></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-layout text-success"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="form-basic-inputs.html">Basic Inputs </a></li>
+									<li><a href="form-input-groups.html">Input Groups </a></li>
+									<li><a href="form-horizontal.html">Horizontal Form </a></li>
+									<li><a href="form-vertical.html"> Vertical Form </a></li>
+									<li><a href="form-mask.html"> Form Mask </a></li>
+									<li><a href="form-validation.html"> Form Validation </a></li>
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fe fe-table text-info"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="tables-basic.html">Basic Tables </a></li>
+									<li><a href="data-tables.html">Data Table </a></li>
+								</ul>
+							</li>
+							<li class="submenu">
+								<a href="javascript:void(0);"><i class="fe fe-code text-warning"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li class="submenu">
+										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+										<ul style="display: none;">
+											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+											<li class="submenu">
+												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+												<ul style="display: none;">
+													<li><a href="javascript:void(0);">Level 3</a></li>
+													<li><a href="javascript:void(0);">Level 3</a></li>
+												</ul>
+											</li>
+											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0);"> <span>Level 1</span></a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+                </div>
+            </div>
+			<!-- /Sidebar -->
+			
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Add Shop</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="shops.html">Shops</a></li>
+									<li class="breadcrumb-item active">Add Shop</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					<div class="row">
+						<div class="col-lg-8 col-sm-12 offset-lg-2">
+							<div class="card">
+								<div class="card-body">
+									<form action="#">
+										<div class="form-group">
+											<label>Shop Name</label>
+											<input type="text" class="form-control">
+										</div>
+										<div class="kv-avatar form-group">
+											<label>Shop Avatar Image</label>
+											<div class="file-loading">
+												<input id="shop-avatar" name="shop-avatar" type="file" required>
+											</div>
+											<div class="kv-avatar-hint">
+												<small>150px * 150px </small>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Shop Banner Image</label>
+											<div class="file-loading">
+												<input id="cover-photo" name="cover-photo" type="file" required>
+											</div>
+											<div class="kv-avatar-hint">
+												<small>1000px * 150px </small>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Social Link</label>
+											<input type="text" class="form-control bg-input" placeholder="https://www.facebook.com/">
+										</div>
+										<div class="form-group">
+											<label>About</label>
+											<textarea rows="5" class="form-control bg-input" placeholder="Enter your biography..."></textarea>
+										</div>
+										<div class="form-group">
+											<label>Payment Policy</label>
+											<textarea rows="5" class="form-control bg-input" placeholder="Enter your payment policy..."></textarea>
+										</div>
+										<div class="form-group">
+											<label>Shipping Policy</label>
+											<textarea rows="5" class="form-control bg-input" placeholder="Enter your shipping policy..."></textarea>
+										</div>
+										<div class="form-group">
+											<label>Refunds and Exchanges</label>
+											<textarea rows="5" class="form-control bg-input" placeholder="Enter your Refunds and exchanges..."></textarea>
+										</div>
+										<div class="form-group">
+											<label>Local Pickup</label>
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input" id="switch1" name="example">
+												<label class="custom-control-label" for="switch1"></label>
+											  </div>
+										</div>
+										<div class="form-group">
+											<label>Deactivate Shop</label>
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input" id="switch2" name="example">
+												<label class="custom-control-label" for="switch2"></label>
+											  </div>
+										</div>
+										<div class="form-group">
+											<label>Seller Name</label>
+											<input type="text" class="form-control">
+										</div>
+										<div class="form-group">
+											<label>Registered Date</label>
+											<input type="text" class="form-control datetimepicker">
+										</div>
+										<div class="form-group">
+											<label>Phone</label>
+											<input type="text" class="form-control">
+										</div>
+										<div class="text-right">
+											<button type="submit" class="btn btn-primary">Submit</button>
+											<a href="shops.html" class="btn btn-danger">Cancel</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>			
+					</div>
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+		
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+        <script src="assets/js/jquery-3.2.1.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+
+        <!-- Bootstrap Datetimepicker JS -->
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+        
+		
+		<!-- Slimscroll JS -->
+		<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		
+		<!-- File Input Js-->
+		<script src="assets/plugins/file-input/js/fileinput.min.js"></script>      
+		<script src="assets/plugins/file-input/js/themes/fa/theme.min.js"></script>     
+			 
+		<!-- Custom JS -->
+		<script  src="assets/js/script.js"></script>
+	
+    </body>
+</html>
