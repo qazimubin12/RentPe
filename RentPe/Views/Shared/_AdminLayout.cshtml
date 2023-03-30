@@ -19,12 +19,16 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <!--[if lt IE 9]>
         <script src="~/Content/template/AdminTemplate/assets/js/html5shiv.min.js"></script>
         <script src="~/Content/template/AdminTemplate/assets/js/respond.min.js"></script>
     <![endif]-->
+
+    
 </head>
+
 <body>
 
     <!-- Main Wrapper -->
@@ -36,35 +40,146 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="index.html" class="logo">
-                    <img src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/logo.png" alt="Logo">
+                    <img src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="Logo">
                 </a>
                 <a href="index.html" class="logo logo-small">
-                    <img src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                    <img src="~/Content/template/RentPeContent/RentPeLogoMobile.png" alt="Logo" width="30" height="30">
                 </a>
             </div>
             <!-- /Logo -->
 
-                    <a class="navbar-brand" href="index.html">
-                        <img class="logo_light" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
-                        <img class="logo_dark" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-center"></i>
+            </a>
+
+           
+
+            <!-- Mobile Menu Toggle -->
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
+            <!-- /Mobile Menu Toggle -->
+            <!-- Header Right Menu -->
+            <ul class="nav user-menu">
+                <li class="nav-item  go-to-site">
+                    <a class="nav-link" aria-expanded="false" role="button" href="../"> <b><i class="fa fa-home"></i>  Go to the site</b></a>
+                </li>
+
+                <!-- App Lists -->
+                <li class="nav-item dropdown app-dropdown">
+                    <a class="nav-link dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#"><i class="fe fe-app-menu"></i></a>
+                    <ul class="dropdown-menu app-dropdown-menu">
+                        <li>
+                            <div class="app-list">
+                                <div class="row">
+                                    <div class="col"><a class="app-item" href="inbox.html"><i class="fa fa-envelope"></i><span>Email</span></a></div>
+                                    <div class="col"><a class="app-item" href="calendar.html"><i class="fa fa-calendar"></i><span>Calendar</span></a></div>
+                                    <div class="col"><a class="app-item" href="chat.html"><i class="fa fa-comments"></i><span>Chat</span></a></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /App Lists -->
+                <!-- Notifications -->
+                <li class="nav-item dropdown noti-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fe fe-bell noti-ring"></i> <span class="badge badge-pill">3</span>
                     </a>
-                    
-               
-                    
-                </div>
-            </div>
-        </div>
-        <div class="bottom_header light_skin main_menu_uppercase mb-4">
-            <div style="border-bottom:1px solid black;" class="container">
-                <h1 class="text-center">Admin Dashboard</h1>
-            </div>
-        </div>
-    </header>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Robert Martin </span> has ordered <span class="noti-title">MacBook</span></p>
+                                                <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-11.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Elaine Keenum </span> has request a invoice in the amount of <span class="noti-title">$899</span></p>
+                                                <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-17.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Erin Collins</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
+                                                <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="#">
+                                        <div class="media">
+                                            <span class="avatar avatar-sm">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-13.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Jennifer Walker</span> booked a new product <span class="noti-title">Apple MacBook Pro</span></p>
+                                                <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="#">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- /Notifications -->
+                <!-- User Menu -->
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img"><img class="rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>Ryan Taylor</h6>
+                                <p class="text-muted mb-0">Administrator</p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="profile.html">My Profile</a>
+                        <a class="dropdown-item" href="general-settings.html">Account Settings</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </li>
+                <!-- /User Menu -->
 
             </ul>
             <!-- /Header Right Menu -->
 
         </div>
+           
         <!-- /Header -->
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
@@ -613,19 +728,19 @@
     </div>
     <!-- /Main Wrapper -->
     <!-- jQuery -->
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Bootstrap Core JS -->
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/popper.min.js"></script>
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/popper.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/bootstrap.min.js"></script>
 
     <!-- Slimscroll JS -->
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/chart.js"></script>
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/Chart.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/chart.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/Chart.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="~/Content/template/AdminTemplate/~/Content/template/AdminTemplate/assets/js/script.js"></script>
+    <script src="~/Content/template/AdminTemplate/assets/js/script.js"></script>
 
 </body>
 </html>

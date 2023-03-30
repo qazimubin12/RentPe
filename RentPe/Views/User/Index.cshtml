@@ -2,33 +2,34 @@
 
 <div class="container">
     <div class="row">
-            <div class="col-lg-8">
-                <h2>Users</h2>
-                <div class="input-group">
-                    <a href="@Url.Action("Register", "User")" class="btn btn-fill-out rounded-0" type="button" ><i class="fas fa-plus mr-1"></i> Create</a>
-                    <a class="btn btn-fill-out rounded-0" href="@Url.Action("Index", "User")"><i class="fas fa-redo-alt mr-1"></i> </a>
+        <div class="col-lg-8">
+            <h2>Users</h2>
+            <div class="input-group">
+                <a href="@Url.Action("Register", "User")" class="btn btn-primary" type="button"><i class="fa fa-plus mr-1"></i> Create</a>
+                <a class="btn btn-primary" href="@Url.Action("Index", "User")"><i class="fa fa-refresh"></i> </a>
 
-                </div>
             </div>
         </div>
+        <div class="col-lg-4">
+            <form>
+                <div class="input-group-append">
+                    <input type="text" name="searchterm" class="form-control" placeholder="Search." value="@Model.SearchTerm">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search mr-1"></i></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
 
   
 
         <div class="row" style="margin-top:10px;">
-            <div class="col col-lg-8">
+            <div class="col col-lg-12">
                 @{
                     Html.RenderPartial("_Listing", Model);
                 }
             </div>
-            <div class="col-lg-4">
-                <form>
-                    <div class="input-group-append">
-                        <input type="text" name="searchterm" class="form-control" placeholder="Search." value="@Model.SearchTerm">
-                        <button class="btn btn-fill-out rounded-0" type="submit"><i class="fas fa-search mr-1"></i></button>
-
-                    </div>
-                </form>
-            </div>
+            
         </div>
 
         <div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
