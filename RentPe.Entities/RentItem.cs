@@ -26,6 +26,7 @@ namespace RentPe.Entities
         public string Location { get; set; }
         public int RentingPeriod { get; set; }
         public string Note { get; set; }
+        public string Label { get; set; }
 
     }
 }
