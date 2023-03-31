@@ -14,7 +14,7 @@
                     <span>Create Role</span>
                 }
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 
         </div>
         <div class="modal-body">
@@ -36,13 +36,13 @@
         <div class="modal-footer">
             @if (!string.IsNullOrEmpty(Model.ID))
             {
-                <button id="actionButton" type="button" class="btn btn-fill-out rounded-0"><i class="fas fa-save mr-1"></i> Update</button>
+                <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Update</button>
             }
             else
             {
-                <button id="actionButton" type="button" class="btn btn-fill-out rounded-0"><i class="fas fa-save mr-1"></i> Save</button>
+                <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Save</button>
             }
-            <button type="button" class="btn btn-fill-out rounded-0" data-bs-dismiss="modal"><i class="fas fa-times mr-1"></i> Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Close</button>
         </div>
     </div>
 }
