@@ -1,50 +1,40 @@
 ﻿@model RentPe.ViewModels.RoleListingViewModel
 <div class="container">
     <div class="row">
-        
-        <div class="row">
-            <div class="col-lg-8">
-                <h2>Roles</h2>
-                <div class="input-group">
-                    <button style="margin-right:5px;" data-href="@Url.Action("Action", "Role")" class="data-btn btn btn-fill-out rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="fas fa-plus mr-1"></i></button>
-                    <a class="btn btn-fill-out rounded-0" href="@Url.Action("Index", "Role")"><i class="fas fa-redo-alt mr-1"></i> </a>
-
-                </div>
+        <div class="col-lg-8">
+            <h2>Roles</h2>
+            <div class="input-group">
+                    <button data-href="@Url.Action("Action", "Role")" class="data-btn btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="fa fa-plus mr-1"></i> Create</button>
+                <a class="btn btn-primary" href="@Url.Action("Index", "Role")"><i class="fa fa-refresh"></i> </a>
             </div>
+
             
 
-            @*<div class="row mb-3">
-
-            </div>*@
         </div>
+        <div class="col-lg-4">
+            <form>
+                <div class="input-group-append">
+                    <input type="text" name="searchterm" class="form-control" placeholder="Search." value="@Model.SearchTerm">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search mr-1"></i></button>
 
-            
-
-            <div class="row"style="margin-top:10px;">
-
-                <div class="col col-lg-8">
-                    @{
-                        Html.RenderPartial("_Listing", Model);
-                    }
                 </div>
-
-                <div class="col-lg-4">
-                    <form>
-                        <div class="input-group-append">
-                            <input type="text" name="searchterm" class="form-control" placeholder="Search." value="@Model.SearchTerm">
-                            <button class="btn btn-fill-out rounded-0" type="submit"><i class="fas fa-search mr-1"></i></button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col col-lg-12">
+            @{
+                Html.RenderPartial("_Listing", Model);
+            }
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+    </div>
+</div>
 
 <script>
     $(".data-btn").click(function () {
