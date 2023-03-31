@@ -5,7 +5,7 @@
         <div class="col-lg-8">
             <h2>Users</h2>
             <div class="input-group">
-                <a href="@Url.Action("Register", "User")" class="btn btn-primary" type="button"><i class="fa fa-plus mr-1"></i> Create</a>
+                <button data-href="@Url.Action("Action", "User")" class="data-btn btn btn-primary" type="button" data-toggle="modal" data-target="#actionModal"><i class="fa fa-plus mr-1"></i> Create</button>
                 <a class="btn btn-primary" href="@Url.Action("Index", "User")"><i class="fa fa-refresh"></i> </a>
 
             </div>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog" role="document">
             </div>
         </div>
     </div>
