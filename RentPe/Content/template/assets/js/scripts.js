@@ -633,11 +633,11 @@ PAGE JS
 			$('.shop_container').removeClass('grid').addClass('list');
 			$(this).addClass('active').siblings().removeClass('active');
 		}
-		$(".shop_container").append('<div class="loading_pr"><div class="mfp-preloader"></div></div>');
-		setTimeout(function(){
-			$('.loading_pr').remove();
-			$container.isotope('layout');
-		}, 800);
+		//$(".shop_container").append('<div class="loading_pr"><div class="mfp-preloader"></div></div>');
+		//setTimeout(function(){
+		//	$('.loading_pr').remove();
+		//	$container.isotope('layout');
+		//}, 800);
 	});
 	
 	/*===================================*

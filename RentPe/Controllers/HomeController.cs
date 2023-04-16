@@ -63,6 +63,14 @@ namespace RentPe.Controllers
             return View(model);
         }
 
+        public ActionResult Shop(string SearchTerm= "")
+        {
+            HomeShopViewModel model = new HomeShopViewModel();
+            model.ItemsCategories = RentItemServices.Instance.GetRentItemCategories();
+            model.Items = RentItemServices.Instance.GetRentItem(SearchTerm);
+            return View("Shop", "_Layout", model);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
