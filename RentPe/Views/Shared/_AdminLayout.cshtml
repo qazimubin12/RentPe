@@ -6,7 +6,7 @@
     <title> Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="~/Content/template/AdminTemplate/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/template/RentPeContent/RentPeLogoMobile.png">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/Content/template/AdminTemplate/assets/css/bootstrap.min.css">
@@ -193,7 +193,10 @@
                             <a href="index.html"><i class="fe fe-home text-primary"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
-                            <a href="users.html"><i class="fe fe-users text-success"></i> <span>Users</span></a>
+                            <a href="@Url.Action("Index","Role")"><i class="fe fe-user-minus text-success"></i> <span>Roles</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","User")"><i class="fe fe-users text-success"></i> <span>Users</span></a>
                         </li>
                         <li>
                             <a href="products.html"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>

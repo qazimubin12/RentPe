@@ -86,7 +86,7 @@ namespace RentPe.Controllers
         public ActionResult Register(RegisterViewModel model)
         {
             model.Roles = RolesManager.Roles.ToList();
-            return View("Register","_AdminLayout", model);
+            return PartialView(model);
         }
 
         [HttpGet]
