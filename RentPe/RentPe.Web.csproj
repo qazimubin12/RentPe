@@ -900,6 +900,7 @@
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\_Listing.cshtml" />
     <Content Include="Views\Item\_Delete.cshtml" />
+    <Content Include="Views\Item\Action.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
