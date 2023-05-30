@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using RentPe.Entities;
 using RentPe.Services;
 using RentPe.ViewModels;
@@ -38,6 +39,7 @@ namespace RentPe.Controllers
                 _userManager = value;
             }
         }
+
         private AMRolesManager _rolesManager;
         public AMRolesManager RolesManager
         {
@@ -50,15 +52,19 @@ namespace RentPe.Controllers
                 _rolesManager = value;
             }
         }
-
         public ItemController()
         {
         }
+
+
+
         public ItemController(AMUserManager userManager, AMSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+
         public ActionResult Index(string SearchTerm ="")
         {
             ItemListingViewModel model = new ItemListingViewModel();
@@ -124,6 +130,7 @@ namespace RentPe.Controllers
                 Item.EntryDate = model.EntryDate;
                 Item.Location = model.Location;
                 Item.RentingPeriod = model.RentingPeriod;
+                Item.UserID = User.Identity.GetUserId();
                 Item.Note = model.Note;
                 Item.Label = model.Label;
                 RentItemServices.Instance.UpdateRentItem(Item);
@@ -144,7 +151,9 @@ namespace RentPe.Controllers
                 Item.AvailableFrom = model.AvailableFrom;
                 Item.AvailableTo = model.AvailableTo;
                 Item.Brand = model.Brand;
-                Item.Condition = model.Condition;
+                Item.Condition = model.Condition; 
+                Item.UserID = User.Identity.GetUserId();
+
                 Item.EntryDate = model.EntryDate;
                 Item.Location = model.Location;
                 Item.RentingPeriod = model.RentingPeriod;

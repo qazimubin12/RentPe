@@ -1,11 +1,11 @@
-﻿@model RentPe.ViewModels.ItemListingViewModel
+﻿@model RentPe.ViewModels.ItemCategoryListingViewModel
 @{
     ViewBag.Title = "Index";
 }
 <div class="row">
    
     <div class="col-lg-12 grid-margin stretch-card">
-        @if (Model != null && Model.RentItems != null)
+        @if (Model != null && Model.ItemCategories != null)
         {
             <div class="card">
 
@@ -17,13 +17,7 @@
                                     ID
                                 </th>
                                 <th>
-                                    Name
-                                </th>
-                                <th>
                                     Category
-                                </th>
-                                <th>
-                                    Condition
                                 </th>
                                 <th>
                                     Action
@@ -31,18 +25,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.RentItems)
+                            @foreach (var item in Model.ItemCategories)
                             {
                                 <tr>
                                     <td>@item.ID</td>
-                                    <td>@item.ItemName</td>
-                                    <td>@item.ItemCategory</td>
-                                    <td>@item.Condition</td>
+                                    <td>@item.CategoryName</td>
                                     <td>
-                                        <a href="@Url.Action("Action", "Item", new { ID = item.ID })" type="button" class="btn btn-outline-info btn-icon-text" ><i class="mdi mdi-pencil"></i> EDIT</a>
-                                        <button data-href="@Url.Action("Delete", "Item", new { ID = item.ID })" type="button" class="data-btn btn btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
-
-
+                                        <a href="@Url.Action("Action", "ItemCategory", new { ID = item.ID })" type="button" class="btn btn-outline-info btn-icon-text" ><i class="mdi mdi-pencil"></i> EDIT</a>
+                                        <button data-href="@Url.Action("Delete", "ItemCategory", new { ID = item.ID })" type="button" class="data-btn btn btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
                                     </td>
                                 </tr>
                             }

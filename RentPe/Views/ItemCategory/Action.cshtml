@@ -1,0 +1,64 @@
+﻿@model RentPe.ViewModels.ItemCategoryActionViewModel
+
+@{
+    ViewBag.Title = "Action";
+}
+
+<form id="actionForm">
+    <div class="row">
+        <div class="card col-12">
+            <div class="card-body">
+                <h2 class="card-title">Item Create</h2>
+                <hr />
+
+                <div class="row">
+                    
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Item Category</span>
+                            </div>                            <input value="@Model.ID" id="ID" name="ID" type="text" class="form-control">
+
+                            <input value="@Model.ItemCategory" id="ItemCategory" name="ItemCategory" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                @if (Model.ID != 0)
+                {
+                    <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Update</button>
+                }
+                else
+                {
+                    <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Save</button>
+                }
+                <a href="@Url.Action("Index","Item")" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Close</a>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<script>
+   $("#actionButton").click(function () {
+    $.ajax({
+        url: '@Url.Action("Action", "ItemCategory")',
+        type: "POST",
+        data: $("#actionForm").serialize()
+    })
+    .done(function (response) {
+        if (response.Success) {
+            window.location.href = '@Url.Action("Index", "ItemCategory")';
+        } else {
+            $(".errorDiv").html(response.Message);
+        }
+    })
+    .fail(function (xhr, status, error) {
+        console.error(xhr.responseText);
+    });
+});
+
+</script>
+
