@@ -55,6 +55,10 @@ namespace RentPe.Controllers
             return View(model);
         }
 
+        public ActionResult PostAd()
+        {
+            return View();
+        }
 
         public ActionResult Product(int ID)
         {
