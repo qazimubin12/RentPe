@@ -56,11 +56,11 @@ namespace RentPe.Controllers
         }
 
 
-        public ActionResult Product(int ID)
-        {
-            ProductViewModel model = new ProductViewModel();
+        //public ActionResult Product(int ID)
+        //{
+        //    ProductViewModel model = new ProductViewModel();
             
-        }
+        //}
         public ActionResult View(int ID)
         {
             AdminViewModel model = new AdminViewModel();

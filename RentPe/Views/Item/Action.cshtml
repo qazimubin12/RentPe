@@ -29,32 +29,13 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Favourites</span>
-                            </div>
-                            <input value="@Model.Favourites" id="Favourites" name="Favourites" type="text" class="form-control">
-                        </div>
+                        <select value="@Model.ItemCategory" id="ItemCategory" name="ItemCategory" class="form-control" tabindex="-1" aria-hidden="true">
+                            <option>Select Item Category</option>
+                        </select>
                     </div>
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Item Category</span>
-                            </div>
-                            <input value="@Model.ItemCategory" id="ItemCategory" name="ItemCategory" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Renting Date</span>
-                            </div>
-                            <input value="@Model.RentingDate" id="RentingDate" name="RentingDate" type="datetime-local" class="form-control">
-                        </div>
-                    </div>
                     <div class="col-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -63,45 +44,14 @@
                             <input value="@Model.RentingPeriod" id="RentingPeriod" name="RentingPeriod" type="text" class="form-control">
                         </div>
                     </div>
-                </div>
-                <br />
-                <div class="row">
                     <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Return Date</span>
-                            </div>
-                            <input value="@Model.ReturnDate" id="ReturnDate" name="ReturnDate" type="datetime-local" class="form-control">
-                        </div>
+                        <select value="@Model.Negotiable" id="Negotiable" name="Negotiable" class="form-control" tabindex="-1" aria-hidden="true">
+                            <option>Select Negotiable</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
                     </div>
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Item Size</span>
-                            </div>
-                            <input value="@Model.ItemSize" id="ItemSize" name="ItemSize" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Item Color</span>
-                            </div>
-                            <input value="@Model.ItemColor" id="ItemColor" name="ItemColor" type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <!-- Third Column -->
-                <div class="row">
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Negotiable</span>
-                            </div>
-                            <input value="@Model.Negotiable" id="Negotiable" name="Negotiable" type="text" class="form-control">
-                        </div>
-                    </div>
+
                     <div class="col-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -110,6 +60,11 @@
                             <input value="@Model.AvailableFrom" id="AvailableFrom" name="AvailableFrom" type="datetime-local" class="form-control">
                         </div>
                     </div>
+                </div>
+                <br />
+                <!-- Third Column -->
+                <div class="row">
+
                     <div class="col-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -118,40 +73,26 @@
                             <input value="@Model.AvailableTo" id="AvailableTo" name="AvailableTo" type="datetime-local" class="form-control">
                         </div>
                     </div>
+                    <div class="col-4">
+                        <select value="@Model" id="Brand" name="Brand" class="form-control" tabindex="-1" aria-hidden="true">
+                            <option>Select Item Authenticity</option>
+                            <option value="1">Branded</option>
+                            <option value="2">Replica</option>
+                            <option value="3">Local</option>
+                        </select>
+                    </div>
+
+                    <div class="col-4">
+                        <select value="@Model.Condition" id="Condition" name="Condition" class="form-control" tabindex="-1" aria-hidden="true">
+                            <option>Select Item Condition</option>
+                            <option value="1">New</option>
+                            <option value="2">Slightly Used</option>
+                            <option value="3">Used</option>
+                        </select>
+                    </div>
                 </div>
                 <br />
                 <!-- Second row -->
-                <div class="row">
-                    <!-- First Column -->
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Brand</span>
-                            </div>
-                            <input value="@Model.Brand" id="Brand" name="Brand" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <!-- Second Column -->
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Condition</span>
-                            </div>
-                            <input value="@Model.Condition" id="Condition" name="Condition" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <!-- Third Column -->
-                    <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Entry Date</span>
-                            </div>
-                            <input value="@Model.EntryDate" id="EntryDate" name="EntryDate" type="datetime-local" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <!-- Third row -->
                 <div class="row">
                     <!-- First Column -->
                     <div class="col-4">
@@ -163,25 +104,36 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Note</span>
-                            </div>
-                            <textarea id="Note" name="Note" class="form-control">@Model.Note</textarea>
-                        </div>
+                        <select value="@Model.Featured" id="Featured" name="Featured" type="text" class="form-control" tabindex="-1" aria-hidden="true">
+                            <option>Select Featuring</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
                     </div>
-                    <!-- Second Column -->
                     <div class="col-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Label</span>
+                        <div class="ml-2 form-group row">
+                            <label class="col-form-label col-4 pr-0">Select Images</label>
+                            <div class="col-8">
+                                <input class="form-control" type="file" id="files" name="files" multiple>
                             </div>
-                            <input value="@Model.Label" id="Label" name="Label" type="text" class="form-control">
+                        </div>
                         </div>
                     </div>
-                </div>
+                    <br />
+                    <!-- Third row -->
+                    @*<div class="row">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Label</span>
+                                </div>
+                                <input value="@Model.Label" id="Label" name="Label" type="text" class="form-control">
+                            </div>
+                        </div>
 
-            </div>
+                    </div>*@
+
+                </div>
             <div class="card-footer">
                 @if (Model.ID != 0)
                 {
