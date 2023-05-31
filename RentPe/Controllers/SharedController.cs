@@ -20,9 +20,9 @@ namespace RentPe.Controllers
 
                 var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
 
-                var path = Path.Combine(Server.MapPath("~/PdfFiles/"), fileName);
+                var path = Path.Combine(Server.MapPath("~/Photos/"), fileName);
                 file.SaveAs(path);
-                result.Data = new { Success = true, DocURL = string.Format("/PdfFiles/{0}", fileName) };
+                result.Data = new { Success = true, DocURL = string.Format("/Photos/{0}", fileName) };
             }
             catch (Exception ex)
             {

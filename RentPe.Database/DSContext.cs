@@ -29,6 +29,7 @@ namespace RentPe.Database
         public DbSet<RentItem> RentItems { get; set; }
         public DbSet<ItemImage> ItemImages { get; set; }
         public DbSet<CustomOffer> CustomOffers { get; set; }
+        public DbSet<Ad> Ads { get; set; }
 
 
     }
