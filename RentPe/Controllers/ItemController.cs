@@ -84,23 +84,15 @@ namespace RentPe.Controllers
                 model.ID= Item.ID;
                 model.ItemName = Item.ItemName;
                 model.UserID = Item.UserID;
-                model.Favourites = Item.Favourites;
                 model.ItemDescription = Item.ItemDescription;
                 model.ItemCategory = Item.ItemCategory;
-                model.RentingDate = Item.RentingDate;
-                model.ReturnDate = Item.ReturnDate;
-                model.ItemSize = Item.ItemSize;
-                model.ItemColor = Item.ItemColor;
                 model.Negotiable = Item.Negotiable;
                 model.AvailableFrom = Item.AvailableFrom;
                 model.AvailableTo = Item.AvailableTo;
-                model.Brand = Item.Brand;
                 model.Condition = Item.Condition;
                 model.EntryDate = Item.EntryDate;
                 model.Location = Item.Location;
                 model.RentingPeriod = Item.RentingPeriod;
-                model.Note = Item.Note;
-                model.Label = Item.Label;
             }
             return View("Action", "_AdminLayout", model);
         }
@@ -115,24 +107,16 @@ namespace RentPe.Controllers
                 Item.ID = model.ID;
                 Item.ItemName = model.ItemName;
                 Item.UserID = model.UserID;
-                Item.Favourites = model.Favourites;
                 Item.ItemDescription = Item.ItemDescription;
                 Item.ItemCategory = model.ItemCategory;
-                Item.RentingDate = model.RentingDate;
-                Item.ReturnDate = model.ReturnDate;
-                Item.ItemSize = model.ItemSize;
-                Item.ItemColor = model.ItemColor;
                 Item.Negotiable = model.Negotiable;
                 Item.AvailableFrom = model.AvailableFrom;
                 Item.AvailableTo = model.AvailableTo;
-                Item.Brand = model.Brand;
                 Item.Condition = model.Condition;
                 Item.EntryDate = model.EntryDate;
                 Item.Location = model.Location;
                 Item.RentingPeriod = model.RentingPeriod;
                 Item.UserID = User.Identity.GetUserId();
-                Item.Note = model.Note;
-                Item.Label = model.Label;
                 RentItemServices.Instance.UpdateRentItem(Item);
             }
             else
@@ -140,25 +124,17 @@ namespace RentPe.Controllers
                 var Item = new RentItem();
                 Item.ItemName = model.ItemName;
                 Item.UserID = model.UserID;
-                Item.Favourites = model.Favourites;
                 Item.ItemDescription = Item.ItemDescription;
                 Item.ItemCategory = model.ItemCategory;
-                Item.RentingDate = model.RentingDate;
-                Item.ReturnDate = model.ReturnDate;
-                Item.ItemSize = model.ItemSize;
-                Item.ItemColor = model.ItemColor;
                 Item.Negotiable = model.Negotiable;
                 Item.AvailableFrom = model.AvailableFrom;
                 Item.AvailableTo = model.AvailableTo;
-                Item.Brand = model.Brand;
                 Item.Condition = model.Condition; 
                 Item.UserID = User.Identity.GetUserId();
 
                 Item.EntryDate = model.EntryDate;
                 Item.Location = model.Location;
                 Item.RentingPeriod = model.RentingPeriod;
-                Item.Note = model.Note;
-                Item.Label = model.Label;
                 RentItemServices.Instance.SaveRentItem(Item);
             }
 

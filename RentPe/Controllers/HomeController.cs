@@ -61,7 +61,11 @@ namespace RentPe.Controllers
             return View("PostAd", "_Layout", model);
         }
 
-
+        public ActionResult Product(int ID)
+        {
+            ProductViewModel model = new ProductViewModel();
+            
+        }
         public ActionResult View(int ID)
         {
             AdminViewModel model = new AdminViewModel();
