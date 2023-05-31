@@ -22,5 +22,8 @@ namespace RentPe.Entities
         public string Location { get; set; }
         public string Price { get; set; }
         public string Note { get; set; }
+
+
+        public string AdStatus { get; set; }
     }
 }
