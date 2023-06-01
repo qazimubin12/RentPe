@@ -907,7 +907,7 @@
     <Content Include="Views\ItemCategory\_Delete.cshtml" />
     <Content Include="Views\ItemCategory\_Listing.cshtml" />
     <Content Include="Views\ItemCategory\Action.cshtml" />
-    <Content Include="Views\Home\AdPost.cshtml" />
+    <Content Include="Views\Home\PostAd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
