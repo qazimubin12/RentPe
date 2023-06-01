@@ -63,6 +63,8 @@ namespace RentPe.Controllers
         public ActionResult PostAd()
         {
             ProductViewModel model = new ProductViewModel();
+            model.ItemCategories = RentItemServices.Instance.GetRentItemCategories();
+
             return View("PostAd", "_Layout", model);
         }
 
