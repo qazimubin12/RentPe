@@ -5,7 +5,9 @@ using RentPe.Services;
 using RentPe.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.Mvc;
 
@@ -67,16 +69,59 @@ namespace RentPe.Controllers
         [HttpPost]
         public ActionResult PostAd(ProductViewModel model)
         {
-            if(model.ID != 0)
+            if (model.ID != 0)
             {
                 var ad = AdServices.Instance.GetAd(model.ID);
-
-                return null;
+                ad.ID = model.ID;
+                ad.UserName = model.UserName;
+                ad.Contact = model.Contact;
+                ad.Privacy = model.Privacy;
+                ad.ItemName = model.ItemName;
+                ad.UserID = model.UserID;
+                ad.ItemDescription = model.ItemDescription;
+                ad.AvailableFrom = model.AvailableFrom;
+                ad.AvailableTo = model.AvailableTo;
+                ad.Authenticity = model.Authenticity;
+                ad.ItemCategory = model.ItemCategory;
+                ad.Type = model.Type;
+                ad.Negotiable = model.Negotiable;
+                ad.Condition = model.Condition;
+                ad.EntryDate = model.EntryDate;
+                ad.Location = model.Location;
+                ad.Price = model.Price;
+                ad.Note = model.Note;
+                ad.AdStatus = model.AdStatus;
+                ad.RentingPeriod = model.RentingPeriod;
+                ad.Featured = model.Featured;
+                AdServices.Instance.UpdateAd(ad);
+                return Json(new {success=true},JsonRequestBehavior.AllowGet);
             }
             else
             {
                 var ad = new Ad();
-                return null;
+                ad.ID = model.ID;
+                ad.UserName = model.UserName;
+                ad.Contact = model.Contact;
+                ad.Privacy = model.Privacy;
+                ad.ItemName = model.ItemName;
+                ad.UserID = model.UserID;
+                ad.ItemDescription = model.ItemDescription;
+                ad.AvailableFrom = model.AvailableFrom;
+                ad.AvailableTo = model.AvailableTo;
+                ad.Authenticity = model.Authenticity;
+                ad.ItemCategory = model.ItemCategory;
+                ad.Type = model.Type;
+                ad.Negotiable = model.Negotiable;
+                ad.Condition = model.Condition;
+                ad.EntryDate = model.EntryDate;
+                ad.Location = model.Location;
+                ad.Price = model.Price;
+                ad.Note = model.Note;
+                ad.AdStatus = model.AdStatus;
+                ad.RentingPeriod = model.RentingPeriod;
+                ad.Featured = model.Featured;
+                AdServices.Instance.SaveAd(ad);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }
             
