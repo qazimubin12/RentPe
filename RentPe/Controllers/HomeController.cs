@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using RentPe.Entities;
 using RentPe.Services;
 using RentPe.ViewModels;
 using System;
@@ -55,17 +56,35 @@ namespace RentPe.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
         public ActionResult PostAd()
         {
             ProductViewModel model = new ProductViewModel();
             return View("PostAd", "_Layout", model);
         }
 
-        public ActionResult Product(int ID)
+        [HttpPost]
+        public ActionResult PostAd(ProductViewModel model)
         {
-            ProductViewModel model = new ProductViewModel();
-            
+            if(model.ID != 0)
+            {
+                var ad = AdServices.Instance.GetAd(model.ID);
+
+            }
+            else
+            {
+                var ad = new Ad();
+
+            }
         }
+            
+
+        //public ActionResult Product(int ID)
+        //{
+        //    ProductViewModel model = new ProductViewModel();
+            
+        //}
         public ActionResult View(int ID)
         {
             AdminViewModel model = new AdminViewModel();

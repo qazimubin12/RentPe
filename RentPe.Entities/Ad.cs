@@ -13,7 +13,11 @@ namespace RentPe.Entities
         public bool Privacy { get; set; }
         public string ItemName { get; set; }
         public string UserID { get; set; }
-        public string ItemDescription { get; set; }
+        public string ItemDescription { get; set; } // Show Contact Number //Hide Contact Number
+        public DateTime AvailableFrom { get; set; }
+        public DateTime AvailableTo { get; set; }
+        public string Authenticity { get; set; }
+
         public string ItemCategory { get; set; }
         public string Type { get; set; } //Men or Women
         public bool Negotiable { get; set; }
@@ -25,5 +29,8 @@ namespace RentPe.Entities
 
 
         public string AdStatus { get; set; }
+
+        public int RentingPeriod { get; set; }
+        public string Featured { get; set; }
     }
 }

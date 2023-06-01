@@ -82,6 +82,7 @@
     <Compile Include="AMRolesManager.cs" />
     <Compile Include="AMSignInManager.cs" />
     <Compile Include="AMUserManager.cs" />
+    <Compile Include="AdServices.cs" />
     <Compile Include="RentItemServices.cs" />
   </ItemGroup>
   <ItemGroup>
