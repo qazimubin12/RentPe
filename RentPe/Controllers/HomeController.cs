@@ -71,11 +71,12 @@ namespace RentPe.Controllers
             {
                 var ad = AdServices.Instance.GetAd(model.ID);
 
+                return null;
             }
             else
             {
                 var ad = new Ad();
-
+                return null;
             }
         }
             
