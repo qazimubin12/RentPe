@@ -1,4 +1,6 @@
-﻿
+﻿@model RentPe.ViewModels.ProductViewModel
+
+
 @{
     ViewBag.Title = "AdPost";
 }
@@ -27,11 +29,14 @@
                 </div>
                 <p class="leads">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
                 <div class="field_form">
-                    <form method="post" name="enq">
+                    <form id="PostAdForm" name="enq">
+                        <input type="hidden" name="ID" id="ID" />
+                        @Html.TextBox("EntryDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%; display:none", @id = "EntryDate", @class = "form-control", type = "date" })
+
                         <div class="row">
                             <div class="form-group col-md-6 mb-3">
-                                <label for="user-name">User Name *</label>
-                                <input required placeholder="Enter Name *" id="user-name" class="form-control" name="UserName" type="text">
+                                <label for="item-name">Item Name *</label>
+                                <input required placeholder="Enter Item Name *" id="item-name" class="form-control" name="ItemName" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
@@ -40,18 +45,11 @@
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="privacy">Privacy</label>
-                                <input id="privacy" class="form-control" name="Privacy" type="checkbox">
-                            </div>
-
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="item-name">Item Name *</label>
-                                <input required placeholder="Enter Item Name *" id="item-name" class="form-control" name="ItemName" type="text">
-                            </div>
-
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="user-id">User ID *</label>
-                                <input required placeholder="Enter User ID *" id="user-id" class="form-control" name="UserID" type="text">
+                                <label for="Privacy">Privacy</label>
+                                <select required id="Privacy" class="form-control" name="Privacy">
+                                    <option value="Show Contact Number">Show Contact Number</option>
+                                    <option value="Hide Contact Number">Hide Contact Number</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
@@ -61,7 +59,13 @@
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="item-category">Item Category *</label>
-                                <input required placeholder="Enter Item Category *" id="item-category" class="form-control" name="ItemCategory" type="text">
+                                <select required id="Item Category" class="form-control" name="Item Category">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.ItemCategories)
+                                    {
+                                        <option value="@item.CategoryName">@item.CategoryName</option>
+                                    }
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
@@ -74,18 +78,69 @@
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="negotiable">Negotiable</label>
-                                <input id="negotiable" class="form-control" name="Negotiable" type="checkbox">
+                                <select required id="negotiable" class="form-control" name="Negotiable">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="condition">Condition *</label>
-                                <input required placeholder="Enter Condition *" id="condition" class="form-control" name="Condition" type="text">
+                                <label for="Condition">Condition *</label>
+                                <select required id="Condition" class="form-control" name="Condition">
+                                    <option value="New">New</option>
+                                    <option value="Slightly Used">Slightly Used</option>
+                                    <option value="Used">Used</option>
+                                </select>
+
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="entry-date">Entry Date *</label>
-                                <input required id="entry-date" class="form-control" name="EntryDate" type="date">
+                                <label for="Authenticity">Authenticity *</label>
+                                <select required id="Authenticity" class="form-control" name="Authenticity">
+                                    <option value="Branded">Branded</option>
+                                    <option value="Replica">Replica</option>
+                                    <option value="Local">Local</option>
+                                </select>
                             </div>
+
+                            <div class="form-group col-md-6 mb-3">
+                                <label for="Renting Period">Renting Period (In Days)*</label>
+                                <input required placeholder="Enter Renting Period *" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
+                            </div>
+
+                            <div hidden class="form-group col-md-6 mb-3">
+                                <label for="Featured">Featured</label>
+                                <select required id="Featured" class="form-control" name="Featured">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            @if (Model.ID == 0)
+                            {
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="entry-date">Available From</label>
+                                    @Html.TextBox("AvailableFrom", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableFrom", @class = "form-control", type = "date" })
+                                </div>
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="entry-date">Available To</label>
+                                    @Html.TextBox("AvailableTo", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableTo", @class = "form-control", type = "date" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="entry-date">Available From</label>
+                                    @Html.TextBox("AvailableFrom", Model.AvailableFrom, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableFrom", @class = "form-control", type = "date" })
+                                </div>
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="entry-date">Available To</label>
+                                    @Html.TextBox("AvailableTo", Model.AvailableTo, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableTo", @class = "form-control", type = "date" })
+                                </div>
+                            }
+
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="location">Location *</label>
@@ -93,7 +148,7 @@
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="price">Price *</label>
+                                <label for="price">Price (In PKR)*</label>
                                 <input required placeholder="Enter Price *" id="price" class="form-control" name="Price" type="text">
                             </div>
 
@@ -107,11 +162,11 @@
 
                             <div class="form-group col-md-12 mb-3">
                                 <label for="note">Note</label>
-                                <textarea id="note" placeholder="Note *"  class="form-control" name="Note" rows="3"></textarea>
+                                <textarea id="note" placeholder="Note *" class="form-control" name="Note" rows="3"></textarea>
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <button type="submit" title="Submit Your Message!" class="btn btn-fill-out" id="submitButton" name="submit" value="Submit">Submit</button>
+                                <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="ActionButton" name="submit" value="Submit">Submit</button>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div id="alert-msg" class="alert-msg text-center"></div>
@@ -123,3 +178,26 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#ActionButton").click(function () {
+    $.ajax({
+        url: '@Url.Action("PostAd", "Home")',
+        type: "POST",
+        data: $("#PostAdForm").serialize()
+    })
+    .done(function (response) {
+        if (response.Success) {
+            window.location.href = '@Url.Action("Shop", "Home")';
+            alert("Saved Successfully")
+        } else {
+            $(".errorDiv").html(response.Message);
+        }
+    })
+    .fail(function (xhr, status, error) {
+        console.error(xhr.responseText);
+    });
+});
+
+</script>

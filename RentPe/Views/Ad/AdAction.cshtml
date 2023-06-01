@@ -1,0 +1,172 @@
+﻿@model RentPe.ViewModels.AdActionViewModel
+
+@{
+    ViewBag.Title = "Action";
+}
+
+<form id="PostAdForm" name="enq">
+    <input type="hidden" name="ID" id="ID" />
+    @Html.TextBox("EntryDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%; display:none", @id = "EntryDate", @class = "form-control", type = "date" })
+
+    <div class="row">
+        <div class="form-group col-md-6 mb-3">
+            <label for="item-name">Item Name *</label>
+            <input required placeholder="Enter Item Name *" id="item-name" class="form-control" name="ItemName" type="text">
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="contact">Contact *</label>
+            <input required placeholder="Enter Contact *" id="contact" class="form-control" name="Contact" type="text">
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="Privacy">Privacy</label>
+            <select required id="Privacy" class="form-control" name="Privacy">
+                <option value="Show Contact Number">Show Contact Number</option>
+                <option value="Hide Contact Number">Hide Contact Number</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="item-description">Item Description *</label>
+            <input required placeholder="Enter Item Description *" id="item-description" class="form-control" name="ItemDescription" type="text">
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="item-category">Item Category *</label>
+            <select required id="Item Category" class="form-control" name="Item Category">
+                <option value="">Select</option>
+                @foreach (var item in Model.ItemCategories)
+                {
+                    <option value="@item.CategoryName">@item.CategoryName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="type">Type *</label>
+            <select required id="type" class="form-control" name="Type">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="negotiable">Negotiable</label>
+            <select required id="negotiable" class="form-control" name="Negotiable">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="Condition">Condition *</label>
+            <select required id="Condition" class="form-control" name="Condition">
+                <option value="New">New</option>
+                <option value="Slightly Used">Slightly Used</option>
+                <option value="Used">Used</option>
+            </select>
+
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="Authenticity">Authenticity *</label>
+            <select required id="Authenticity" class="form-control" name="Authenticity">
+                <option value="Branded">Branded</option>
+                <option value="Replica">Replica</option>
+                <option value="Local">Local</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="Renting Period">Renting Period *</label>
+            <input required placeholder="Enter Renting Period *" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
+        </div>
+
+        <div hidden class="form-group col-md-6 mb-3">
+            <label for="Featured">Featured</label>
+            <select required id="Featured" class="form-control" name="Featured">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        @if (Model.ID == 0)
+        {
+            <div class="form-group col-md-6 mb-3">
+                <label for="entry-date">Available From</label>
+                @Html.TextBox("AvailableFrom", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableFrom", @class = "form-control", type = "date" })
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="entry-date">Available To</label>
+                @Html.TextBox("AvailableTo", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableTo", @class = "form-control", type = "date" })
+            </div>
+        }
+        else
+        {
+            <div class="form-group col-md-6 mb-3">
+                <label for="entry-date">Available From</label>
+                @Html.TextBox("AvailableFrom", Model.AvailableFrom, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableFrom", @class = "form-control", type = "date" })
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="entry-date">Available To</label>
+                @Html.TextBox("AvailableTo", Model.AvailableTo, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "AvailableTo", @class = "form-control", type = "date" })
+            </div>
+        }
+
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="location">Location *</label>
+            <input required placeholder="Enter Location *" id="location" class="form-control" name="Location" type="text">
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="price">Price *</label>
+            <input required placeholder="Enter Price *" id="price" class="form-control" name="Price" type="text">
+        </div>
+
+        <div class="form-group col-md-6 mb-3">
+            <label for="ad-status">Ad Status *</label>
+            <select required id="ad-status" class="form-control" name="AdStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-12 mb-3">
+            <label for="note">Note</label>
+            <textarea id="note" placeholder="Note *" class="form-control" name="Note" rows="3"></textarea>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="ActionButton" name="submit" value="Submit">Submit</button>
+        </div>
+        <div class="col-md-12 mb-3">
+            <div id="alert-msg" class="alert-msg text-center"></div>
+        </div>
+    </div>
+</form>
+
+<script>
+   $("#actionButton").click(function () {
+    $.ajax({
+        url: '@Url.Action("Action", "Item")',
+        type: "POST",
+        data: $("#actionForm").serialize()
+    })
+    .done(function (response) {
+        if (response.Success) {
+            window.location.href = '@Url.Action("Index", "Item")';
+        } else {
+            $(".errorDiv").html(response.Message);
+        }
+    })
+    .fail(function (xhr, status, error) {
+        console.error(xhr.responseText);
+    });
+});
+
+</script>
+

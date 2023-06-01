@@ -910,10 +910,13 @@
     <Content Include="Views\ItemCategory\_Listing.cshtml" />
     <Content Include="Views\ItemCategory\Action.cshtml" />
     <Content Include="Views\Home\PostAd.cshtml" />
+    <Content Include="Views\Ad\Index.cshtml" />
+    <Content Include="Views\Ad\_Delete.cshtml" />
+    <Content Include="Views\Ad\_Listing.cshtml" />
+    <Content Include="Views\Ad\AdAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ad\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
