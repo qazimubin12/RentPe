@@ -111,5 +111,27 @@ namespace RentPe.Controllers
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        [HttpGet]
+        public ActionResult Delete(int ID)
+        {
+            AdActionViewModel model = new AdActionViewModel();
+            var ad = AdServices.Instance.GetAd(ID);
+            model.ID = ad.ID;
+            return PartialView("_Delete", model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(AdActionViewModel model)
+        {
+            if (model.ID != 0)
+            {
+                var RentIem = AdServices.Instance.GetAd(model.ID);
+                AdServices.Instance.DeleteAd(RentIem.ID);
+            }
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
