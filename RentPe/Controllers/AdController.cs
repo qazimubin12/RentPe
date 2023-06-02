@@ -50,7 +50,7 @@ namespace RentPe.Controllers
                 model.RentingPeriod  = ad.RentingPeriod;
                 model.Featured = ad.Featured;
             }
-            return View("AdAction", "_Layout", model);
+            return View("AdAction", "_AdminLayout", model);
         }
 
         [HttpPost]
