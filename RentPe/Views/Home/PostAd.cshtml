@@ -59,7 +59,7 @@
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="item-category">Item Category *</label>
-                                <select required id="Item Category" class="form-control" name="Item Category">
+                                <select required id="ItemCategory" class="form-control" name="ItemCategory">
                                     <option value="">Select</option>
                                     @foreach (var item in Model.ItemCategories)
                                     {
@@ -188,7 +188,7 @@
         data: $("#PostAdForm").serialize()
     })
     .done(function (response) {
-        if (response.Success) {
+        if (response.success) {
             window.location.href = '@Url.Action("Shop", "Home")';
             alert("Saved Successfully")
         } else {

@@ -144,7 +144,7 @@ namespace RentPe.Controllers
         {
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = RentItemServices.Instance.GetRentItemCategories();
-            model.Items = RentItemServices.Instance.GetRentItem(SearchTerm);
+            model.Ads = AdServices.Instance.GetAd(SearchTerm);
             return View("Shop", "_Layout", model);
         }
 

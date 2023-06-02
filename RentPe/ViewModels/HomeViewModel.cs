@@ -10,6 +10,8 @@ namespace RentPe.ViewModels
     {
         public List<ItemCategory> ItemsCategories { get; set; }
         public List<RentItem> Items { get; set; }
+
+        public List<Ad> Ads { get; set; }
     }
 
 

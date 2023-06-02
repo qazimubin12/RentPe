@@ -32,10 +32,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Role</label>
                         <div class="col-sm-9">
-                            <select name="Role" class="form-control">
+                            <select name="RoleID" class="form-control">
                                 @foreach (var item in Model.Roles)
                                 {
-                                    <option value="@item.Name">@item.Name</option>
+                                    <option value="@item.Id">@item.Name</option>
                                 }
 
 

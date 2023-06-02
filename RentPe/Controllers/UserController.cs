@@ -103,7 +103,7 @@ namespace RentPe.Controllers
                 model.Contact = user.PhoneNumber;
                 model.Email = user.Email;
 
-                model.Role = user.Role;
+                model.RoleID = user.Role;
                 model.Password = user.Password;
             }
             return PartialView("_Action", model);
@@ -114,20 +114,30 @@ namespace RentPe.Controllers
         [HttpPost]
         public async Task<JsonResult> Action(UserActionModel model)
         {
+
+            var role = await RolesManager.FindByIdAsync(model.RoleID);
+            var user = new User { UserName = model.Email, Email = model.Email, PhoneNumber = model.Contact, Name = model.Name, Role = role.Name, Password = model.Password };
+
+            var result = await UserManager.CreateAsync(user, model.Password);
+
             JsonResult json = new JsonResult();
-            IdentityResult result = null;
+
+
             if (!string.IsNullOrEmpty(model.ID)) //update record
             {
-                var user = await UserManager.FindByIdAsync(model.ID);
+                var user1 = await UserManager.FindByIdAsync(model.ID);
 
-                user.Id = model.ID;
-                user.Name = model.Name;
-                user.PhoneNumber = model.Contact;
-                user.Email = model.Email;
-                user.Role = model.Role;
+                user1.Id = model.ID;
+                user1.Name = model.Name;
+                user1.PhoneNumber = model.Contact;
+                user1.Email = model.Email;
+                user1.Role = model.RoleID;
                 var token = await UserManager.GeneratePasswordResetTokenAsync(model.ID);
                 var result2 = await UserManager.ResetPasswordAsync(model.ID, token, model.Password);
                 result = await UserManager.UpdateAsync(user);
+                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                return json;
+
 
             }
             else
@@ -137,15 +147,17 @@ namespace RentPe.Controllers
                 User.PhoneNumber = model.Contact;
                 User.Email = model.Email;
                 User.Password = model.Password;
-                User.Role = model.Role;
+                User.Role = model.RoleID;
                 User.UserName = model.Email;
-                result = await UserManager.CreateAsync(User);
+                if (result.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user.Id, role.Name);
+                }
 
+                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+
+                return json;
             }
-
-            json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
-
-            return json;
         }
 
         [HttpGet]
@@ -215,7 +227,7 @@ namespace RentPe.Controllers
                 user.PhoneNumber = model.Contact;
                 user.Email = model.Email;
                 user.Password = model.Password;
-                user.Role = model.Role;
+                user.Role = model.RoleID;
                 result = await UserManager.UpdateAsync(user);
 
             }
@@ -227,7 +239,7 @@ namespace RentPe.Controllers
                 User.Email = model.Email;
                 User.Password = model.Password;
                 User.UserName = model.Email;
-                User.Role = model.Role;
+                User.Role = model.RoleID;
                 result = await UserManager.CreateAsync(User);
 
             }

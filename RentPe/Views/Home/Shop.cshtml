@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="row shop_container list">
-                    @foreach (var item in Model.Items)
+                    @foreach (var item in Model.Ads)
                     {
                         <div class="col-md-4 col-6">
                             <div class="product">
@@ -72,7 +72,7 @@
                                 <div class="product_info">
                                     <h6 class="product_title"><a href="@Url.Action("Product", "Home", new {ProductID=item.ID })">@item.ItemName</a></h6>
                                     <div class="product_price">
-                                        <span class="price">$400.00</span>
+                                        <span class="price">@item.Price</span>
                                       
                                     </div>
                                     <div class="rating_wrap">
@@ -82,16 +82,10 @@
                                         <span class="rating_num">(21)</span>
                                     </div>
                                     <div class="pr_desc">
+                                        <p><b>@item.ItemCategory</b></p>
                                         <p>
                                             @item.ItemDescription
                                         </p>
-                                    </div>
-                                    <div class="pr_switch_wrap">
-                                        <div class="product_color_switch">
-                                            <span class="active" data-color="#87554B"></span>
-                                            <span data-color="#333333"></span>
-                                            <span data-color="#DA323F"></span>
-                                        </div>
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">

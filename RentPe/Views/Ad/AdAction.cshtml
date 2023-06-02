@@ -157,10 +157,11 @@
         data: $("#actionForm").serialize()
     })
     .done(function (response) {
-        if (response.Success) {
+        if (response.success) {
             window.location.href = '@Url.Action("Index", "Item")';
         } else {
             $(".errorDiv").html(response.Message);
+            alert("updated")
         }
     })
     .fail(function (xhr, status, error) {
