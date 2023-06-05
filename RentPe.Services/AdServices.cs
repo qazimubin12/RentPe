@@ -90,7 +90,90 @@ namespace RentPe.Services
 
 
 
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<AdImage> GetAdImages(int ID)
+        {
+            using (var context = new DSContext())
+            {
+
+                return context.AdImages.Where(x => x.AdID == ID).ToList();
+            }
+        }
+
+
+
+
+
+        public AdImage GetAdImage(int ID)
+        {
+            using (var context = new DSContext())
+            {
+
+                return context.AdImages.Find(ID);
+
+            }
+        }
+
+        public void SaveAdImage(AdImage AdImage)
+        {
+            using (var context = new DSContext())
+            {
+                context.AdImages.Add(AdImage);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateAdImage(AdImage AdImage)
+        {
+            using (var context = new DSContext())
+            {
+                context.Entry(AdImage).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteAdImage(int ID)
+        {
+            using (var context = new DSContext())
+            {
+
+                var AdImage = context.AdImages.Find(ID);
+                context.AdImages.Remove(AdImage);
+                context.SaveChanges();
+            }
+        }
+
+
+
+
+
     }
 }
 

@@ -9,101 +9,22 @@ using System.Threading.Tasks;
 
 namespace RentPe.Services
 {
-    public class RentItemServices
+    public class CategoryServices
     {
         #region Singleton
-        public static RentItemServices Instance
+        public static CategoryServices Instance
         {
             get
             {
-                if (instance == null) instance = new RentItemServices();
+                if (instance == null) instance = new CategoryServices();
                 return instance;
             }
         }
-        private static RentItemServices instance { get; set; }
-        private RentItemServices()
+        private static CategoryServices instance { get; set; }
+        private CategoryServices()
         {
         }
         #endregion
-
-        public List<RentItem> GetRentItem(string SearchTerm = "")
-        {
-            using (var context = new DSContext())
-            {
-                if (SearchTerm != "")
-                {
-                    return context.RentItems.Where(p => p.ItemName != null && p.ItemName.ToLower()
-                                            .Contains(SearchTerm.ToLower()))
-                                            .OrderBy(x => x.ItemName)
-                                            .ToList();
-                }
-                else
-                {
-                    return context.RentItems.OrderBy(x => x.ItemName).ToList();
-                }
-            }
-        }
-
-       
-
-
-
-        public RentItem GetRentItem(int ID)
-        {
-            using (var context = new DSContext())
-            {
-
-                return context.RentItems.Find(ID);
-
-            }
-        }
-
-        public void SaveRentItem(RentItem RentItem)
-        {
-            using (var context = new DSContext())
-            {
-                context.RentItems.Add(RentItem);
-                context.SaveChanges();
-            }
-        }
-
-        public void UpdateRentItem(RentItem RentItem)
-        {
-            using (var context = new DSContext())
-            {
-                context.Entry(RentItem).State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
-
-        public void DeleteRentItem(int ID)
-        {
-            using (var context = new DSContext())
-            {
-
-                var RentItem = context.RentItems.Find(ID);
-                context.RentItems.Remove(RentItem);
-                context.SaveChanges();
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

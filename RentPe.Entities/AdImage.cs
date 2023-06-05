@@ -8,7 +8,7 @@ namespace RentPe.Entities
 {
     public class AdImage:BaseEntity
     {
-        public string AdID { get; set; }
+        public int AdID { get; set; }
         public string ImageURL { get; set; }
     }
 }

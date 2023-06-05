@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Action";
+    string imageurl = "/Content/template/assets/images/product_img5.jpg";
 }
 
 <style>
@@ -280,6 +281,51 @@
             }
         </select>
     </div>
+    <table id="hiddenTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>Image URL</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table body will be populated dynamically -->
+            @if (Model.ID != 0)
+            {
+                if (Model.otherImages.Count() != 0)
+                {
+                    foreach (var item in Model.otherImages)
+                    {
+                        <tr>
+                            <td>
+                                <input type="text" name="otherImages" value="@item" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group col-md-12 mb-3">
+        <label>Upload Main Image</label>
+
+        <input class="form-control" name="DocURL" id="ImageURL" value="@Model.MainImage" type="hidden" />
+        <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg, .jpeg" />
+        <br />
+        <div class="thumb">
+            <img style="height:70px; width:70px" class="img-thumbnail img-fluid" id="productimage" />
+        </div>
+    </div>
+
+
+    <div class="form-group col-md-12 mb-3">
+        <label>Upload Other Images</label>
+        <input class="form-control" id="AllimageUpload" name="Image" type="file" multiple accept=".png, .jpg, .jpeg" />
+    </div>
+
+
 
     <div class="form-group col-md-12 mb-3">
         <label for="note">Note</label>
@@ -306,27 +352,133 @@
 </form>
 
 <script>
+    // Function to calculate the renting period
+    function calculateRentingPeriod() {
+        // Get the values of the "Available From" and "Available To" fields
+        var availableFrom = new Date(document.getElementById('AvailableFrom').value);
+        var availableTo = new Date(document.getElementById('AvailableTo').value);
+
+        // Calculate the renting period in milliseconds
+        var rentingPeriodMs = availableTo - availableFrom;
+
+        // Convert the renting period to days
+        var rentingPeriodDays = Math.ceil(rentingPeriodMs / (1000 * 60 * 60 * 24));
+
+        // Display the renting period
+        $("#RentingPeriod").val(rentingPeriodDays);
+    }
+
+    // Add onchange event listeners to the date pickers
+    document.getElementById('AvailableFrom').onchange = calculateRentingPeriod;
+    document.getElementById('AvailableTo').onchange = calculateRentingPeriod;
+
+    // Get the values of the "Available From" and "Available To" fields
+ 
+
+
     $("#ActionButton").click(function () {
         var button = document.getElementById('ActionButton');
         button.classList.add('loader');
         button.disabled = true;
-    $.ajax({
-        url: '@Url.Action("AdAction", "Ad")',
-        type: "POST",
-        data: $("#PostAdForm").serialize()
-    })
-    .done(function (response) {
-        if (response.success) {
-            window.location.href = '@Url.Action("Index", "Ad")';
-        } else {
-            $(".errorDiv").html(response.Message);
-            alert("updated")
-        }
-    })
-    .fail(function (xhr, status, error) {
-        console.error(xhr.responseText);
+        $.ajax({
+            url: '@Url.Action("AdAction", "Ad")',
+            type: "POST",
+            data: $("#PostAdForm").serialize()
+        })
+            .done(function (response) {
+                if (response.success) {
+                    window.location.href = '@Url.Action("Index", "Ad")';
+                } else {
+                    $(".errorDiv").html(response.Message);
+                    alert("updated")
+                }
+            })
+            .fail(function (xhr, status, error) {
+                console.error(xhr.responseText);
+            });
     });
-});
+
+        $("#imageUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImage", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+
+                console.log(response);
+                if (response.success) {
+                    $("#ImageURL").val(response.DocURL);
+                    $("#productimage").attr("src", response.DocURL);
+
+                }
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+
+    $("#AllimageUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImages", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+                console.log(response);
+                if (response.success) {
+                    var imageUrls = response.ImageUrls;
+
+                    for (var i = 0; i < imageUrls.length; i++) {
+                        var imageUrl = imageUrls[i].Url;
+
+                        var inputField = $('<input>').attr('type', 'text').attr('name', 'otherImages').val(imageUrl);
+                        var tdElement = $('<td>').append(inputField);
+                        var newRow = $('<tr>').append(tdElement);
+                        $('#hiddenTable tbody').append(newRow);
+                    }
+                }
+            })
+
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+
+
+
+
+
+
 
 </script>
 

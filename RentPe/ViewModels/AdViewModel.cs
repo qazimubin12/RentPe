@@ -15,6 +15,7 @@ namespace RentPe.ViewModels
     public class AdActionViewModel
     {
         public List<ItemCategory> ItemCategories { get; set; }
+        public List<string> otherImages { get; set; }
         public int ID { get; set; }
         public string MainImage { get; set; }
         public string UserName { get; set; }

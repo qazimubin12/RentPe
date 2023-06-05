@@ -68,7 +68,7 @@ namespace RentPe.Controllers
         {
             ItemCategoryListingViewModel model = new ItemCategoryListingViewModel();
             model.SearchTerm = SearchTerm;
-            model.ItemCategories = RentItemServices.Instance.GetRentItemCategories(SearchTerm);
+            model.ItemCategories = CategoryServices.Instance.GetRentItemCategories(SearchTerm);
             return View("Index", "_AdminLayout", model);
         }
 
@@ -79,7 +79,7 @@ namespace RentPe.Controllers
             ItemCategoryActionViewModel model = new ItemCategoryActionViewModel();
             if (ID != 0)
             {
-                var ItemCategory = RentItemServices.Instance.GetItemCategory(ID);
+                var ItemCategory = CategoryServices.Instance.GetItemCategory(ID);
                 model.ID = ItemCategory.ID;
                 model.CategoryName = ItemCategory.CategoryName;
                
@@ -93,17 +93,17 @@ namespace RentPe.Controllers
         {
             if (model.ID != 0)
             {
-                var ItemCategory = RentItemServices.Instance.GetItemCategory(model.ID);
+                var ItemCategory = CategoryServices.Instance.GetItemCategory(model.ID);
                 ItemCategory.ID = model.ID;
                 ItemCategory.CategoryName = model.CategoryName;
               
-                RentItemServices.Instance.UpdateItemCategory(ItemCategory);
+                CategoryServices.Instance.UpdateItemCategory(ItemCategory);
             }
             else
             {
                 var ItemCategory = new ItemCategory();
                 ItemCategory.CategoryName = model.CategoryName;
-                RentItemServices.Instance.SaveItemCategory(ItemCategory);
+                CategoryServices.Instance.SaveItemCategory(ItemCategory);
             }
 
 
@@ -116,7 +116,7 @@ namespace RentPe.Controllers
         public ActionResult Delete(int ID)
         {
             ItemCategoryActionViewModel model = new ItemCategoryActionViewModel();
-            var RentIem = RentItemServices.Instance.GetItemCategory(ID);
+            var RentIem = CategoryServices.Instance.GetItemCategory(ID);
             model.ID = RentIem.ID;
             return PartialView("_Delete", model);
         }
@@ -126,8 +126,8 @@ namespace RentPe.Controllers
         {
             if (model.ID != 0)
             {
-                var RentIem = RentItemServices.Instance.GetItemCategory(model.ID);
-                RentItemServices.Instance.GetItemCategory(RentIem.ID);
+                var RentIem = CategoryServices.Instance.GetItemCategory(model.ID);
+                CategoryServices.Instance.GetItemCategory(RentIem.ID);
             }
 
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);

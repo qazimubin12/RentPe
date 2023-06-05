@@ -66,7 +66,7 @@ namespace RentPe.Controllers
         public ActionResult PostAd()
         {
             ProductViewModel model = new ProductViewModel();
-            model.ItemCategories = RentItemServices.Instance.GetRentItemCategories();
+            model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
 
             return View("PostAd", "_Layout", model);
         }
@@ -146,7 +146,7 @@ namespace RentPe.Controllers
         public ActionResult Shop(string SearchTerm= "")
         {
             HomeShopViewModel model = new HomeShopViewModel();
-            model.ItemsCategories = RentItemServices.Instance.GetRentItemCategories();
+            model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
             model.Ads = AdServices.Instance.GetAd(SearchTerm);
             return View("Shop", "_Layout", model);
         }

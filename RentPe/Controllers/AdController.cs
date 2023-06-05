@@ -24,7 +24,7 @@ namespace RentPe.Controllers
         public ActionResult AdAction(int ID)
         {
             AdActionViewModel model = new AdActionViewModel();
-            model.ItemCategories = RentItemServices.Instance.GetRentItemCategories();
+            model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
             if(ID != 0)
             {
                 var ad = AdServices.Instance.GetAd(ID);
@@ -82,7 +82,22 @@ namespace RentPe.Controllers
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
                 ad.Tag= model.Tag;
+                ad.MainImage = model.MainImage;
                 AdServices.Instance.UpdateAd(ad);
+
+                if(model.otherImages.Count() != 0)
+                {
+                    foreach (var item in model.otherImages)
+                    {
+                        var adImage = new AdImage();
+                        adImage.ID = ad.ID;
+                        adImage.ImageURL = item;
+                        
+                    }
+                
+
+                }
+
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             else

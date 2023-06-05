@@ -83,7 +83,7 @@
     <Compile Include="AMSignInManager.cs" />
     <Compile Include="AMUserManager.cs" />
     <Compile Include="AdServices.cs" />
-    <Compile Include="RentItemServices.cs" />
+    <Compile Include="CategoryServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

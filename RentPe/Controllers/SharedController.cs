@@ -22,15 +22,50 @@ namespace RentPe.Controllers
 
                 var path = Path.Combine(Server.MapPath("~/Photos/"), fileName);
                 file.SaveAs(path);
-                result.Data = new { Success = true, DocURL = string.Format("/Photos/{0}", fileName) };
+                result.Data = new { success = true, DocURL = string.Format("/Photos/{0}", fileName) };
             }
             catch (Exception ex)
             {
-                result.Data = new { Success = false, Message = ex.Message };
+                result.Data = new { success = false, Message = ex.Message };
                 throw;
             }
             return result;
         }
+
+
+        public JsonResult UploadImages()
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            try
+            {
+                List<string> imageUrls = new List<string>();
+
+                foreach (string fileName in Request.Files)
+                {
+                    var file = Request.Files[fileName];
+
+                    var uniqueFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+
+                    var path = Path.Combine(Server.MapPath("~/Photos/"), uniqueFileName);
+                    file.SaveAs(path);
+
+                    string imageUrl = string.Format("/Photos/{0}", uniqueFileName);
+                    imageUrls.Add(imageUrl);
+                }
+
+                result.Data = new { success = true, ImageUrls = imageUrls.Select(url => new { Url = url }) };
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { success = false, Message = ex.Message };
+                throw;
+            }
+
+            return result;
+        }
+
 
 
 
