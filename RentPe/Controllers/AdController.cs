@@ -50,6 +50,9 @@ namespace RentPe.Controllers
                 model.RentingPeriod  = ad.RentingPeriod;
                 model.Featured = ad.Featured;
                 model.Tag = ad.Tag;
+                model.MainImage = ad.MainImage;
+
+                model.otherImages = AdServices.Instance.GetAdImages(ad.ID).Select(x=>x.ImageURL).ToList();
             }
             return View("AdAction", "_AdminLayout", model);
         }
@@ -85,13 +88,21 @@ namespace RentPe.Controllers
                 ad.MainImage = model.MainImage;
                 AdServices.Instance.UpdateAd(ad);
 
-                if(model.otherImages.Count() != 0)
+                var adImages = AdServices.Instance.GetAdImages(ad.ID);
+                foreach (var item in adImages)
                 {
+                    AdServices.Instance.DeleteAdImage(item.ID);
+                }
+                if (model.otherImages.Count() != 0)
+                {
+                    
+
                     foreach (var item in model.otherImages)
                     {
                         var adImage = new AdImage();
                         adImage.ID = ad.ID;
                         adImage.ImageURL = item;
+                        AdServices.Instance.SaveAdImage(adImage);
                         
                     }
                 
@@ -125,7 +136,30 @@ namespace RentPe.Controllers
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
                 ad.Tag = model.Tag;
+                ad.MainImage = model.MainImage;
+                
+
                 AdServices.Instance.SaveAd(ad);
+                var adImages = AdServices.Instance.GetAdImages(ad.ID);
+                foreach (var item in adImages)
+                {
+                    AdServices.Instance.DeleteAdImage(item.ID);
+                }
+                if (model.otherImages.Count() != 0)
+                {
+
+
+                    foreach (var item in model.otherImages)
+                    {
+                        var adImage = new AdImage();
+                        adImage.ID = ad.ID;
+                        adImage.ImageURL = item;
+                        AdServices.Instance.SaveAdImage(adImage);
+
+                    }
+
+
+                }
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }

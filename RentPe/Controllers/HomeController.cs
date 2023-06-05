@@ -138,8 +138,33 @@ namespace RentPe.Controllers
         //}
         public ActionResult View(int ID)
         {
-            AdminViewModel model = new AdminViewModel();
+            AdActionViewModel model = new AdActionViewModel();
+            var ad = AdServices.Instance.GetAd(ID);
+            model.ID = ad.ID;
+            model.UserName = ad.UserName;
+            model.Contact = ad.Contact;
+            model.Privacy = ad.Privacy;
+            model.ItemName = ad.ItemName;
+            model.UserID = ad.UserID;
+            model.ItemDescription = ad.ItemDescription;
+            model.AvailableFrom = ad.AvailableFrom;
+            model.AvailableTo = ad.AvailableTo;
+            model.Authenticity = ad.Authenticity;
+            model.ItemCategory = ad.ItemCategory;
+            model.Type = ad.Type;
+            model.Negotiable = ad.Negotiable;
+            model.Condition = ad.Condition;
+            model.EntryDate = ad.EntryDate;
+            model.Location = ad.Location;
+            model.Price = ad.Price;
+            model.Note = ad.Note;
+            model.AdStatus = ad.AdStatus;
+            model.RentingPeriod = ad.RentingPeriod;
+            model.Featured = ad.Featured;
+            model.Tag = ad.Tag;
+            model.MainImage = ad.MainImage;
 
+            model.otherImages = AdServices.Instance.GetAdImages(ad.ID).Select(x => x.ImageURL).ToList();
             return View(model);
         }
 
