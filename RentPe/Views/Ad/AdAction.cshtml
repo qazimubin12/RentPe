@@ -292,15 +292,17 @@
             <!-- Table body will be populated dynamically -->
             @if (Model.ID != 0)
             {
-                if (Model.otherImages.Count() != 0)
-                {
-                    foreach (var item in Model.otherImages)
+                if(Model.otherImages != null) {
+                    if (Model.otherImages.Count() != 0)
                     {
+                        foreach (var item in Model.otherImages)
+                        {
                         <tr>
                             <td>
                                 <input type="text" name="otherImages" value="@item" />
                             </td>
                         </tr>
+                        }
                     }
 
                 }
