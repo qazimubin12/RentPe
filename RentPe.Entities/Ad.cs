@@ -29,8 +29,9 @@ namespace RentPe.Entities
 
 
         public string AdStatus { get; set; }
-
+        public string Tag { get; set; }
         public int RentingPeriod { get; set; }
         public string Featured { get; set; }
+        public string MainImage { get; set; }
     }
 }

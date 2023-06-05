@@ -6,11 +6,15 @@ using System.Web;
 
 namespace RentPe.ViewModels
 {
+    public class HomeViewModel
+    {
+        public List<Ad> ExclusiveAds { get; set; }
+        public List<Ad> FeaturedAds { get; set; }
+        public List<Ad> LatestAds { get; set; }
+    }
     public class HomeShopViewModel
     {
         public List<ItemCategory> ItemsCategories { get; set; }
-        public List<RentItem> Items { get; set; }
-
         public List<Ad> Ads { get; set; }
     }
 

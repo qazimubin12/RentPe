@@ -7,6 +7,33 @@
 
 <head>
     <style>
+        #ActionButton.loader {
+            position: relative;
+        }
+
+            #ActionButton.loader:before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 2px solid #f3f3f3;
+                border-top: 2px solid #3498db;
+                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+                animation: spin 0.8s linear infinite;
+            }
+
+        @@keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
         .nav_cat {
             max-height: 0;
             overflow: hidden;
@@ -181,6 +208,9 @@
 
 
 <script>
+    var button = document.getElementById('ActionButton');
+    button.classList.add('loader');
+    button.disabled = true;
     $("#ActionButton").click(function () {
     $.ajax({
         url: '@Url.Action("PostAd", "Home")',
@@ -189,10 +219,12 @@
     })
     .done(function (response) {
         if (response.success) {
-            window.location.href = '@Url.Action("Shop", "Home")';
             alert("Saved Successfully")
+            window.location.href = '@Url.Action("Shop", "Home")';
         } else {
             $(".errorDiv").html(response.Message);
+            button.classList.remove('loader');
+            button.disabled = false;
         }
     })
     .fail(function (xhr, status, error) {

@@ -26,6 +26,12 @@
                                     Condition
                                 </th>
                                 <th>
+                                    Tag
+                                </th>
+                                <th>
+                                    Authenticity
+                                </th>
+                                <th>
                                     Action
                                 </th>
                             </tr>
@@ -38,6 +44,8 @@
                                     <td>@Ad.ItemName</td>
                                     <td>@Ad.ItemCategory</td>
                                     <td>@Ad.Condition</td>
+                                    <td>@Ad.Tag</td>
+                                    <td>@Ad.Authenticity</td>
                                     <td>
                                         <a href="@Url.Action("AdAction", "Ad", new { ID = Ad.ID })" type="button" class="btn btn-outline-info btn-icon-text" ><i class="mdi mdi-pencil"></i> EDIT</a>
                                         <button data-href="@Url.Action("Delete", "Ad", new { ID = Ad.ID })" type="button" class="data-btn btn btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>

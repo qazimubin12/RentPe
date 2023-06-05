@@ -54,7 +54,10 @@ namespace RentPe.Controllers
         }
         public ActionResult Index()
         {
-            AdminViewModel model = new AdminViewModel();
+            HomeViewModel model = new HomeViewModel();
+            model.ExclusiveAds = AdServices.Instance.GetAd().Where(x => x.Tag == "Exclusive").ToList();
+            model.FeaturedAds = AdServices.Instance.GetAd().Where(x => x.Featured == "Yes").ToList();
+            model.LatestAds = AdServices.Instance.GetAd().OrderByDescending(item => item.ID).Take(8).ToList();
             return View(model);
         }
 

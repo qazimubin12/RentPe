@@ -49,6 +49,7 @@ namespace RentPe.Controllers
                 model.AdStatus = ad.AdStatus;
                 model.RentingPeriod  = ad.RentingPeriod;
                 model.Featured = ad.Featured;
+                model.Tag = ad.Tag;
             }
             return View("AdAction", "_AdminLayout", model);
         }
@@ -80,6 +81,7 @@ namespace RentPe.Controllers
                 ad.AdStatus = model.AdStatus;
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
+                ad.Tag= model.Tag;
                 AdServices.Instance.UpdateAd(ad);
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -107,6 +109,7 @@ namespace RentPe.Controllers
                 ad.AdStatus = model.AdStatus;
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
+                ad.Tag = model.Tag;
                 AdServices.Instance.SaveAd(ad);
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }

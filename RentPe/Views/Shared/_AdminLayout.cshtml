@@ -39,10 +39,10 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="index.html" class="logo">
+                <a href="@Url.Action("","")" class="logo">
                     <img src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="Logo">
                 </a>
-                <a href="index.html" class="logo logo-small">
+                <a href="@Url.Action("","")" class="logo logo-small">
                     <img src="~/Content/template/RentPeContent/RentPeLogoMobile.png" alt="Logo" width="30" height="30">
                 </a>
             </div>
@@ -62,7 +62,7 @@
             <!-- Header Right Menu -->
             <ul class="nav user-menu">
                 <li class="nav-item  go-to-site">
-                    <a class="nav-link" aria-expanded="false" role="button" href="../"> <b><i class="fa fa-home"></i>  Go to the site</b></a>
+                    <a class="nav-link" aria-expanded="false" role="button" href="@Url.Action("","")"> <b><i class="fa fa-home"></i> Go to Main Page</b></a>
                 </li>
 
                 <!-- App Lists -->
@@ -156,7 +156,7 @@
                 <!-- User Menu -->
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                        <span class="user-img"><img class="rounded-circle" src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" width="31" alt="@User.Identity.Name"></span>
                     </a>
                     <div class="dropdown-menu">
                         <div class="user-header">
@@ -164,13 +164,19 @@
                                 <img src="~/Content/template/AdminTemplate/assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6>Ryan Taylor</h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <h6>@User.Identity.Name</h6>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <p class="text-muted mb-0">Administrator</p>
+                                }
+                                else
+                                {
+                                    <p class="text-muted mb-0">User</p>
+                                }
                             </div>
                         </div>
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="general-settings.html">Account Settings</a>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="@Url.Action("ManageProfile","Account")">My Profile</a>
+                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
                     </div>
                 </li>
                 <!-- /User Menu -->
@@ -198,9 +204,9 @@
                         <li>
                             <a href="@Url.Action("Index","User")"><i class="fe fe-users text-success"></i> <span>Users</span></a>
                         </li>
-                        <li>
+                        @*<li>
                             <a href="@Url.Action("Index","Item")"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
-                        </li>
+                        </li>*@
 
                         <li>
                             <a href="@Url.Action("Index","Ad")"><i class="fe fe-book text-warning"></i> <span>Ads</span></a>
