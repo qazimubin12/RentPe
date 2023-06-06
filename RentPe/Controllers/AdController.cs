@@ -100,7 +100,7 @@ namespace RentPe.Controllers
                     foreach (var item in model.otherImages)
                     {
                         var adImage = new AdImage();
-                        adImage.ID = ad.ID;
+                        adImage.AdID = ad.ID;
                         adImage.ImageURL = item;
                         AdServices.Instance.SaveAdImage(adImage);
                         
@@ -152,7 +152,7 @@ namespace RentPe.Controllers
                     foreach (var item in model.otherImages)
                     {
                         var adImage = new AdImage();
-                        adImage.ID = ad.ID;
+                        adImage.AdID = ad.ID;
                         adImage.ImageURL = item;
                         AdServices.Instance.SaveAdImage(adImage);
 

@@ -281,7 +281,7 @@
             }
         </select>
     </div>
-    <table id="hiddenTable" style="display: none;">
+    <table class="table" id="hiddenTable" style="">
         <thead>
             <tr>
                 <th>Image URL</th>
@@ -316,7 +316,7 @@
         <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg, .jpeg" />
         <br />
         <div class="thumb">
-            <img style="height:70px; width:70px" class="img-thumbnail img-fluid" id="productimage" />
+            <img style="height:70px; width:70px" src="@Model.MainImage" class="img-thumbnail img-fluid" id="productimage" />
         </div>
     </div>
 

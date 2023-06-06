@@ -57,7 +57,7 @@
                         <div class="col-md-4 col-6">
                             <div class="product">
                                 <div class="product_img">
-                                    <a href="@Url.Action("Product", "Home", new {ProductID=item.ID })">
+                                    <a href="@Url.Action("View", "Home", new {ID=item.ID })">
                                         <img src="@item.MainImage" alt="product_img1">
                                     </a>
                                     <div class="product_action_box">
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ProductID=item.ID })">@item.ItemName</a></h6>
+                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.ID })">@item.ItemName</a></h6>
                                     <div class="product_price">
                                         <span class="price">@item.Price</span>
                                       

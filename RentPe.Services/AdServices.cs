@@ -93,31 +93,6 @@ namespace RentPe.Services
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public List<AdImage> GetAdImages(int ID)
         {
             using (var context = new DSContext())
