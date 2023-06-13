@@ -1,4 +1,5 @@
-﻿using RentPe.Entities;
+﻿using Microsoft.AspNet.Identity;
+using RentPe.Entities;
 using RentPe.Services;
 using RentPe.ViewModels;
 using System;
@@ -21,7 +22,7 @@ namespace RentPe.Controllers
         }
 
         [HttpGet]
-        public ActionResult AdAction(int ID)
+        public ActionResult AdAction(int ID=0)
         {
             AdActionViewModel model = new AdActionViewModel();
             model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
@@ -115,7 +116,7 @@ namespace RentPe.Controllers
             {
                 var ad = new Ad();
                 ad.ID = model.ID;
-                ad.UserName = model.UserName;
+                ad.UserName = User.Identity.GetUserName();
                 ad.Contact = model.Contact;
                 ad.Privacy = model.Privacy;
                 ad.ItemName = model.ItemName;
@@ -135,20 +136,19 @@ namespace RentPe.Controllers
                 ad.AdStatus = model.AdStatus;
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
+                ad.UserID = User.Identity.GetUserId();
                 ad.Tag = model.Tag;
                 ad.MainImage = model.MainImage;
                 
 
                 AdServices.Instance.SaveAd(ad);
-                var adImages = AdServices.Instance.GetAdImages(ad.ID);
-                foreach (var item in adImages)
-                {
-                    AdServices.Instance.DeleteAdImage(item.ID);
-                }
+                //var adImages = AdServices.Instance.GetAdImages(ad.ID);
+                //foreach (var item in adImages)
+                //{
+                //    AdServices.Instance.DeleteAdImage(item.ID);
+                //}
                 if (model.otherImages.Count() != 0)
                 {
-
-
                     foreach (var item in model.otherImages)
                     {
                         var adImage = new AdImage();
@@ -157,7 +157,6 @@ namespace RentPe.Controllers
                         AdServices.Instance.SaveAdImage(adImage);
 
                     }
-
 
                 }
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
