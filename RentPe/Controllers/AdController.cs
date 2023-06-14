@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using RentPe.Entities;
 using RentPe.Services;
 using RentPe.ViewModels;
@@ -12,6 +13,55 @@ namespace RentPe.Controllers
 {
     public class AdController : Controller
     {
+        private AMSignInManager _signInManager;
+        private AMUserManager _userManager;
+        public AMSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<AMSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public AMUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<AMUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private AMRolesManager _rolesManager;
+        public AMRolesManager RolesManager
+        {
+            get
+            {
+                return _rolesManager ?? HttpContext.GetOwinContext().GetUserManager<AMRolesManager>();
+            }
+            private set
+            {
+                _rolesManager = value;
+            }
+        }
+        public AdController()
+        {
+        }
+
+
+
+        public AdController(AMUserManager userManager, AMSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
         // GET: Ad
         public ActionResult Index(string SearchTerm = "")
         {
@@ -116,7 +166,8 @@ namespace RentPe.Controllers
             {
                 var ad = new Ad();
                 ad.ID = model.ID;
-                ad.UserName = User.Identity.GetUserName();
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                ad.UserName = user.Name;
                 ad.Contact = model.Contact;
                 ad.Privacy = model.Privacy;
                 ad.ItemName = model.ItemName;
