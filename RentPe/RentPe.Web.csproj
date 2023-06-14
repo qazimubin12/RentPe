@@ -747,7 +747,9 @@
     <Content Include="Content\template\login.html" />
     <Content Include="Content\template\my-account.html" />
     <Content Include="Content\template\order-completed.html" />
+    <Content Include="Content\template\RentPeContent\Banner7.png" />
     <Content Include="Content\template\RentPeContent\book.png" />
+    <Content Include="Content\template\RentPeContent\logo-title-white.png" />
     <Content Include="Content\template\RentPeContent\property.png" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-04.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-05.jpg" />
@@ -755,7 +757,9 @@
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop2.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoMobile.png" />
+    <Content Include="Content\template\RentPeContent\shop_banner_img1.2.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img1.png" />
+    <Content Include="Content\template\RentPeContent\shop_banner_img2.2.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img2.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img3.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img4.png" />
