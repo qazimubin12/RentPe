@@ -8,17 +8,22 @@ namespace RentPe.ViewModels
 {
     public class HomeViewModel
     {
-        public List<Ad> ExclusiveAds { get; set; }
-        public List<Ad> FeaturedAds { get; set; }
-        public List<Ad> LatestAds { get; set; }
+        public List<AdWithTimeModel> ExclusiveAds { get; set; }
+        public List<AdWithTimeModel> FeaturedAds { get; set; }
+        public List<AdWithTimeModel> LatestAds { get; set; }
     }
     public class HomeShopViewModel
     {
         public List<ItemCategory> ItemsCategories { get; set; }
-        public List<Ad> Ads { get; set; }
+        public List<AdWithTimeModel> Ads { get; set; }
     }
 
 
+    public class AdWithTimeModel
+    {
+        public Ad Ad { get; set; }
+        public string Time { get; set; }
+    }
     public class ProductViewModel
     {
         public List<ItemCategory> ItemCategories { get; set; }

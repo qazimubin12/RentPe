@@ -55,9 +55,127 @@ namespace RentPe.Controllers
         public ActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();
-            model.ExclusiveAds = AdServices.Instance.GetAd().Where(x => x.Tag == "Exclusive").ToList();
-            model.FeaturedAds = AdServices.Instance.GetAd().Where(x => x.Featured == "Yes").ToList();
-            model.LatestAds = AdServices.Instance.GetAd().OrderByDescending(item => item.ID).Take(8).ToList();
+            var ExclusiveAds = AdServices.Instance.GetAdWithTime().Where(x => x.Tag == "Exclusive").ToList();
+            var LatestAds = AdServices.Instance.GetAdWithTime().OrderByDescending(item => item.ID).Take(8).ToList();
+            var FeaturedAds = AdServices.Instance.GetAd().Where(x => x.Featured == "Yes").ToList();
+
+
+            var ExclusiveList = new List<AdWithTimeModel>();
+            foreach (var ad in ExclusiveAds)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now - adEntryDate;
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                ExclusiveList.Add(adWithTime);
+            }
+
+
+            var LatestList = new List<AdWithTimeModel>();
+            foreach (var ad in LatestAds)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now - adEntryDate;
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                LatestList.Add(adWithTime);
+            }
+
+
+            var FeaturedList = new List<AdWithTimeModel>();
+            foreach (var ad in FeaturedAds)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now - adEntryDate;
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                FeaturedList.Add(adWithTime);
+            }
+
+            model.ExclusiveAds = ExclusiveList;
+            model.FeaturedAds = FeaturedList;
+            model.LatestAds = LatestList;
             return View(model);
         }
 
@@ -91,7 +209,7 @@ namespace RentPe.Controllers
                 ad.Type = model.Type;
                 ad.Negotiable = model.Negotiable;
                 ad.Condition = model.Condition;
-                ad.EntryDate = model.EntryDate;
+                ad.EntryDate = DateTime.Now;
                 ad.Location = model.Location;
                 ad.Price = model.Price;
                 ad.Note = model.Note;
@@ -118,7 +236,7 @@ namespace RentPe.Controllers
                 ad.Type = model.Type;
                 ad.Negotiable = model.Negotiable;
                 ad.Condition = model.Condition;
-                ad.EntryDate = model.EntryDate;
+                ad.EntryDate = DateTime.Now;
                 ad.Location = model.Location;
                 ad.Price = model.Price;
                 ad.Note = model.Note;
@@ -172,7 +290,47 @@ namespace RentPe.Controllers
         {
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
-            model.Ads = AdServices.Instance.GetAd(SearchTerm);
+            var ads = AdServices.Instance.GetAdWithTime(SearchTerm);
+            var List = new List<AdWithTimeModel>();
+            foreach (var ad in ads)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now.Subtract(adEntryDate);
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                List.Add(adWithTime);
+            }
+
+            model.Ads = List;
+
+
             return View("Shop", "_Layout", model);
         }
 

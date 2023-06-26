@@ -67,7 +67,7 @@ namespace RentPe.Controllers
         {
             AdListingViewModel model = new AdListingViewModel();
             model.SearchTerm = SearchTerm;
-            model.Ads = AdServices.Instance.GetAd(SearchTerm);
+            //model.Ads = AdServices.Instance.GetAd(SearchTerm);
             return View("Index", "_AdminLayout", model);
         }
 

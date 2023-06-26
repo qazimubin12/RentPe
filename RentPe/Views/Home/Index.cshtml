@@ -95,8 +95,8 @@
                                     <div class="product">
 
                                         <div class="product_img">
-                                            <a href="@Url.Action("View", "Home", new {ID=item.ID})">
-                                                <img src="@item.MainImage" alt="product_img1">
+                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                                <img src="@item.Ad.MainImage" alt="product_img1">
                                             </a>
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
@@ -108,17 +108,18 @@
                                             </div>
                                         </div>
                                         <div class="product_info">
-                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.ID})">@item.ItemName</a></h6>
+                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
                                             <div class="product_price">
-                                                <span class="price">Rs. @item.Price</span>
+                                                <span class="price">Rs. @item.Ad.Price</span>
                                             </div>
                                             <div class="rating_wrap">
-                                                <span>@item.UserName</span>
+                                                <span>@item.Ad.UserName</span>
                                                 
 
                                                 @*<span class="rating_num"></span>*@
                                             </div>
-
+                                            <hr />
+                                            <span>@item.Time</span>
                                         </div>
                                     </div>
                                 </div>
@@ -135,8 +136,8 @@
                                     <div class="product">
 
                                         <div class="product_img">
-                                            <a href="@Url.Action("View", "Home", new {ID=item.ID})">
-                                                <img src="@item.MainImage" alt="product_img1">
+                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                                <img src="@item.Ad.MainImage" alt="product_img1">
                                             </a>
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
@@ -148,16 +149,17 @@
                                             </div>
                                         </div>
                                         <div class="product_info">
-                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.ID})">@item.ItemName</a></h6>
+                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
                                             <div class="product_price">
-                                                <span class="price">Rs. @item.Price</span>
+                                                <span class="price">Rs. @item.Ad.Price</span>
                                             </div>
                                             <div class="rating_wrap">
-                                                <span>@item.UserName</span>
-                                               
+                                                <span>@item.Ad.UserName</span>
+
                                                 @*<span class="rating_num"></span>*@
                                             </div>
-
+                                            <hr />
+                                            <span>@item.Time</span>
                                         </div>
                                     </div>
                                 </div>
@@ -174,8 +176,8 @@
                                     <div class="product">
 
                                         <div class="product_img">
-                                            <a href="@Url.Action("View", "Home", new {ID=item.ID})">
-                                                <img src="@item.MainImage" alt="product_img1">
+                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                                <img src="@item.Ad.MainImage" alt="product_img1">
                                             </a>
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
@@ -187,16 +189,18 @@
                                             </div>
                                         </div>
                                         <div class="product_info">
-                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.ID})">@item.ItemName</a></h6>
-                                                <div class="product_price">
-                                                <span class="price">Rs. @item.Price</span>
+                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
+                                            <div class="product_price">
+                                                <span class="price">Rs. @item.Ad.Price</span>
                                             </div>
                                             <div class="rating_wrap">
-                                                <span>@item.UserName</span>
+                                                <span>@item.Ad.UserName</span>
 
 
                                                 @*<span class="rating_num"></span>*@
                                             </div>
+                                            <hr />
+                                            <span>@item.Time</span>
 
                                         </div>
                                     </div>

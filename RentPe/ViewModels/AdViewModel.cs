@@ -12,6 +12,12 @@ namespace RentPe.ViewModels
         public string SearchTerm { get; set; }
     }
 
+    //public class AdWithTime
+    //{
+    //    public Ad Ad { get; set; }
+    //    public string TimeInformation { get; set; }
+    //}
+
     public class AdActionViewModel
     {
         public List<ItemCategory> ItemCategories { get; set; }
