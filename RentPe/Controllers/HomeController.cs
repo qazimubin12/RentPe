@@ -229,7 +229,7 @@ namespace RentPe.Controllers
                 ad.ItemName = model.ItemName;
                 ad.UserID = model.UserID;
                 ad.ItemDescription = model.ItemDescription;
-                ad.AvailableFrom = model.AvailableFrom;
+                ad.AvailableFrom = model.AvailableFrom;  //ye nayta hai
                 ad.AvailableTo = model.AvailableTo;
                 ad.Authenticity = model.Authenticity;
                 ad.ItemCategory = model.ItemCategory;
