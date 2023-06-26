@@ -208,11 +208,13 @@
 
 
 <script>
-    var button = document.getElementById('ActionButton');
-    button.classList.add('loader');
-    button.disabled = true;
+    
     $("#ActionButton").click(function () {
-    $.ajax({
+        var button = $('#ActionButton');
+        button.addClass('loader');
+        button.prop('disabled', true);
+
+        $.ajax({
         url: '@Url.Action("PostAd", "Home")',
         type: "POST",
         data: $("#PostAdForm").serialize()
