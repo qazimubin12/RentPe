@@ -747,6 +747,7 @@
     <Content Include="Content\template\login.html" />
     <Content Include="Content\template\my-account.html" />
     <Content Include="Content\template\order-completed.html" />
+    <Content Include="Content\template\RentPeContent\about-image.png" />
     <Content Include="Content\template\RentPeContent\Banner7.png" />
     <Content Include="Content\template\RentPeContent\book.png" />
     <Content Include="Content\template\RentPeContent\logo-title-white.png" />
@@ -764,6 +765,9 @@
     <Content Include="Content\template\RentPeContent\shop_banner_img3.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img4.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img5.png" />
+    <Content Include="Content\template\RentPeContent\team1.png" />
+    <Content Include="Content\template\RentPeContent\team2.png" />
+    <Content Include="Content\template\RentPeContent\team3.png" />
     <Content Include="Content\template\shop-cart.html" />
     <Content Include="Content\template\shop-compare.html" />
     <Content Include="Content\template\shop-left-sidebar.html" />
