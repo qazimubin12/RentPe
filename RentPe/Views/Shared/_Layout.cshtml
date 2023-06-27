@@ -221,8 +221,8 @@
                             </button>
                             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                                 <ul class="navbar-nav">
-                                    <li><a class="nav-link nav_item active" href="home.html">Home</a></li>
-                                    <li class="dropdown">
+                                    <li><a class="nav-link nav_item active" href="@Url.Action("","")">Home</a></li>
+                                    @*<li class="dropdown">
                                         <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
                                         <div class="dropdown-menu">
                                             <ul>
@@ -238,7 +238,7 @@
                                                 <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Sports</a></li>
                                             </ul>
                                         </div>
-                                    </li>
+                                    </li>*@
                                     <li><a class="nav-link nav_item" href="@Url.Action("About","Home")">About us</a></li>
                                     <li><a class="nav-link nav_item" href="@Url.Action("Contact","Home")">Contact us</a></li>
                                     <li><a class="nav-link nav_item" href="@Url.Action("Shop","Home")">Shop</a></li>
@@ -499,7 +499,6 @@
         {
             @Html.AntiForgeryToken()}
         @RenderBody()
-        <br />
     </div>
     <!-- END MAIN CONTENT -->
     <!-- START FOOTER -->
@@ -566,7 +565,7 @@
                             <ul class="contact_info contact_info_light">
                                 <li>
                                     <i class="ti-location-pin"></i>
-                                    <p>Sindh Madressatul Islam University</p>
+                                    <p>Mubix Solution</p>
                                 </li>
                                 <li>
                                     <i class="ti-email"></i>
