@@ -10,12 +10,25 @@
             background-color: #eeeeee !important;
         }
 
-        .btn-primary {
-            background-color: #fca311 !important;
-            border: 1px solid #fca311 !important
+        .loginbox {
+            height: 500px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
+        .btn-primary {
+            background-color: #fca311 !important;
+            border: 1px solid #fca311 !important;
+            padding: 12px 30px;
+            font-size: 18px;
+        }
+
+        .form-control {
+            height: 50px;
+            font-size: 16px;
+        }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
@@ -24,8 +37,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title> Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="~/Content/template/RentPeContent/RentPeLogoMobile.png">
@@ -46,7 +59,24 @@
         <script src="assets/js/html5shiv.min.js"></script>
         <script src="assets/js/respond.min.js"></script>
     <![endif]-->
+        <style>
+        /* Custom styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
 
+        /* Increase input size */
+        .form-control {
+            height: 50px;
+            font-size: 16px;
+        }
+
+        /* Increase button size */
+        .btn-primary {
+            padding: 10px 30px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body class="login-body">
     <div class="login-wrapper">
@@ -73,7 +103,7 @@
                             </div>
                         }
 
-                        <div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+                        <div class="text-center dont-have">Don’t have an account? <a href="@Url.Action("Register","Account")">Register</a></div>
                     </div>
                 </div>
             </div>
