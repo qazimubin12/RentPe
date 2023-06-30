@@ -193,6 +193,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ItemCategoryViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
+    <Compile Include="ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -916,6 +917,7 @@
     <Content Include="Views\Ad\_Delete.cshtml" />
     <Content Include="Views\Ad\_Listing.cshtml" />
     <Content Include="Views\Ad\AdAction.cshtml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

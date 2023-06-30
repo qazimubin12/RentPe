@@ -110,6 +110,13 @@ namespace RentPe.Controllers
         }
 
 
+        [HttpGet]  
+        public ActionResult Dashboard()
+        {
+            UserDashboardViewModel model = new UserDashboardViewModel();
+            return View("Dashboard", "_LayoutNew",model);
+        }
+
 
         [HttpPost]
         public async Task<JsonResult> Action(UserActionModel model)

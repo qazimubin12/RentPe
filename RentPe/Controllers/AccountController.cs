@@ -521,18 +521,19 @@ namespace RentPe.Controllers
         private ActionResult RedirectToLocal(string returnUrl)
         {
             var userID = Session["ID"].ToString();
+            var user = UserManager.FindById(userID);
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            if (UserManager.IsInRole(userID, "Admin") == true)
+            if (user.Role == "Admin")
             {
                 return RedirectToAction("Dashboard", "Admin");
 
             }
-            else if (UserManager.IsInRole(userID, "Copywriter") == true)
+            else if (user.Role == "User")
             {
-                return RedirectToAction("Dashboard", "Copywriter");
+                return RedirectToAction("Dashboard", "User");
             }
             else
             {
