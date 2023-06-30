@@ -310,8 +310,7 @@ namespace RentPe.Controllers
             model.MainImage = ad.MainImage;
 
             model.otherImages = AdServices.Instance.GetAdImages(ad.ID).Select(x => x.ImageURL).ToList();
-            var TagsOfAd = ad.Tag.Split(',').ToList();
-            var RelatedAds = AdServices.Instance.GetAd().Where(x => TagsOfAd.Any(tag => x.Tag.Contains(tag))).ToList();
+            var RelatedAds = AdServices.Instance.GetAd().Where(x => x.ItemCategory == ad.ItemCategory).Take(5).ToList();
             var RelatedAdLists = new List<AdWithTimeModel>();
             foreach (var adNew in RelatedAds)
             {
@@ -349,6 +348,8 @@ namespace RentPe.Controllers
                 RelatedAdLists.Add(adWithTime);
             }
             model.RelatedAds = RelatedAdLists;
+
+            model.UserRatings = UserRatingServices.Instance.GetUserRating(model.UserID);
             return View(model);
         }
 
@@ -451,7 +452,7 @@ namespace RentPe.Controllers
         }
 
         
-        public ActionResult Shop(string Category)
+        public ActionResult ShopByCategory(string Category)
         {
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();

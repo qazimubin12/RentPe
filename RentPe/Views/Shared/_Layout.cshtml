@@ -42,9 +42,15 @@
     <link rel="stylesheet" href="~/Content/template/assets/css/responsive.css">
     <script src="~/Content/template/assets/js/jquery-3.6.0.min.js"></script>
     <script src="~/Content/template/assets/js/jquery-ui.js"></script>
+   
 </head>
-<body>
 
+<body>
+    <style>
+        .container {
+            max-width: 90%;
+        }
+    </style>
     <!-- LOADER -->
     <div class="preloader">
         <div class="lds-ellipsis">
@@ -56,36 +62,37 @@
     <!-- END LOADER -->
     <!-- Home Popup Section -->
     @*<div class="modal fade subscribe_popup" id="onload-popup" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
-                    </button>
-                    <div class="row g-0">
-                        <div class="col-sm-5">
-                            <div class="background_bg h-100" data-img-src="/Content/template/assets/images/popup_img.jpg"></div>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="popup_content">
-                                <div class="popup-text">
-                                    <div class="heading_s1">
-                                        <h4>Subscribe and Get 25% Discount!</h4>
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                        </button>
+                        <div class="row g-0">
+                            <div class="col-sm-5">
+                                <div class="background_bg h-100" data-img-src="/Content/template/assets/images/popup_img.jpg"></div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="popup_content">
+                                    <div class="popup-text">
+                                        <div class="heading_s1">
+                                            <h4>Subscribe and Get 25% Discount!</h4>
+                                        </div>
+                                        <p>Subscribe to the newsletter to receive updates about new products.</p>
                                     </div>
-                                    <p>Subscribe to the newsletter to receive updates about new products.</p>
-                                </div>
-                                <form method="post">
-                                    <div class="form-group mb-3">
-                                        <input name="email" required type="email" class="form-control rounded-0" placeholder="Enter Your Email">
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Subscribe" type="submit">Subscribe</button>
-                                    </div>
-                                </form>
-                                <div class="chek-form">
-                                    <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
-                                        <label class="form-check-label" for="exampleCheckbox3"><span>Don't show this popup again!</span></label>
+                                    <form method="post">
+                                        <div class="form-group mb-3">
+                                            <input name="email" required type="email" class="form-control rounded-0" placeholder="Enter Your Email">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Subscribe" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                    <div class="chek-form">
+                                        <div class="custome-checkbox">
+                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
+                                            <label class="form-check-label" for="exampleCheckbox3"><span>Don't show this popup again!</span></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -93,52 +100,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <!-- End Screen Load Popup Section -->
     <!-- START HEADER -->
     <header class="header_wrap">
-        @*<div class="top-header d-none d-md-block">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-8">
-                            <div class="header_topbar_info">
-                                <div class="header_offer">
-                                    <span>Free Ground Shipping Over $250</span>
-                                </div>
-                                <div class="download_wrap">
-                                    <span class="me-3">Download App</span>
-                                    <ul class="icon_list text-center text-lg-start">
-                                        <li><a href="#"><i class="fab fa-apple"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-android"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-windows"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-4">
-                            <div class="d-flex align-items-center justify-content-center justify-content-md-end">
-                                <div class="lng_dropdown">
-                                    <select name="countries" class="custome_select">
-                                        <option value='en' data-image="assets/images/eng.png" data-title="English">English</option>
-                                        <option value='fn' data-image="assets/images/fn.png" data-title="France">France</option>
-                                        <option value='us' data-image="assets/images/us.png" data-title="United States">United States</option>
-                                    </select>
-                                </div>
-                                <div class="ms-3">
-                                    <select name="countries" class="custome_select">
-                                        <option value='USD' data-title="USD">USD</option>
-                                        <option value='EUR' data-title="EUR">EUR</option>
-                                        <option value='GBR' data-title="GBR">GBR</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+
         <div class="middle-header dark_skin">
-            <div class="container">
+            <div style="max-width:90%;" class="container">
                 <div class="nav_block">
                     <a class="navbar-brand" href="@Url.Action("","")">
                         <img class="logo_light" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
@@ -146,7 +114,7 @@
                     </a>
                     <div class="contact_phone order-md-last">
                         @*<i class="linearicons-phone-wave"></i>*@
-                        <a style="padding:15px;" href="@Url.Action("PostAd","Home")" class="btn btn-fill-out">Post Ad</a>
+                        <a  href="@Url.Action("PostAd","Home")" class="btn btn-fill-out">Post Ad</a>
                     </div>
                     @*<div class="order-md-lastsingle_banner_info">
                             <h5 class="single_bn_title1">Super Sale</h5>
@@ -160,7 +128,7 @@
                                     <div class="custom_select">
                                         <select id="Category" class="first_null">
                                             <option value="All">All Category</option>
-                                            
+
                                             <option value="Bridal Dresses">Bridal Dresses</option>
                                             <option value="Vehicles">Vehicles</option>
                                             <option value="Books">Books</option>
@@ -193,16 +161,16 @@
                             <div id="navCatContent" class="nav_cat navbar collapse">
                                 <ul>
 
-                                    <li><a class="dropdown-item nav-link nav_item" href="404.html"><i class="flaticon-vintage"></i> <span>Bridal Dresses</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="coming-soon.html"><i class="flaticon-shipped"></i> <span>Vehicles</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="coming-soon.html"><i class="flaticon-jacket"></i> <span>Clothes</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="register.html"><i class="flaticon-table"></i> <span>Furniture & Home Decor</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="coming-soon.html"><img style="padding-right:4px; padding-left:4px" width="27px" src="~/Content/template/RentPeContent/book.png" /> <span style="padding-left:5px">Books</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="register.html"><i class="flaticon-necklace"></i> <span>Jewellery</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="register.html"><img style="padding-right:5px" width="30px" src="~/Content/template/RentPeContent/property.png" /> <span>Property</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="register.html"><i class="flaticon-music-system"></i> <span>Electronics & Appliances</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="404.html"><i class="flaticon-sneakers"></i> <span>Footwear</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="404.html"><i class="flaticon-ball"></i> <span>Sports</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Bridal Dresses" })"><i class="flaticon-vintage"></i> <span>Bridal Dresses</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Vehicles" })"><i class="flaticon-shipped"></i> <span>Vehicles</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Clothes" })"><i class="flaticon-jacket"></i> <span>Clothes</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Furniture & Home Decor" })"><i class="flaticon-table"></i> <span>Furniture & Home Decor</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Books" })"><img style="padding-right:4px; padding-left:4px;width:27px" src="~/Content/template/RentPeContent/book.png" /> <span style="padding-left:5px">Books</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Jewellery" })"><i class="flaticon-necklace"></i> <span>Jewellery</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Property" })"><img style="padding-right:5px;width:30px;" src="~/Content/template/RentPeContent/property.png" /> <span>Property</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Electronics & Appliances" })"><i class="flaticon-music-system"></i> <span>Electronics & Appliances</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Footwear" })"><i class="flaticon-sneakers"></i> <span>Footwear</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Sports" })"><i class="flaticon-ball"></i> <span>Sports</span></a></li>
                                     <li>
                                         <ul class="more_slide_open">
                                             <li><a class="dropdown-item nav-link nav_item" href="login.html"><i class="flaticon-responsive"></i> <span>Other</span></a></li>
@@ -223,22 +191,22 @@
                                 <ul class="navbar-nav">
                                     <li><a class="nav-link nav_item active" href="@Url.Action("","")">Home</a></li>
                                     @*<li class="dropdown">
-                                        <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index.html">Bridal Dresses</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-2.html">Vehicles</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-3.html">Clothes</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-3.html">Furniture & Home Decor</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-4.html">Books</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-5.html">Jewellery</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Property</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Electronics & Appliances</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Footwear</a></li>
-                                                <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Sports</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>*@
+                                            <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
+                                            <div class="dropdown-menu">
+                                                <ul>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index.html">Bridal Dresses</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-2.html">Vehicles</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-3.html">Clothes</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-3.html">Furniture & Home Decor</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-4.html">Books</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-5.html">Jewellery</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Property</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Electronics & Appliances</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Footwear</a></li>
+                                                    <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Sports</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>*@
                                     <li><a class="nav-link nav_item" href="@Url.Action("About","Home")">About us</a></li>
                                     <li><a class="nav-link nav_item" href="@Url.Action("Contact","Home")">Contact us</a></li>
                                     <li><a class="nav-link nav_item" href="@Url.Action("Shop","Home")">Shop</a></li>
@@ -573,7 +541,7 @@
                                 </li>
                                 <li>
                                     <i class="ti-mobile"></i>
-                                    <p >+ 92 307 287 6363</p>
+                                    <p>+ 92 307 287 6363</p>
                                     <p>+ 92 300 925 9266</p>
                                 </li>
                             </ul>
@@ -605,7 +573,7 @@
 
     <a href="~/Content/template/#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 
-     
+
     <script src="~/Content/template/assets/js/popper.min.js"></script>
     <script src="~/Content/template/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/template/assets/owlcarousel/js/owl.carousel.min.js"></script>
@@ -620,7 +588,7 @@
     <script src="~/Content/template/assets/js/jquery.elevatezoom.js"></script>
     <script src="~/Content/template/assets/js/scripts.js"></script>
 
- 
+
 
 
 </body>
