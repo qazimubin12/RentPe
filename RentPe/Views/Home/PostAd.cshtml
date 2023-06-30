@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "AdPost";
+    string imageurl = "/Content/template/assets/images/product_img5.jpg";
+    int counter = 0;
 }
 
 <head>
@@ -57,40 +59,58 @@
                 <p class="leads">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
                 <div class="field_form">
                     <form id="PostAdForm" name="enq">
-                        <input type="hidden" name="ID" id="ID" />
+                        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
                         @Html.TextBox("EntryDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%; display:none", @id = "EntryDate", @class = "form-control", type = "date" })
 
                         <div class="row">
                             <div class="form-group col-md-6 mb-3">
                                 <label for="item-name">Item Name *</label>
-                                <input required placeholder="Enter Item Name *" id="item-name" class="form-control" name="ItemName" type="text">
+                                <input required placeholder="Enter Item Name *" id="item-name" class="form-control" value="@Model.ItemName" name="ItemName" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="contact">Contact *</label>
-                                <input required placeholder="Enter Contact *" id="contact" class="form-control" name="Contact" type="text">
+                                <input required placeholder="Enter Contact *" id="contact" class="form-control" value="@Model.Contact" name="Contact" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="Privacy">Privacy</label>
+
                                 <select required id="Privacy" class="form-control" name="Privacy">
-                                    <option value="Show Contact Number">Show Contact Number</option>
-                                    <option value="Hide Contact Number">Hide Contact Number</option>
+                                    @if (Model.Privacy != true)
+                                    {
+                                        <option selected value="true">Show Contact Number</option>
+                                        <option value="false">Hide Contact Number</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="true">Show Contact Number</option>
+                                        <option selected value="false">Hide Contact Number</option>
+                                    }
+
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="item-description">Item Description *</label>
-                                <input required placeholder="Enter Item Description *" id="item-description" class="form-control" name="ItemDescription" type="text">
+                                <input required placeholder="Enter Item Description *" id="item-description" value="@Model.ItemDescription" class="form-control" name="ItemDescription" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="item-category">Item Category *</label>
-                                <select required id="ItemCategory" class="form-control" name="ItemCategory">
+                                <select required id="Item Category" class="form-control" name="ItemCategory">
                                     <option value="">Select</option>
                                     @foreach (var item in Model.ItemCategories)
                                     {
-                                        <option value="@item.CategoryName">@item.CategoryName</option>
+                                        if (Model.ItemCategory == item.CategoryName)
+                                        {
+                                            <option selected value="@item.CategoryName">@item.CategoryName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.CategoryName">@item.CategoryName</option>
+
+                                        }
                                     }
                                 </select>
                             </div>
@@ -98,25 +118,59 @@
                             <div class="form-group col-md-6 mb-3">
                                 <label for="type">Type *</label>
                                 <select required id="type" class="form-control" name="Type">
-                                    <option value="men">Men</option>
-                                    <option value="women">Women</option>
+                                    @if (Model.Type == "men")
+                                    {
+                                        <option selected value="men">Men</option>
+                                        <option value="women">Women</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="men">Men</option>
+                                        <option selected value="women">Women</option>
+                                    }
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="negotiable">Negotiable</label>
                                 <select required id="negotiable" class="form-control" name="Negotiable">
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    @if (Model.Negotiable == true)
+                                    {
+
+
+                                        <option selected value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    }
+                                    else
+                                    {
+
+                                        <option value="true">Yes</option>
+                                        <option selected value="false">No</option>
+                                    }
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="Condition">Condition *</label>
                                 <select required id="Condition" class="form-control" name="Condition">
-                                    <option value="New">New</option>
-                                    <option value="Slightly Used">Slightly Used</option>
-                                    <option value="Used">Used</option>
+                                    @if (Model.Condition == "New")
+                                    {
+                                        <option selected value="New">New</option>
+                                        <option value="Slightly Used">Slightly Used</option>
+                                        <option value="Used">Used</option>
+                                    }
+                                    else if (Model.Condition == "Slightly Used")
+                                    {
+                                        <option value="New">New</option>
+                                        <option selected value="Slightly Used">Slightly Used</option>
+                                        <option value="Used">Used</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="New">New</option>
+                                        <option value="Slightly Used">Slightly Used</option>
+                                        <option selected value="Used">Used</option>
+                                    }
                                 </select>
 
                             </div>
@@ -124,22 +178,48 @@
                             <div class="form-group col-md-6 mb-3">
                                 <label for="Authenticity">Authenticity *</label>
                                 <select required id="Authenticity" class="form-control" name="Authenticity">
-                                    <option value="Branded">Branded</option>
-                                    <option value="Replica">Replica</option>
-                                    <option value="Local">Local</option>
+                                    @if (Model.Authenticity == "Branded")
+                                    {
+                                        <option selected value="Branded">Branded</option>
+                                        <option value="Replica">Replica</option>
+                                        <option value="Local">Local</option>
+                                    }
+                                    else if (Model.Authenticity == "Replica")
+                                    {
+                                        <option value="Branded">Branded</option>
+                                        <option selected value="Replica">Replica</option>
+                                        <option value="Local">Local</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Branded">Branded</option>
+                                        <option value="Replica">Replica</option>
+                                        <option selected value="Local">Local</option>
+                                    }
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="Renting Period">Renting Period (In Days)*</label>
-                                <input required placeholder="Enter Renting Period *" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
+                                <label for="Renting Period">Renting Period *</label>
+                                <input required placeholder="Enter Renting Period *" value="@Model.RentingPeriod" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
                             </div>
 
                             <div hidden class="form-group col-md-6 mb-3">
                                 <label for="Featured">Featured</label>
                                 <select required id="Featured" class="form-control" name="Featured">
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    @if (Model.Featured == "Yes")
+                                    {
+
+
+                                        <option selected value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    }
+                                    else
+                                    {
+
+                                        <option value="Yes">Yes</option>
+                                        <option selected value="No">No</option>
+                                    }
                                 </select>
                             </div>
 
@@ -171,29 +251,132 @@
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="location">Location *</label>
-                                <input required placeholder="Enter Location *" id="location" class="form-control" name="Location" type="text">
+                                <input required placeholder="Enter Location *" value="@Model.Location" id="location" class="form-control" name="Location" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
-                                <label for="price">Price (In PKR)*</label>
-                                <input required placeholder="Enter Price *" id="price" class="form-control" name="Price" type="text">
+                                <label for="price">Price *</label>
+                                <input required placeholder="Enter Price *" value="@Model.Price" id="price" class="form-control" name="Price" type="text">
                             </div>
 
                             <div class="form-group col-md-6 mb-3">
                                 <label for="ad-status">Ad Status *</label>
                                 <select required id="ad-status" class="form-control" name="AdStatus">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    @if (Model.AdStatus == "active")
+                                    {
+
+
+                                        <option selected value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="active">Active</option>
+                                        <option selected value="inactive">Inactive</option>
+                                    }
                                 </select>
                             </div>
 
+                            <div class="form-group col-md-6 mb-3">
+                                <label for="ad-status">Tag *</label>
+                                <select required id="tag" class="form-control" name="Tag">
+
+                                    @if (Model.Tag == "Exclusive")
+                                    {
+                                        <option value="">Select</option>
+                                        <option selected value="Exclusive">Exclusive</option>
+                                        <option value="Latest">Latest</option>
+
+                                    }
+                                    else if (Model.Tag == "Latest")
+                                    {
+                                        <option value="">Select</option>
+                                        <option value="Exclusive">Exclusive</option>
+                                        <option selected value="Latest">Latest</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="">Select</option>
+                                        <option value="Exclusive">Exclusive</option>
+                                        <option value="Latest">Latest</option>
+
+                                    }
+                                </select>
+                            </div>
+                            <table class="table" id="hiddenTable" style="">
+                                <thead>
+                                    <tr>
+                                        <th>Image URL</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table body will be populated dynamically -->
+                                    @if (Model.ID != 0)
+                                    {
+                                        if (Model.otherImages != null)
+                                        {
+                                            if (Model.otherImages.Count() != 0)
+                                            {
+                                                <tr>
+                                                    @foreach (var item in Model.otherImages)
+                                                    {
+                                                        <td>
+                                                            <img src="@item" height="70" width="70" />
+                                                            <input type="text" hidden name="otherImages" value="@item" />
+                                                        </td>
+
+                                                        counter++;
+
+                                                        if (counter % 4 == 0)
+                                                        {
+                                                        @:</tr><tr>
+                                                        }
+                                                    }
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                            <div class="form-group col-md-12 mb-3">
+                                <label>Upload Main Image</label>
+
+                                <input class="form-control" name="MainImage" id="ImageURL" value="@Model.MainImage" type="hidden" />
+                                <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg, .jpeg" />
+                                <br />
+                                <div class="thumb">
+                                    <img style="height:70px; width:70px" src="@Model.MainImage" class="img-thumbnail img-fluid" id="productimage" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-12 mb-3">
+                                <label>Upload Other Images</label>
+                                <input class="form-control" id="AllimageUpload" name="Image" type="file" multiple accept=".png, .jpg, .jpeg" />
+                            </div>
+
+
+
                             <div class="form-group col-md-12 mb-3">
                                 <label for="note">Note</label>
-                                <textarea id="note" placeholder="Note *" class="form-control" name="Note" rows="3"></textarea>
+                                <textarea id="note" placeholder="Note *" class="form-control" name="Note" rows="3">@Model.Note</textarea>
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="ActionButton" name="submit" value="Submit">Submit</button>
+                                @if (Model.ID != 0)
+                                {
+
+
+                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out loader" id="ActionButton">UPDATE</button>
+                                }
+                                else
+                                {
+                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out loader" id="ActionButton">SAVE</button>
+
+                                }
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div id="alert-msg" class="alert-msg text-center"></div>
@@ -208,10 +391,29 @@
 
 
 <script>
-    var button = document.getElementById('ActionButton');
-    button.classList.add('loader');
-    button.disabled = true;
+    function calculateRentingPeriod() {
+        // Get the values of the "Available From" and "Available To" fields
+        var availableFrom = new Date(document.getElementById('AvailableFrom').value);
+        var availableTo = new Date(document.getElementById('AvailableTo').value);
+
+        // Calculate the renting period in milliseconds
+        var rentingPeriodMs = availableTo - availableFrom;
+
+        // Convert the renting period to days
+        var rentingPeriodDays = Math.ceil(rentingPeriodMs / (1000 * 60 * 60 * 24));
+
+        // Display the renting period
+        $("#RentingPeriod").val(rentingPeriodDays);
+    }
+
+    // Add onchange event listeners to the date pickers
+    document.getElementById('AvailableFrom').onchange = calculateRentingPeriod;
+    document.getElementById('AvailableTo').onchange = calculateRentingPeriod;
+
     $("#ActionButton").click(function () {
+        var button = document.getElementById('ActionButton');
+        button.classList.add('loader');
+        button.disabled = true;
     $.ajax({
         url: '@Url.Action("PostAd", "Home")',
         type: "POST",
@@ -230,6 +432,102 @@
     .fail(function (xhr, status, error) {
         console.error(xhr.responseText);
     });
-});
+    });
+
+
+    $("#imageUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImage", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+
+                console.log(response);
+                if (response.success) {
+                    $("#ImageURL").val(response.DocURL);
+                    $("#productimage").attr("src", response.DocURL);
+
+                }
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+
+    $("#AllimageUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo_" + i, file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImages", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+                console.log(response);
+                if (response.success) {
+                    var imageUrls = response.ImageUrls;
+                    var counter = 0;
+                    var newRow = $('<tr>');
+
+                    for (var i = 0; i < imageUrls.length; i++) {
+                        var imageUrl = imageUrls[i].Url;
+
+                        var imgElement = $('<img>').attr('src', imageUrl).attr('height', '70px').attr('width', '70px');
+                        var inputElement = $('<input>').attr('type', 'hidden').attr('name', 'otherImages').attr('value', imageUrl);
+                        var tdElement = $('<td>').append(imgElement);
+                        newRow.append(tdElement).append(inputElement);;
+                        counter++;
+
+
+                        if (counter === 8) {
+                            $('#hiddenTable tbody').append(newRow);
+                            newRow = $('<tr>');
+                            counter = 0;
+                        }
+                    }
+
+                    if (counter > 0) {
+                        $('#hiddenTable tbody').append(newRow);
+                    }
+                    alert("UPLOADED SUCCESSFULLY");
+                }
+            })
+
+
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+
+
 
 </script>

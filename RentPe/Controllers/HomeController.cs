@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Office.Interop.Word;
 using RentPe.Entities;
 using RentPe.Services;
 using RentPe.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using System.Xml.Linq;
 
 namespace RentPe.Controllers
 {
@@ -58,7 +62,7 @@ namespace RentPe.Controllers
             var ExclusiveAds = AdServices.Instance.GetAdWithTime().Where(x => x.Tag == "Exclusive").ToList();
             var LatestAds = AdServices.Instance.GetAdWithTime().OrderByDescending(item => item.ID).Take(8).ToList();
             var FeaturedAds = AdServices.Instance.GetAd().Where(x => x.Featured == "Yes").ToList();
-
+            model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
 
             var ExclusiveList = new List<AdWithTimeModel>();
             foreach (var ad in ExclusiveAds)
@@ -180,13 +184,36 @@ namespace RentPe.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult SaveRating(int Stars,string Name,string Email,string Message,string UserID)
+        {
+            var Rating = new UserRating();  
+            Rating.Name = Name;
+            Rating.Email = Email;
+            Rating.Message = Message;
+
+            Rating.Stars = Stars * 20;
+            Rating.UserID = UserID;
+            Rating.Date = DateTime.Now;
+            UserRatingServices.Instance.SaveUserRating(Rating);
+            return Json(new {success=true},JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public ActionResult PostAd()
         {
-            ProductViewModel model = new ProductViewModel();
-            model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
+            if (User.Identity.IsAuthenticated)
+            {
+                ProductViewModel model = new ProductViewModel();
+                model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
 
-            return View("PostAd", "_Layout", model);
+                return View("PostAd", "_Layout", model);
+            }
+            else
+            {
+                return RedirectToAction("Register", "Account");
+            }
         }
 
         [HttpPost]
@@ -283,14 +310,152 @@ namespace RentPe.Controllers
             model.MainImage = ad.MainImage;
 
             model.otherImages = AdServices.Instance.GetAdImages(ad.ID).Select(x => x.ImageURL).ToList();
+            var TagsOfAd = ad.Tag.Split(',').ToList();
+            var RelatedAds = AdServices.Instance.GetAd().Where(x => TagsOfAd.Any(tag => x.Tag.Contains(tag))).ToList();
+            var RelatedAdLists = new List<AdWithTimeModel>();
+            foreach (var adNew in RelatedAds)
+            {
+                DateTime adEntryDate = adNew.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now - adEntryDate;
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                RelatedAdLists.Add(adWithTime);
+            }
+            model.RelatedAds = RelatedAdLists;
             return View(model);
         }
 
-        public ActionResult Shop(string SearchTerm= "")
+        public ActionResult Shop()
         {
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
-            var ads = AdServices.Instance.GetAdWithTime(SearchTerm);
+            model.ItemCategory = CategoryServices.Instance.GetRentItemCategories();
+
+            var ads = AdServices.Instance.GetAdWithTime();
+            var List = new List<AdWithTimeModel>();
+            foreach (var ad in ads)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now.Subtract(adEntryDate);
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                List.Add(adWithTime);
+            }
+
+            model.Ads = List;
+
+
+            return View("Shop", "_Layout", model);
+        }
+
+        public ActionResult ShopByCategoryandSearchTerm(string Category, string SearchTerm="")
+        {
+            HomeShopViewModel model = new HomeShopViewModel();
+            model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
+            var ads = AdServices.Instance.GetAdWithTime(Category,SearchTerm);
+            var List = new List<AdWithTimeModel>();
+            foreach (var ad in ads)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now.Subtract(adEntryDate);
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                List.Add(adWithTime);
+            }
+
+            model.Ads = List;
+
+
+            return View("Shop", "_Layout", model);
+        }
+
+        
+        public ActionResult Shop(string Category)
+        {
+            HomeShopViewModel model = new HomeShopViewModel();
+            model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
+            var ads = AdServices.Instance.GetAdWithTime().Where(x=>x.ItemCategory == Category).ToList();
             var List = new List<AdWithTimeModel>();
             foreach (var ad in ads)
             {

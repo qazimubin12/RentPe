@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserRatingServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AMRolesManager.cs" />
     <Compile Include="AMSignInManager.cs" />

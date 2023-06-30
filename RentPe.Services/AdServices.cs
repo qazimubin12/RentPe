@@ -67,6 +67,44 @@ namespace RentPe.Services
             }
         }
 
+        public List<Ad> GetAdWithTime(string Category,string SearchTerm = "")
+        {
+            using (var context = new DSContext())
+            {
+                List<Ad> ads;
+                if (Category != "All")
+                {
+                    if (SearchTerm != "")
+                    {
+                        ads = context.Ads.Where(p => p.ItemCategory == Category && p.ItemName != null && p.ItemName.ToLower()
+                                            .Contains(SearchTerm.ToLower()))
+                                            .OrderBy(x => x.ItemName)
+                                            .ToList();
+                    }
+                    else
+                    {
+                        ads = context.Ads.Where(x => x.ItemCategory == Category).OrderBy(x => x.ItemName).ToList();
+                    }
+                }
+                else
+                {
+                    if (SearchTerm != "")
+                    {
+                        ads = context.Ads.Where(p => p.ItemName != null && p.ItemName.ToLower()
+                                            .Contains(SearchTerm.ToLower()))
+                                            .OrderBy(x => x.ItemName)
+                                            .ToList();
+                    }
+                    else
+                    {
+                        ads = context.Ads.OrderBy(x => x.ItemName).ToList();
+                    }
+                }
+
+
+                return ads;
+            }
+        }
 
 
 

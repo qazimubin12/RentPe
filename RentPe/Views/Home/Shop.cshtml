@@ -126,7 +126,7 @@
                             @foreach (var item in Model.ItemsCategories)
                             {
                                 
-                                <li><a href="#"><span class="categories_name">@item.CategoryName</span><span class="categories_num"></span></a></li>
+                                <li><a href="@Url.Action("ShopByCategory", "Home", new {Category = item.CategoryName })"><span class="categories_name">@item.CategoryName</span><span class="categories_num"></span></a></li>
 
                             }
                             

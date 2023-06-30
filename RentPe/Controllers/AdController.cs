@@ -128,7 +128,6 @@ namespace RentPe.Controllers
                 ad.Type = model.Type;
                 ad.Negotiable = model.Negotiable;
                 ad.Condition = model.Condition;
-                ad.EntryDate = model.EntryDate;
                 ad.Location = model.Location;
                 ad.Price = model.Price;
                 ad.Note = model.Note;
@@ -180,7 +179,7 @@ namespace RentPe.Controllers
                 ad.Type = model.Type;
                 ad.Negotiable = model.Negotiable;
                 ad.Condition = model.Condition;
-                ad.EntryDate = model.EntryDate;
+                ad.EntryDate = DateTime.Now;
                 ad.Location = model.Location;
                 ad.Price = model.Price;
                 ad.Note = model.Note;

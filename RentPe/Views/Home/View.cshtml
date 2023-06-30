@@ -1,49 +1,7 @@
 ﻿@model RentPe.ViewModels.AdActionViewModel
 <!DOCTYPE html>
 <html lang="en">
-<!--<head>-->
-    <!-- Meta -->
-    <!--<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="Anil z" name="author">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Shopwise is Powerful features and You Can Use The Perfect Build this Template For Any eCommerce Website. The template is built for sell Fashion Products, Shoes, Bags, Cosmetics, Clothes, Sunglasses, Furniture, Kids Products, Electronics, Stationery Products and Sporting Goods.">
-    <meta name="keywords" content="ecommerce, electronics store, Fashion store, furniture store,  bootstrap 4, clean, minimal, modern, online store, responsive, retail, shopping, ecommerce store">-->
 
-    <!-- SITE TITLE -->
-    <!--<title>Rent Pe - Spend Less Save More </title>-->
-    <!-- Favicon Icon -->
-    <!--<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">-->
-    <!-- Animation CSS -->
-    <!--<link rel="stylesheet" href="assets/css/animate.css">-->
-    <!-- Latest Bootstrap min CSS -->
-    <!--<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">-->
-    <!-- Google Font -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">-->
-    <!-- Icon Font CSS -->
-    <!--<link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/ionicons.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/linearicons.css">
-    <link rel="stylesheet" href="assets/css/flaticon.css">
-    <link rel="stylesheet" href="assets/css/simple-line-icons.css">-->
-    <!--- owl carousel CSS-->
-    <!--<link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
-    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.default.min.css">-->
-    <!-- Magnific Popup CSS -->
-    <!--<link rel="stylesheet" href="assets/css/magnific-popup.css">-->
-    <!-- jquery-ui CSS -->
-    <!--<link rel="stylesheet" href="assets/css/jquery-ui.css">-->
-    <!-- Slick CSS -->
-    <!--<link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/slick-theme.css">-->
-    <!-- Style CSS -->
-    <!--<link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    
-</head>-->
 <style>
     .nav_cat {
         max-height: 0;
@@ -71,6 +29,7 @@
                               <img src="@Model.MainImage" alt="Image" />
                           </a>
                       </div>
+                      <input type="hidden" id="UserID" value="@Model.UserID" />
                       @foreach (var item in Model.otherImages)
                       {
                           <div class="item">
@@ -141,81 +100,76 @@
                         	<a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">Additional info</a>
                       	</li>
                       	<li class="nav-item">
-                        	<a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (2)</a>
+                        	<a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (@Model.UserRatings.Count())</a>
                       	</li>
                     </ul>
                 	<div class="tab-content shop_info_tab">
                       	<div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
-                        	<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Vivamus bibendum magna Lorem ipsum dolor sit amet, consectetur adipiscing elit.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-                        	<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+                        	<p>@Model.ItemDescription</p>
                       	</div>
                       	<div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
-                        	<table class="table table-bordered">
-                            	<tr>
-                                	<td>Capacity</td>
-                                	<td>5 Kg</td>
-                            	</tr>
+                            <table class="table table-bordered">
+
                                 <tr>
-                                    <td>Color</td>
-                                    <td>Black, Brown, Red,</td>
+                                    <td>Authenticity</td>
+                                    <td>@Model.Authenticity</td>
                                 </tr>
                                 <tr>
-                                    <td>Water Resistant</td>
-                                    <td>Yes</td>
+                                    <td>Condition</td>
+                                    <td>@Model.Condition</td>
                                 </tr>
                                 <tr>
-                                    <td>Material</td>
-                                    <td>Artificial Leather</td>
+                                    <td>Type</td>
+                                    <td>@Model.Type</td>
                                 </tr>
-                        	</table>
+                                <tr>
+                                    <td>Avialable from - Available to</td>
+                                    <td>@Model.AvailableFrom.ToShortDateString() - @Model.AvailableTo.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <td>Negotiable</td>
+                                    <td>@Model.Negotiable</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Rent</td>
+                                    <td>@Model.Price</td>
+
+                                </tr>
+                            </table>
                       	</div>
                       	<div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
                         	<div class="comments">
-                            	<h5 class="product_tab_title">2 Review For <span>Blue Dress For Woman</span></h5>
+                            	<h5 class="product_tab_title">@Model.UserRatings.Count() Review For the Owner of: <span>@Model.ItemName</span></h5>
                                 <ul class="list_none comment_list mt-4">
-                                    <li>
-                                        <div class="comment_img">
-                                            <img src="~/Content/template/assets/images/user1.jpg" alt="user1"/>
-                                        </div>
-                                        <div class="comment_block">
-                                            <div class="rating_wrap">
-                                                <div class="rating">
-                                                    <div class="product_rate" style="width:80%"></div>
+
+                                    @foreach (var item in Model.UserRatings)
+                                    {
+                                        <li>
+
+                                            <div class="comment_block">
+                                                <div class="rating_wrap">
+                                                    <div class="rating">
+                                                        <div class="product_rate" style="width:@item.Stars"></div>
+                                                    </div>
+                                                </div>
+                                                <p class="customer_meta">
+                                                    <span class="review_author">@item.Name</span>
+                                                    <span class="comment-date">@item.Date</span>
+                                                </p>
+                                                <div class="description">
+                                                    <p>@item.Message</p>
                                                 </div>
                                             </div>
-                                            <p class="customer_meta">
-                                                <span class="review_author">Alea Brooks</span>
-                                                <span class="comment-date">March 5, 2018</span>
-                                            </p>
-                                            <div class="description">
-                                                <p>Lorem Ipsumin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="comment_img">
-                                            <img src="~/Content/template/assets/images/user2.jpg" alt="user2"/>
-                                        </div>
-                                        <div class="comment_block">
-                                            <div class="rating_wrap">
-                                                <div class="rating">
-                                                    <div class="product_rate" style="width:60%"></div>
-                                                </div>
-                                            </div>
-                                            <p class="customer_meta">
-                                                <span class="review_author">Grace Wong</span>
-                                                <span class="comment-date">June 17, 2018</span>
-                                            </p>
-                                            <div class="description">
-                                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+
+                                    }
+
                                 </ul>
                         	</div>
                             <div class="review_form field_form">
                                 <h5>Add a review</h5>
-                                <form class="row mt-3">
+                                <form id="ReviewForm" class="row mt-3">
                                     <div class="form-group col-12 mb-3">
                                         <div class="star_rating">
                                             <span data-value="1"><i class="far fa-star"></i></span>
@@ -229,14 +183,14 @@
                                         <textarea required="required" placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
                                     </div>
                                     <div class="form-group col-md-6 mb-3">
-                                        <input required="required" placeholder="Enter Name *" class="form-control" name="name" type="text">
+                                        <input required="required" placeholder="Enter Name *" class="form-control" name="Name" type="text">
                                      </div>
                                     <div class="form-group col-md-6 mb-3">
-                                        <input required="required" placeholder="Enter Email *" class="form-control" name="email" type="email">
+                                        <input required="required" placeholder="Enter Email *" class="form-control" name="Email" type="email">
                                     </div>
                                    
                                     <div class="form-group col-12 mb-3">
-                                        <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
+                                        <button type="button" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
                                     </div>
                                 </form>
                             </div>
@@ -255,223 +209,46 @@
         <div class="row">
         	<div class="col-12">
             	<div class="heading_s1">
-                	<h3>Releted Products</h3>
+                	<h3>Releted Ads</h3>
                 </div>
-            	<div class="releted_product_slider carousel_slider owl-carousel owl-theme" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
-                	<div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="shop-product-detail.html">
-                                    <img src="~/Content/template/assets/images/product_img1.jpg" alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                        <li><a href="shop-compare.html"><i class="icon-shuffle"></i></a></li>
-                                        <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="shop-product-detail.html">Blue Dress For Woman</a></h6>
-                                <div class="product_price">
-                                    <span class="price">$45.00</span>
-                                    <del>$55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
+                <div class="releted_product_slider carousel_slider owl-carousel owl-theme" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
+                    @foreach (var item in Model.RelatedAds)
+                    {
+                        <div class="item">
+                            <div class="product">
+
+                                <div class="product_img">
+                                    <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                        <img src="@item.Ad.MainImage" alt="product_img1">
+                                    </a>
+                                    <div class="product_action_box">
+                                        <ul class="list_none pr_action_btn">
+                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
+                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                            <li><a href="#"><i class="icon-heart"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
+                                <div class="product_info">
+                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
+                                    <div class="product_price">
+                                        <span class="price">Rs. @item.Ad.Price</span>
                                     </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#DA323F"></span>
+                                    <div class="rating_wrap">
+                                        <span>@item.Ad.UserName</span>
+
+
+                                        @*<span class="rating_num"></span>*@
                                     </div>
+                                    <hr />
+                                    <span>@item.Time</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="shop-product-detail.html">
-                                    <img src="~/Content/template/assets/images/product_img2.jpg" alt="product_img2">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                        <li><a href="shop-compare.html"><i class="icon-shuffle"></i></a></li>
-                                        <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="shop-product-detail.html">Lether Gray Tuxedo</a></h6>
-                                <div class="product_price">
-                                    <span class="price">$55.00</span>
-                                    <del>$95.00</del>
-                                    <div class="on_sale">
-                                        <span>25% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:68%"></div>
-                                    </div>
-                                    <span class="rating_num">(15)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#847764"></span>
-                                        <span data-color="#0393B5"></span>
-                                        <span data-color="#DA323F"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <span class="pr_flash">New</span>
-                            <div class="product_img">
-                                <a href="shop-product-detail.html">
-                                    <img src="~/Content/template/assets/images/product_img3.jpg" alt="product_img3">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                        <li><a href="shop-compare.html"><i class="icon-shuffle"></i></a></li>
-                                        <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="shop-product-detail.html">woman full sliv dress</a></h6>
-                                <div class="product_price">
-                                    <span class="price">$68.00</span>
-                                    <del>$99.00</del>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:87%"></div>
-                                    </div>
-                                    <span class="rating_num">(25)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#333333"></span>
-                                        <span data-color="#7C502F"></span>
-                                        <span data-color="#2F366C"></span>
-                                        <span data-color="#874A3D"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="shop-product-detail.html">
-                                    <img src="~/Content/template/assets/images/product_img4.jpg" alt="product_img4">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                        <li><a href="shop-compare.html"><i class="icon-shuffle"></i></a></li>
-                                        <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="shop-product-detail.html">light blue Shirt</a></h6>
-                                <div class="product_price">
-                                    <span class="price">$69.00</span>
-                                    <del>$89.00</del>
-                                    <div class="on_sale">
-                                        <span>20% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:70%"></div>
-                                    </div>
-                                    <span class="rating_num">(22)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#333333"></span>
-                                        <span data-color="#A92534"></span>
-                                        <span data-color="#B9C2DF"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="shop-product-detail.html">
-                                    <img src="~/Content/template/assets/images/product_img5.jpg" alt="product_img5">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                        <li><a href="shop-compare.html"><i class="icon-shuffle"></i></a></li>
-                                        <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="shop-product-detail.html">blue dress for woman</a></h6>
-                                <div class="product_price">
-                                    <span class="price">$45.00</span>
-                                    <del>$55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#5FB7D4"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+
+
                 </div>
             </div>
         </div>
@@ -520,5 +297,55 @@
 <!-- scripts js --> 
 <script src="~/Content/template/assets/js/scripts.js"></script>
 
+
+<script>
+$("#ReviewForm button[name='submit']").click(function () {
+    var button = $(this);
+    var stars = $(".star_rating span.active").data("value");
+    var message = $("textarea[name='message']").val();
+    var name = $("input[name='Name']").val();
+    var email = $("input[name='Email']").val();
+    var UserID = $("#UserID").val();
+
+    // Check if any required field is empty
+    if (!stars || !message || !name || !email) {
+        // Display an error message or perform any necessary action
+        console.error("Please fill in all required fields.");
+        return;
+    }
+
+    button.addClass('loader');
+    button.attr('disabled', true);
+
+    $.ajax({
+        url: '@Url.Action("SaveRating","Home")',
+        type: 'POST',
+        data: {
+            Stars: stars,
+            Name: name,
+            Email: email,
+            Message: message,
+            UserID: UserID
+        }
+    })
+    .done(function (response) {
+        if (response.success) {
+            // Success handling
+            console.log("Review submitted successfully.");
+        } else {
+            // Error handling
+            console.error("Review submission failed. Error: " + response.Message);
+        }
+    })
+    .fail(function (xhr, status, error) {
+        console.error("AJAX request failed. Error: " + error);
+    })
+    .always(function () {
+        button.removeClass('loader');
+        button.attr('disabled', false);
+    });
+});
+
+</script>
 </body>
 </html>

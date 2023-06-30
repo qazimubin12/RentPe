@@ -1,6 +1,7 @@
 ﻿using RentPe.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,8 @@ namespace RentPe.ViewModels
 
     public class AdActionViewModel
     {
+        public List<UserRating> UserRatings { get; set; }
+        public List<AdWithTimeModel> RelatedAds { get; set; }
         public List<ItemCategory> ItemCategories { get; set; }
         public List<string> otherImages { get; set; }
         public int ID { get; set; }

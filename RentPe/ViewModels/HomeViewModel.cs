@@ -11,11 +11,22 @@ namespace RentPe.ViewModels
         public List<AdWithTimeModel> ExclusiveAds { get; set; }
         public List<AdWithTimeModel> FeaturedAds { get; set; }
         public List<AdWithTimeModel> LatestAds { get; set; }
+        public List<ItemCategory> ItemsCategories { get; set; }
     }
+    public class ReviewFormModel
+    {
+        public int Stars { get; set; }
+        public DateTime Date { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Message { get; set; }
+    }
+
     public class HomeShopViewModel
     {
         public List<ItemCategory> ItemsCategories { get; set; }
         public List<AdWithTimeModel> Ads { get; set; }
+        public List<ItemCategory> ItemCategory { get; internal set; }
     }
 
 
@@ -28,7 +39,10 @@ namespace RentPe.ViewModels
     {
         public List<ItemCategory> ItemCategories { get; set; }
         public int ID { get; set; }
+        public List<string> otherImages { get; set; }
+        public string Tag { get; set; }
         public string UserName { get; set; }
+        public string MainImage { get; set; }
         public string Contact { get; set; }
         public bool Privacy { get; set; }
         public string ItemName { get; set; }

@@ -154,27 +154,27 @@
                             <a href="shop-left-sidebar.html" class="single_bn_link">Shop Now</a>
                         </div>*@
                     <div class="product_search_form">
-                        <form>
+                        <form id="CheckForm">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="custom_select">
-                                        <select class="first_null">
-                                            <option value="">All Category</option>
-                                            <option value="Dresses">Bridal Dresses</option>
+                                        <select id="Category" class="first_null">
+                                            <option value="All">All Category</option>
+                                            
+                                            <option value="Bridal Dresses">Bridal Dresses</option>
                                             <option value="Vehicles">Vehicles</option>
-                                            <option value="Clothes">Clothes</option>
-                                            <option value="Furniture">Furniture & Home Decor</option>
                                             <option value="Books">Books</option>
                                             <option value="Jewellery">Jewellery</option>
+                                            <option value="Home Decor">Home Decor</option>
                                             <option value="Property">Property</option>
-                                            <option value="Appliances">Electronics & Appliances</option>
+                                            <option value="Electronics & Appliances">Electronics & Appliances</option>
                                             <option value="Footwear">Footwear</option>
                                             <option value="Sports">Sports</option>
                                         </select>
                                     </div>
                                 </div>
-                                <input class="form-control" placeholder="Search Product..." required="" type="text">
-                                <button type="submit" class="search_btn"><i class="linearicons-magnifier"></i></button>
+                                <input id="SearchTerm" name="SearchTerm" class="form-control" placeholder="Search Product..." required="" type="text">
+                                <button type="button" onclick="SearchProductsInShop()" class="search_btn"><i class="linearicons-magnifier"></i></button>
                             </div>
                         </form>
                     </div>
@@ -635,5 +635,13 @@
             divToRemove.remove();
         }
     });
+
+    function SearchProductsInShop() {
+        var Category = $("#Category").val();
+        var SearchTerm = $("#SearchTerm").val();
+        var url = '@Url.Action("ShopByCategoryandSearchTerm", "Home")?Category=' + encodeURIComponent(Category) + '&SearchTerm=' + encodeURIComponent(SearchTerm);
+        window.location.href = url;
+    }
+
 
 </script>

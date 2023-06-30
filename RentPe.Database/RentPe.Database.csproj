@@ -85,6 +85,14 @@
     <Compile Include="Migrations\202306051510222_changes.designer.cs">
       <DependentUpon>202306051510222_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306300619299_userraitngs.cs" />
+    <Compile Include="Migrations\202306300619299_userraitngs.designer.cs">
+      <DependentUpon>202306300619299_userraitngs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306300648511_otherthn.cs" />
+    <Compile Include="Migrations\202306300648511_otherthn.designer.cs">
+      <DependentUpon>202306300648511_otherthn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DSContext.cs" />
@@ -120,6 +128,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306051510222_changes.resx">
       <DependentUpon>202306051510222_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306300619299_userraitngs.resx">
+      <DependentUpon>202306300619299_userraitngs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306300648511_otherthn.resx">
+      <DependentUpon>202306300648511_otherthn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
