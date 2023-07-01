@@ -60,6 +60,7 @@
     <Compile Include="Ad.cs" />
     <Compile Include="AdImage.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Conversation.cs" />
     <Compile Include="CustomOffer.cs" />
     <Compile Include="ItemCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

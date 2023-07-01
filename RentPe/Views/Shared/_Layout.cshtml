@@ -50,6 +50,43 @@
         .container {
             max-width: 90%;
         }
+
+        <style >
+        /* Custom scrollbar styles */
+        .cart_box {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cart_box .cart_list {
+            height: 300px; /* Set the desired height for the scrollable area */
+            overflow: auto;
+        }
+
+        /* Add custom scrollbar styles using SimpleBar */
+        .cart_box .cart_list {
+            /* Use the SimpleBar class to initialize custom scrollbar */
+            /* This class will be added dynamically by the SimpleBar library */
+            position: relative;
+        }
+
+            /* Optional: Customize the scrollbar appearance */
+            .cart_box .cart_list::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .cart_box .cart_list::-webkit-scrollbar-thumb {
+                background-color: #888;
+            }
+
+            .cart_box .cart_list::-webkit-scrollbar-track {
+                background-color: #f1f1f1;
+            }
+        .fa fa-solid fa-heart{
+            cursor:pointer;
+        }
+    </style>
+
     </style>
     <!-- LOADER -->
     <div class="preloader">
@@ -60,61 +97,19 @@
         </div>
     </div>
     <!-- END LOADER -->
-    <!-- Home Popup Section -->
-    @*<div class="modal fade subscribe_popup" id="onload-popup" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
-                        </button>
-                        <div class="row g-0">
-                            <div class="col-sm-5">
-                                <div class="background_bg h-100" data-img-src="/Content/template/assets/images/popup_img.jpg"></div>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="popup_content">
-                                    <div class="popup-text">
-                                        <div class="heading_s1">
-                                            <h4>Subscribe and Get 25% Discount!</h4>
-                                        </div>
-                                        <p>Subscribe to the newsletter to receive updates about new products.</p>
-                                    </div>
-                                    <form method="post">
-                                        <div class="form-group mb-3">
-                                            <input name="email" required type="email" class="form-control rounded-0" placeholder="Enter Your Email">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Subscribe" type="submit">Subscribe</button>
-                                        </div>
-                                    </form>
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
-                                            <label class="form-check-label" for="exampleCheckbox3"><span>Don't show this popup again!</span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-    <!-- End Screen Load Popup Section -->
     <!-- START HEADER -->
     <header class="header_wrap">
 
         <div class="middle-header dark_skin">
             <div style="max-width:90%;" class="container">
                 <div class="nav_block">
-                    <a class="navbar-brand" href="@Url.Action("","")">
+                    <a class="navbar-brand" href="@Url.Action("", "")">
                         <img class="logo_light" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
                         <img class="logo_dark" src="~/Content/template/RentPeContent/RentPeLogoDesktop.png" alt="logo" />
                     </a>
                     <div class="contact_phone order-md-last">
                         @*<i class="linearicons-phone-wave"></i>*@
-                        <a  href="@Url.Action("PostAd","Home")" class="btn btn-fill-out">Post Ad</a>
+                        <a href="@Url.Action("PostAd", "Home")" class="btn btn-fill-out">Post Ad</a>
                     </div>
                     @*<div class="order-md-lastsingle_banner_info">
                             <h5 class="single_bn_title1">Super Sale</h5>
@@ -161,19 +156,19 @@
                             <div id="navCatContent" class="nav_cat navbar collapse">
                                 <ul>
 
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Bridal Dresses" })"><i class="flaticon-vintage"></i> <span>Bridal Dresses</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Vehicles" })"><i class="flaticon-shipped"></i> <span>Vehicles</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Clothes" })"><i class="flaticon-jacket"></i> <span>Clothes</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Furniture & Home Decor" })"><i class="flaticon-table"></i> <span>Furniture & Home Decor</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Books" })"><img style="padding-right:4px; padding-left:4px;width:27px" src="~/Content/template/RentPeContent/book.png" /> <span style="padding-left:5px">Books</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Jewellery" })"><i class="flaticon-necklace"></i> <span>Jewellery</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Property" })"><img style="padding-right:5px;width:30px;" src="~/Content/template/RentPeContent/property.png" /> <span>Property</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Electronics & Appliances" })"><i class="flaticon-music-system"></i> <span>Electronics & Appliances</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Footwear" })"><i class="flaticon-sneakers"></i> <span>Footwear</span></a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new {Category = "Sports" })"><i class="flaticon-ball"></i> <span>Sports</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Bridal Dresses" })"><i class="flaticon-vintage"></i> <span>Bridal Dresses</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Vehicles" })"><i class="flaticon-shipped"></i> <span>Vehicles</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Clothes" })"><i class="flaticon-jacket"></i> <span>Clothes</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Furniture & Home Decor" })"><i class="flaticon-table"></i> <span>Furniture & Home Decor</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Books" })"><img style="padding-right:4px; padding-left:4px;width:27px" src="~/Content/template/RentPeContent/book.png" /> <span style="padding-left:5px">Books</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Jewellery" })"><i class="flaticon-necklace"></i> <span>Jewellery</span></a></li>
+                                    <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Property" })"><img style="padding-right:5px;width:30px;" src="~/Content/template/RentPeContent/property.png" /> <span>Property</span></a></li>
+                                 
                                     <li>
                                         <ul class="more_slide_open">
-                                            <li><a class="dropdown-item nav-link nav_item" href="login.html"><i class="flaticon-responsive"></i> <span>Other</span></a></li>
+                                            <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Electronics & Appliances" })"><i class="flaticon-music-system"></i> <span>Electronics & Appliances</span></a></li>
+                                            <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Footwear" })"><i class="flaticon-sneakers"></i> <span>Footwear</span></a></li>
+                                            <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Sports" })"><i class="flaticon-ball"></i> <span>Sports</span></a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -189,7 +184,7 @@
                             </button>
                             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                                 <ul class="navbar-nav">
-                                    <li><a class="nav-link nav_item active" href="@Url.Action("","")">Home</a></li>
+                                    <li><a id="Home" class="nav-link nav_item" href="@Url.Action("", "")">Home</a></li>
                                     @*<li class="dropdown">
                                             <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
                                             <div class="dropdown-menu">
@@ -207,243 +202,44 @@
                                                 </ul>
                                             </div>
                                         </li>*@
-                                    <li><a class="nav-link nav_item" href="@Url.Action("About","Home")">About us</a></li>
-                                    <li><a class="nav-link nav_item" href="@Url.Action("Contact","Home")">Contact us</a></li>
-                                    <li><a class="nav-link nav_item" href="@Url.Action("Shop","Home")">Shop</a></li>
+                                    <li><a id="About" class="nav-link nav_item" href="@Url.Action("About", "Home")">About us</a></li>
+                                    <li><a id="Contact" class="nav-link nav_item" href="@Url.Action("Contact", "Home")">Contact us</a></li>
+                                    <li><a id="Shop" class="nav-link nav_item" href="@Url.Action("Shop", "Home")">Shop</a></li>
 
-                                    @*<li class="dropdown">
-                                            <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle active" href="#">Home</a>
-                                            <div class="dropdown-menu">
-                                                <ul>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="index.html">Fashion 1</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item active" href="index-2.html">Fashion 2</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="index-3.html">Furniture 1</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="index-4.html">Furniture 2</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="index-5.html">Electronics 1</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="index-6.html">Electronics 2</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">Pages</a>
-                                            <div class="dropdown-menu">
-                                                <ul>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="about.html">About Us</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="contact.html">Contact Us</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="faq.html">Faq</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="404.html">404 Error Page</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="login.html">Login</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="signup.html">Register</a></li>
-                                                    <li><a class="dropdown-item nav-link nav_item" href="term-condition.html">Terms and Conditions</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown dropdown-mega-menu">
-                                            <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">Products</a>
-                                            <div class="dropdown-menu">
-                                                <ul class="mega-menu d-lg-flex">
-                                                    <li class="mega-menu-col col-lg-3">
-                                                        <ul>
-                                                            <li class="dropdown-header">Woman's</li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-three-columns.html">Vestibulum sed</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-four-columns.html">Donec porttitor</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-grid-view.html">Donec vitae facilisis</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-list-view.html">Curabitur tempus</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-left-sidebar.html">Vivamus in tortor</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-menu-col col-lg-3">
-                                                        <ul>
-                                                            <li class="dropdown-header">Men's</li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-cart.html">Donec vitae ante ante</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="checkout.html">Etiam ac rutrum</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="wishlist.html">Quisque condimentum</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="compare.html">Curabitur laoreet</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="order-completed.html">Vivamus in tortor</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-menu-col col-lg-3">
-                                                        <ul>
-                                                            <li class="dropdown-header">Kid's</li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail.html">Donec vitae facilisis</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-left-sidebar.html">Quisque condimentum</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-right-sidebar.html">Etiam ac rutrum</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-thumbnails-left.html">Donec vitae ante ante</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-accordion-style.html">Donec porttitor</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-menu-col col-lg-3">
-                                                        <ul>
-                                                            <li class="dropdown-header">Accessories</li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail.html">Curabitur tempus</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-left-sidebar.html">Quisque condimentum</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-right-sidebar.html">Vivamus in tortor</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-thumbnails-left.html">Donec vitae facilisis</a></li>
-                                                            <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-accordion-style.html">Donec porttitor</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-lg-flex menu_banners row g-3 px-3">
-                                                    <div class="col-lg-6">
-                                                        <div class="header-banner">
-                                                            <img src="~/Content/template/assets/images/menu_banner1.jpg" alt="menu_banner1">
-                                                            <div class="banne_info">
-                                                                <h6>10% Off</h6>
-                                                                <h4>New Arrival</h4>
-                                                                <a href="#">Shop now</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="header-banner">
-                                                            <img src="~/Content/template/assets/images/menu_banner2.jpg" alt="menu_banner2">
-                                                            <div class="banne_info">
-                                                                <h6>15% Off</h6>
-                                                                <h4>Men's Fashion</h4>
-                                                                <a href="#">Shop now</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">Blog</a>
-                                            <div class="dropdown-menu dropdown-reverse">
-                                                <ul>
-                                                    <li>
-                                                        <a class="dropdown-item menu-link dropdown-toggler" href="#">Grids</a>
-                                                        <div class="dropdown-menu">
-                                                            <ul>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-three-columns.html">3 columns</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-four-columns.html">4 columns</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-left-sidebar.html">Left Sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-right-sidebar.html">right Sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-standard-left-sidebar.html">Standard Left Sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-standard-right-sidebar.html">Standard right Sidebar</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item menu-link dropdown-toggler" href="#">Masonry</a>
-                                                        <div class="dropdown-menu">
-                                                            <ul>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-masonry-three-columns.html">3 columns</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-masonry-four-columns.html">4 columns</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-masonry-left-sidebar.html">Left Sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-masonry-right-sidebar.html">right Sidebar</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item menu-link dropdown-toggler" href="#">Single Post</a>
-                                                        <div class="dropdown-menu">
-                                                            <ul>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-single.html">Default</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-single-left-sidebar.html">left sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-single-slider.html">slider post</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-single-video.html">video post</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-single-audio.html">audio post</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item menu-link dropdown-toggler" href="#">List</a>
-                                                        <div class="dropdown-menu">
-                                                            <ul>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-list-left-sidebar.html">left sidebar</a></li>
-                                                                <li><a class="dropdown-item nav-link nav_item" href="blog-list-right-sidebar.html">right sidebar</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown dropdown-mega-menu">
-                                            <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">Shop</a>
-                                            <div class="dropdown-menu">
-                                                <ul class="mega-menu d-lg-flex">
-                                                    <li class="mega-menu-col col-lg-9">
-                                                        <ul class="d-lg-flex">
-                                                            <li class="mega-menu-col col-lg-4">
-                                                                <ul>
-                                                                    <li class="dropdown-header">Shop Page Layout</li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-list.html">shop List view</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-list-left-sidebar.html">shop List Left Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-list-right-sidebar.html">shop List Right Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-left-sidebar.html">Left Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-right-sidebar.html">Right Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-load-more.html">Shop Load More</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="mega-menu-col col-lg-4">
-                                                                <ul>
-                                                                    <li class="dropdown-header">Other Pages</li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-cart.html">Cart</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="checkout.html">Checkout</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="my-account.html">My Account</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="wishlist.html">Wishlist</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="compare.html">compare</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="order-completed.html">Order Completed</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="mega-menu-col col-lg-4">
-                                                                <ul>
-                                                                    <li class="dropdown-header">Product Pages</li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail.html">Default</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-left-sidebar.html">Left Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-right-sidebar.html">Right Sidebar</a></li>
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="shop-product-detail-thumbnails-left.html">Thumbnails Left</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-menu-col col-lg-3">
-                                                        <div class="header_banner">
-                                                            <div class="header_banner_content">
-                                                                <div class="shop_banner">
-                                                                    <div class="banner_img overlay_bg_40">
-                                                                        <img src="~/Content/template/assets/images/shop_banner2.jpg" alt="shop_banner2" />
-                                                                    </div>
-                                                                    <div class="shop_bn_content">
-                                                                        <h6 class="text-uppercase shop_subtitle">New Collection</h6>
-                                                                        <h5 class="text-uppercase shop_title">Sale 30% Off</h5>
-                                                                        <a href="#" class="btn btn-white rounded-0 btn-xs text-uppercase">Shop Now</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>*@
-                                    @*<li><a class="nav-link nav_item" href="contact.html">Contact Us</a></li>*@
+                                    
                                 </ul>
                             </div>
                             <ul class="navbar-nav attr-nav align-items-center">
-                                <li><a href="@Url.Action("Login","Account")" class="nav-link"><i class="linearicons-user"></i></a></li>
-                                <li><a href="#" class="nav-link"><i class="linearicons-heart"></i><span class="wishlist_count">0</span></a></li>
-                                <li class="dropdown cart_dropdown">
-                                    <a class="nav-link cart_trigger" href="#" data-bs-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
-                                    <div class="cart_box dropdown-menu dropdown-menu-right">
-                                        <ul class="cart_list">
-                                            <li>
-                                                <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                                <a href="#"><img src="~/Content/template/assets/images/cart_thamb1.jpg" alt="cart_thumb1">Variable product 001</a>
-                                                <span class="cart_quantity"> 1 x <span class="cart_amount"> <span class="price_symbole">$</span></span>78.00</span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                                <a href="#"><img src="~/Content/template/assets/images/cart_thamb2.jpg" alt="cart_thumb2">Ornare sed consequat</a>
-                                                <span class="cart_quantity"> 1 x <span class="cart_amount"> <span class="price_symbole">$</span></span>81.00</span>
-                                            </li>
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="@Url.Action("Login", "Account")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                }
+                                else
+                                {
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a href="@Url.Action("Dashboard", "Admin")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                    }
+                                    else if (User.IsInRole("User"))
+                                    {
+                                        <li><a href="@Url.Action("Dashboard", "User")" class="nav-link"><i class="linearicons-user"></i></a></li>
+
+                                    }
+                                    else if (User.IsInRole("Owner"))
+                                    {
+                                        <li><a href="@Url.Action("Dashboard", "Owner")" class="nav-link"><i class="linearicons-user"></i></a></li>
+
+                                    }
+                                }
+                                <li>
+                                    <a href="#" class="nav-link cart_trigger" data-bs-toggle="dropdown"><i class="linearicons-heart"></i><span class="wishlist_count">0</span></a>
+                                    <div style="padding:10px;" class="cart_box dropdown-menu dropdown-menu-right">
+                                        <ul id="favoritesList" class="cart_list">
                                         </ul>
-                                        <div class="cart_footer">
-                                            <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span class="price_symbole">$</span></span>159.00</p>
-                                            <p class="cart_buttons"><a href="#" class="btn btn-fill-line view-cart">View Cart</a><a href="#" class="btn btn-fill-out checkout">Checkout</a></p>
-                                        </div>
+
                                     </div>
                                 </li>
+
                             </ul>
                             <div class="pr_search_icon">
                                 <a href="javascript:void(0);" class="nav-link pr_search_trigger"><i class="linearicons-magnifier"></i></a>
@@ -612,4 +408,193 @@
     }
 
 
+
+    $(document).ready(function () {
+
+            var data = '@Session["ACTIVER"]';
+            if (data == 'HOME') {
+                var elem = document.getElementById("Home");
+
+                elem.className += ' active';
+            }
+
+            if (data == 'ABOUT') {
+                var elem = document.getElementById("About");
+                elem.className += ' active';
+            }
+
+            if (data == 'CONTACT') {
+                var elem = document.getElementById("Contact");
+                elem.className += ' active';
+            }
+
+
+            if (data == 'SHOP') {
+                var elem = document.getElementById("Shop");
+                elem.className += ' active';
+            }
+
+
+
+
+
+       });
+
+
+
+
+    // Function to generate the HTML for a favorite product list item
+    function generateFavoriteProductHTML(product) {
+        return `<li>
+                <a style="cursor:pointer;" onclick="RemoveFromFavourites('${product.ID}')" class="item_remove"><i class="ion-close"></i></a>
+                <a href="${getUrl(product.ID)}"><img src="${product.MainImage}" alt="${product.ItemName}">${product.ItemName}</a>
+                <span class="cart_quantity">${product.Condition} - <span class="cart_amount"> <span class="price_symbole">PKR </span></span>${product.Price}</span>
+            </li>`;
+    }
+
+
+    function getUrl(productId) {
+        // Replace with your URL generation logic based on productId
+        return '@Url.Action("View", "Home")' + '?ID=' + productId;
+    }
+
+    // Function to update the favorites dropdown with the favorite products
+    function updateFavoritesDropdown() {
+        var favorites = localStorage.getItem('favorites') || [];
+        if (favorites) {
+            favorites = JSON.parse(favorites);
+        } else {
+            favorites = [];
+        }
+
+        var favoritesList = document.getElementById('favoritesList');
+        favoritesList.innerHTML = ''; // Clear previous favorite products
+
+        favorites.forEach(function (productId) {
+            // AJAX request to retrieve product details
+            $.ajax({
+                url: '@Url.Action("GetProductDetails", "Home")', // Replace with your controller action URL
+                type: 'GET',
+                data: { productId: productId },
+                success: function (product) {
+                    var favoriteProductHTML = generateFavoriteProductHTML(product);
+                    favoritesList.innerHTML += favoriteProductHTML;
+                },
+                error: function (xhr, status, error) {
+                    console.log(error); // Handle error if needed
+                }
+            });
+        });
+
+        var wishlistCount = document.querySelector('.wishlist_count');
+        wishlistCount.innerText = favorites.length; // Update the wishlist count
+    }
+
+    // Call the updateFavoritesDropdown function to populate the favorites dropdown initially
+    //updateFavoritesDropdown();
+
+    function RemoveFromFavourites(productId) {
+        var favorites = localStorage.getItem('favorites') || [];
+        if (favorites.length > 0) {
+            favorites = JSON.parse(favorites);
+        } else {
+            favorites = []; // Initialize as an empty array
+        }
+        if (favorites.length > 0) {
+            var index = favorites.indexOf(productId);
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Remove 'favorite' class from the icon
+            document.querySelector(`a[data-id="${productId}"] i`).classList.remove('favorite');
+
+            // Change the icon color to black
+            var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
+            icon.css('color', 'black');
+
+            alert("Removed from Favorites");
+            updateFavoritesDropdown();
+        } else {
+            alert("Nothing in Favourites");
+
+        }
+
+    }
+
+    function addToFavorites(productId) {
+        
+        var favorites = localStorage.getItem('favorites') || [];
+        
+        if (favorites.length > 0) {
+            favorites = JSON.parse(favorites);
+        } else {
+            favorites = []; // Initialize as an empty array
+        }
+        
+
+        if (favorites.includes(productId)) {
+            // Remove the productId from favorites
+            var index = favorites.indexOf(productId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Remove 'favorite' class from the icon
+            document.querySelector(`a[data-id="${productId}"] i`).classList.remove('favorite');
+
+            // Change the icon color to black
+            var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
+            icon.css('color', 'black');
+
+            alert("Removed from Favorites");
+        } else {
+            favorites.push(productId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            document.querySelector(`a[data-id="${productId}"] i`).classList.add('favorite');
+            var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
+            icon.css('color', 'red');
+
+            alert("Added to Favorites");
+        }
+        updateFavoritesDropdown();
+
+    }
+
+
+    function ApplyFilter() {
+        var favorites = localStorage.getItem('favorites') || [];
+        //var favorites = JSON.parse(favorites);
+
+        // Iterate over each Ad after the completion of the foreach loop
+        var ads = document.querySelectorAll('.product');
+        console.log(favorites);
+        ads.forEach(function (ad) {
+            var productId = ad.querySelector('.add-to-favorites a').getAttribute('data-id');
+            if (favorites.includes(productId)) {
+
+                var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
+                icon.css('color', 'red');
+
+
+            }
+        });
+    }
+    $(document).ready(function () {
+        ApplyFilter();
+        updateFavoritesDropdown();
+
+    });
+    function GetFavoriteClass(productId) {
+        var favorites = localStorage.getItem('favorites') || [];
+
+        if (favorites.includes(productId)) {
+            return 'favorite'; // CSS class to highlight the favorite icon
+        } else {
+            return ''; // Empty string for no highlighting
+        }
+    }
 </script>

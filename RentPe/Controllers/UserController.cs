@@ -114,7 +114,39 @@ namespace RentPe.Controllers
         public ActionResult Dashboard()
         {
             UserDashboardViewModel model = new UserDashboardViewModel();
-            return View("Dashboard", "_LayoutNew",model);
+            model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
+
+            model.UserInfo = UserInfoServices.Instance.GetUserInfo(model.SignedInUser.Id);
+            model.Contact = model.SignedInUser.PhoneNumber;
+            model.Email = model.SignedInUser.Email;
+            model.ID = model.SignedInUser.Id;
+            model.UserName = model.SignedInUser.UserName;
+            model.Name = model.SignedInUser.Name;
+
+
+            var listOfOffers = new List<CustomerOfferModel>();
+            var customoffers = CustomOfferServices.Instance.GetCustomOfferByRentee(model.ID);
+            foreach (var item in customoffers)
+            {
+                var AdItem = AdServices.Instance.GetAd(item.Item);
+                var Owner = UserManager.FindById(item.Owner);
+                var Rentee = UserManager.FindById(item.Rentee);
+                listOfOffers.Add(new CustomerOfferModel
+                {
+                    Item = AdItem,
+                    OfferedPrice = item.OfferedPrice,
+                    OfferDate = item.OfferDate
+                ,
+                    Owner = Owner,
+                    Rentee = Rentee,
+                    Status = item.Status,
+                    RentingDate = item.RentingDate,
+                    ReturnDate = item.ReturnDate,
+                    RentingPreiod = item.RentingPreiod
+                });
+            }
+            model.CustomOffers = listOfOffers;
+            return View("Dashboard", "_Layout",model);
         }
 
 

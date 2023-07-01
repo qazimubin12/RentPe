@@ -73,7 +73,6 @@
             <div class="col-12">
                 <div class="heading_tab_header">
                     <div class="heading_s2">
-                        <h2>Exclusive Products</h2>
                     </div>
                     <div class="tab-style2">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#tabmenubar" aria-expanded="false">
@@ -81,15 +80,16 @@
                         </button>
                         <ul class="nav nav-tabs justify-content-center justify-content-md-end" id="tabmenubar" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="arrival-tab" data-bs-toggle="tab" href="#arrival" role="tab" aria-controls="arrival" aria-selected="true">Latest</a>
+                                <a class="nav-link active" id="featured-tab" data-bs-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Featured</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " id="arrival-tab" data-bs-toggle="tab" href="#arrival" role="tab" aria-controls="arrival" aria-selected="true">Latest</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="sellers-tab" data-bs-toggle="tab" href="#sellers" role="tab" aria-controls="sellers" aria-selected="false">Exclusive</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="featured-tab" data-bs-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Featured</a>
-                            </li>
-                           
+
+
                         </ul>
                     </div>
                 </div>
@@ -98,7 +98,56 @@
         <div class="row">
             <div class="col-12">
                 <div class="tab_slider">
-                    <div class="tab-pane fade show active" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
+                    <div class="tab-pane fade  show active" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+                        <h2>Featured Products</h2>
+
+                        <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true" data-dots="false" data-nav="true" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
+                            @foreach (var item in Model.FeaturedAds)
+                            {
+                                <div class="item">
+                                    <div class="product">
+
+                                        <div class="product_img">
+                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                                <img src="@item.Ad.MainImage" alt="product_img1">
+                                            </a>
+                                            <div class="product_action_box">
+                                                <ul class="list_none pr_action_btn">
+                                                    <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+
+                                                    <li class="add-to-favorites">
+                                                        <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                            <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product_info">
+                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
+                                            <div class="product_price">
+                                                <span class="price">Rs. @item.Ad.Price</span>
+                                            </div>
+                                            <div class="rating_wrap">
+                                                <span>@item.Ad.UserName</span>
+
+
+                                                @*<span class="rating_num"></span>*@
+                                            </div>
+                                            <hr />
+                                            <span>@item.Time</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
+                        <h2>Latest Products</h2>
+
                         <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true" data-dots="false" data-nav="true" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
                             @foreach (var item in Model.LatestAds)
                             {
@@ -112,7 +161,11 @@
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
                                                     <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                                    <li><a href="#"><i class="icon-heart"></i></a></li>
+                                                    <li class="add-to-favorites">
+                                                        <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                            <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -123,7 +176,7 @@
                                             </div>
                                             <div class="rating_wrap">
                                                 <span>@item.Ad.UserName</span>
-                                                
+
 
                                                 @*<span class="rating_num"></span>*@
                                             </div>
@@ -138,6 +191,8 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="sellers" role="tabpanel" aria-labelledby="sellers-tab">
+                        <h2>Exclusive Products</h2>
+
                         <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true" data-dots="false" data-nav="true" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
                             @foreach (var item in Model.ExclusiveAds)
                             {
@@ -150,10 +205,13 @@
                                             </a>
                                             <div class="product_action_box">
                                                 <ul class="list_none pr_action_btn">
-                                                    <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                                    <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                                    <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                                    <li><a href="#"><i class="icon-heart"></i></a></li>
+                                                    <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+
+                                                    <li class="add-to-favorites">
+                                                        <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                            <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -177,49 +235,8 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
-                        <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true" data-dots="false" data-nav="true" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
-                            @foreach (var item in Model.FeaturedAds)
-                            {
-                                <div class="item">
-                                    <div class="product">
-
-                                        <div class="product_img">
-                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
-                                                <img src="@item.Ad.MainImage" alt="product_img1">
-                                            </a>
-                                            <div class="product_action_box">
-                                                <ul class="list_none pr_action_btn">
-                                                    <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                                    <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                                    <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                                    <li><a href="#"><i class="icon-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product_info">
-                                            <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
-                                            <div class="product_price">
-                                                <span class="price">Rs. @item.Ad.Price</span>
-                                            </div>
-                                            <div class="rating_wrap">
-                                                <span>@item.Ad.UserName</span>
 
 
-                                                @*<span class="rating_num"></span>*@
-                                            </div>
-                                            <hr />
-                                            <span>@item.Time</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-
-
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </div>
@@ -678,3 +695,9 @@
         </div>
     </div>
 </div>
+
+<script>
+
+
+   
+</script>

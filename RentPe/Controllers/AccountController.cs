@@ -200,7 +200,10 @@ namespace RentPe.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-
+                    var userinfo = new UserInfo();
+                    userinfo.MemberSince = DateTime.Now;
+                    userinfo.UserID = user.Id;
+                    UserInfoServices.Instance.SaveUserInfo(userinfo);
                     return RedirectToAction("", "");
                 }
                 AddErrors(result);
@@ -529,6 +532,11 @@ namespace RentPe.Controllers
             if (user.Role == "Admin")
             {
                 return RedirectToAction("Dashboard", "Admin");
+
+            }
+            else if (user.Role == "Owner")
+            {
+                return RedirectToAction("Dashboard", "Owner");
 
             }
             else if (user.Role == "User")

@@ -78,6 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversationServices.cs" />
+    <Compile Include="CustomOfferServices.cs" />
+    <Compile Include="UserInfoServices.cs" />
     <Compile Include="UserRatingServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AMRolesManager.cs" />

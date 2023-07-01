@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -56,8 +57,18 @@ namespace RentPe.Controllers
                 _rolesManager = value;
             }
         }
+
+        public ActionResult GetProductDetails(int productId)
+        {
+            // Replace this with your logic to retrieve product details from your data source
+
+            var product = AdServices.Instance.GetAd(productId);
+          
+            return Json(product, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
+            Session["ACTIVER"] = "HOME";
             HomeViewModel model = new HomeViewModel();
             var ExclusiveAds = AdServices.Instance.GetAdWithTime().Where(x => x.Tag == "Exclusive").ToList();
             var LatestAds = AdServices.Instance.GetAdWithTime().OrderByDescending(item => item.ID).Take(8).ToList();
@@ -184,6 +195,7 @@ namespace RentPe.Controllers
         }
 
 
+
         [HttpPost]
         public ActionResult SaveRating(int Stars,string Name,string Email,string Message,string UserID)
         {
@@ -274,13 +286,165 @@ namespace RentPe.Controllers
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }
-            
+
 
         //public ActionResult Product(int ID)
         //{
         //    ProductViewModel model = new ProductViewModel();
-            
+
         //}
+
+        public string RenderAdsHtml(List<AdWithTimeModel> ads,string sortingMethod)
+        {
+            // Render the ads HTML as a string
+            StringBuilder htmlBuilder = new StringBuilder();
+            var updatedAds = new List<AdWithTimeModel>();
+            if (sortingMethod == "byId")
+            {
+                updatedAds = ads.OrderBy(x => x.Ad.ID).ToList();
+            }
+            else if (sortingMethod == "latest")
+            {
+                updatedAds = ads.OrderByDescending(x => x.Ad.EntryDate).ToList();
+            }
+            else if (sortingMethod == "lowtohigh")
+            {
+                updatedAds = ads.OrderBy(x => x.Ad.Price).ToList();
+            }
+            else if (sortingMethod == "hightolow")
+            {
+                updatedAds = ads.OrderByDescending(x => x.Ad.Price).ToList();
+            }
+            else
+            {
+                // Default sorting if the sortingMethod is not recognized
+                updatedAds = ads;
+            }
+            foreach (var item in updatedAds)
+            {
+                // Build the HTML for each ad item
+                htmlBuilder.Append("<div class='col-md-4 col-6'>");
+                htmlBuilder.Append("<div class='product'>");
+                htmlBuilder.Append("<div class='product_img'>");
+                htmlBuilder.Append("<a href='@Url.Action(\"View\", \"Home\", new {ID=item.Ad.ID })'>");
+                htmlBuilder.Append($"<img src='{item.Ad.MainImage}' alt='product_img1'>");
+                htmlBuilder.Append("</a>");
+                htmlBuilder.Append("<div class='product_action_box'>");
+                htmlBuilder.Append("<ul class='list_none pr_action_btn'>");
+                htmlBuilder.Append($"<li class='add-to-cart'><a href='@Url.Action(\"View\", \"Home\", new {{ID=item.Ad.ID}})'><i class='icon-basket-loaded'></i> Add To Cart</a></li>");
+                htmlBuilder.Append("<li class='add-to-favorites'>");
+                htmlBuilder.Append($"<a data-id='{item.Ad.ID}' onclick='addToFavorites(\"{item.Ad.ID}\")'>");
+                htmlBuilder.Append($"<i data-flow='{item.Ad.ID}' class='fa fa-solid fa-heart' style='color: black;'></i>");
+                htmlBuilder.Append("</a>");
+                htmlBuilder.Append("</li>");
+                htmlBuilder.Append("</ul>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("<div class='product_info'>");
+                htmlBuilder.Append($"<h6 class='product_title'><a href='@Url.Action(\"View\", \"Home\", new {{ID=item.Ad.ID }})'>{item.Ad.ItemName}</a></h6>");
+                htmlBuilder.Append("<div class='product_price'>");
+                htmlBuilder.Append($"<span class='price'>{item.Ad.Price} PKR</span>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("<div class='pr_desc'>");
+                htmlBuilder.Append($"<p><b>{item.Ad.ItemCategory}</b></p>");
+                htmlBuilder.Append("<p>");
+                htmlBuilder.Append(item.Ad.ItemDescription);
+                htmlBuilder.Append("</p>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("<div class='list_product_action_box'>");
+                htmlBuilder.Append("<ul class='list_none pr_action_btn'>");
+                htmlBuilder.Append("<li class='add-to-cart'><a href='#'><i class='icon-basket-loaded'></i> Add To Cart</a></li>");
+                htmlBuilder.Append("<li><a href='shop-compare.html' class='popup-ajax'><i class='icon-shuffle'></i></a></li>");
+                htmlBuilder.Append("<li><a href='shop-quick-view.html' class='popup-ajax'><i class='icon-magnifier-add'></i></a></li>");
+                htmlBuilder.Append("<li class='add-to-favorites'>");
+                htmlBuilder.Append($"<a data-id='{item.Ad.ID}' onclick='addToFavorites(\"{item.Ad.ID}\")'>");
+                htmlBuilder.Append($"<i data-flow='{item.Ad.ID}' class='fa fa-solid fa-heart' style='color: black;'></i>");
+                htmlBuilder.Append("</a>");
+                htmlBuilder.Append("</li>");
+                htmlBuilder.Append("</ul>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("<hr />");
+                htmlBuilder.Append($"<span>{item.Time}</span>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("</div>");
+                htmlBuilder.Append("</div>");
+            }
+
+            return htmlBuilder.ToString();
+        }
+
+        public ActionResult SortAds(string sortingMethod)
+        {
+            // Retrieve the updated ads based on the selected sorting method
+            var updatedAds = AdServices.Instance.GetAd();
+            var AdsList = new List<AdWithTimeModel>();
+            foreach (var ad in updatedAds)
+            {
+                DateTime adEntryDate = ad.EntryDate; // Assuming the entry date property of the Ad entity is named "EntryDate"
+
+                // Calculate the time difference between the ad entry date and the current date
+                TimeSpan timeDifference = DateTime.Now - adEntryDate;
+
+                // Initialize variables to store the result
+                string result;
+                int totalMinutes = (int)timeDifference.TotalMinutes;
+                int totalHours = (int)timeDifference.TotalHours;
+                int totalDays = (int)timeDifference.TotalDays;
+
+                // Check the time difference and format the result accordingly
+                if (totalMinutes < 60)
+                {
+                    result = $"{totalMinutes} minutes";
+                }
+                else if (totalHours < 24)
+                {
+                    result = $"{totalHours} hours";
+                }
+                else
+                {
+                    result = $"{totalDays} days";
+                }
+
+                // Create a new AdWithTime object and add it to the list
+                AdWithTimeModel adWithTime = new AdWithTimeModel
+                {
+                    Ad = ad,
+                    Time = result
+                };
+                AdsList.Add(adWithTime);
+            }
+
+            if(sortingMethod == "byId")
+            {
+                // Render the updated ads HTML as a string
+                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x=>x.Ad.ID).ToList(),sortingMethod);
+                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
+            }
+            else if(sortingMethod == "latest")
+            {
+                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderByDescending(x => x.Ad.EntryDate).ToList(),sortingMethod);
+                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
+            }
+            else if(sortingMethod == "lowtohigh")
+            {
+                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x => x.Ad.Price).ToList(),sortingMethod);
+                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
+            }
+            else if (sortingMethod == "hightolow")
+            {
+                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderByDescending(x => x.Ad.Price).ToList(),sortingMethod);
+                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x => x.Ad.ID).ToList(),sortingMethod);
+                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
+            }
+
+
+
+        }
+
         public ActionResult View(int ID)
         {
             AdActionViewModel model = new AdActionViewModel();
@@ -355,6 +519,8 @@ namespace RentPe.Controllers
 
         public ActionResult Shop()
         {
+            Session["ACTIVER"] = "SHOP";
+
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
             model.ItemCategory = CategoryServices.Instance.GetRentItemCategories();
@@ -405,6 +571,8 @@ namespace RentPe.Controllers
 
         public ActionResult ShopByCategoryandSearchTerm(string Category, string SearchTerm="")
         {
+            Session["ACTIVER"] = "SHOP";
+
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
             var ads = AdServices.Instance.GetAdWithTime(Category,SearchTerm);
@@ -451,9 +619,11 @@ namespace RentPe.Controllers
             return View("Shop", "_Layout", model);
         }
 
-        
+
+   
         public ActionResult ShopByCategory(string Category)
         {
+            Session["ACTIVER"] = "SHOP";
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
             var ads = AdServices.Instance.GetAdWithTime().Where(x=>x.ItemCategory == Category).ToList();
@@ -502,6 +672,8 @@ namespace RentPe.Controllers
 
         public ActionResult About()
         {
+            Session["ACTIVER"] = "ABOUT";
+
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -510,6 +682,8 @@ namespace RentPe.Controllers
 
         public ActionResult Contact()
         {
+            Session["ACTIVER"] = "CONTACT";
+
             ViewBag.Message = "Your contact page.";
 
             return View();

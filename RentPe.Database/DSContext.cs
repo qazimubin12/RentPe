@@ -27,6 +27,7 @@ namespace RentPe.Database
         public DbSet<CustomOffer> CustomOffers { get; set; }
         public DbSet<Ad> Ads { get; set; }
         public DbSet<UserRating> UserRatings { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
 
 
     }

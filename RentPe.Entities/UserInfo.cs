@@ -12,8 +12,8 @@ namespace RentPe.Entities
         public string UserID { get; set; }
         public string Address { get; set; }
         public string Photo { get; set; }
+        public string City { get; set; }
         public string NIC { get; set; }
-        public string ContactNo { get; set; }
         public DateTime MemberSince { get; set; }
 
         public string Rating { get; set; }

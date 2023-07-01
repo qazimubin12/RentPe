@@ -1,7 +1,272 @@
-﻿
+﻿@model RentPe.ViewModels.UserDashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
 }
+<style>
+    .nav_cat {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
 
-<h2>Dashboard</h2>
+        .nav_cat.show {
+            max-height: 900px;
+        }
 
+    #navCatContent {
+        background-color: #fff;
+        position: absolute;
+        padding: 0px 0px 0;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+        z-index: 99;
+    }
+</style>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Custom Offers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>User Information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="true"><i class="ti-comment"></i>Chats</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><i class="ti-lock"></i>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="tab-content dashboard_content">
+                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Dashboard</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addressesedit your password and account details.</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Custom Offers</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Picture</th>
+                                                <th>Date</th>
+                                                <th>Item</th>
+                                                <th>Offered Rent</th>
+                                                <th>Rent Date</th>
+                                                <th>Return Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.CustomOffers)
+                                            {
+                                                <tr>
+                                                    <td><img src="@item.Item.MainImage" style="height:50px;width:50px;" /></td>
+                                                    <td>@item.OfferDate.ToShortDateString()</td>
+                                                    <td>@item.Item.ItemName</td>
+                                                    <td>@item.OfferedPrice</td>
+                                                    <td>@item.RentingDate.ToShortDateString()</td>
+                                                    <td>@item.ReturnDate.ToShortDateString()</td>
+                                                    <td>@item.Status</td>
+                                                    <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                                    <td><button type="button" id="CancelOffer" data-id="@item.ID" class="btn btn-fill-out btn-sm">CANCEL OFFER</button></td>
+                                                </tr>
+                                            }
+
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    @*//USer Info*@
+                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                    
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-3 mb-lg-0">
+                                    <div class="card-header">
+                                        <h3>User Info</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Photo: </p><img  style="height:200px; width:200px; object-fit:cover;"  src="@Model.UserInfo.Photo" />
+                                        <address>Address: @Model.UserInfo.Address</address>
+                                        <p>City: @Model.UserInfo.City</p>
+                                        <p>NIC: @Model.UserInfo.NIC</p>
+                                        <button type="button" id="EditButton" class="btn btn-fill-out">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div  id="UpdateInfo"  style="display:none;" class="card mb-3 mb-lg-0">
+                                    <div class="card-header">
+                                        <h3>Update User Info</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="photoInput">Photo:</label>
+                                            <input class="form-control" type="file" id="PhotoUpload" />
+                                            <input class="form-control" type="hidden" id="Photo" />
+                                            <img id="PhotoThumb" src="@Model.UserInfo.Photo" style="height:200px; width:200px; object-fit:cover;" />
+
+                                            <hr />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addressInput">Address:</label>
+                                            <input type="text" class="form-control" id="address" value="@Model.UserInfo.Address" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cityInput">City:</label>
+                                            <input type="text" class="form-control" id="city" value="@Model.UserInfo.City" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nicInput">NIC:</label>
+                                            <input type="text" class="form-control" id="nic" value="@Model.UserInfo.NIC" />
+                                        </div>
+                                        <hr />
+                                        <button type="button" id="UpdateBtn" class="btn btn-fill-out">UPDATE</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                </div>
+                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Account Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Already have an account? <a href="#">Log in instead!</a></p>
+                                <form method="post" name="enq">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mb-3">
+                                            <label>First Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="name" type="text">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-3">
+                                            <label>Last Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="phone">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <label>Display Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="dname" type="text">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <label>Email Address <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="email" type="email">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <label>Current Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="password" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <label>New Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="npassword" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <label>Confirm Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="cpassword" type="password">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="chats" role="tabpanel" aria-labelledby="chats-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Conversations</h3>
+                            </div>
+                            <div class="card-body">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.categories_btn').on('click', function () {
+        // Slide down the navCatContent element
+        $('#navCatContent').toggleClass('show');
+    });
+
+
+    $("#EditButton").click(function () {
+        $("#UpdateInfo").fadeToggle("slow");
+    });
+
+    $("#PhotoUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImage", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+
+                console.log(response);
+                if (response.success) {
+                    $("#Photo").val(response.DocURL);
+                    $("#PhotoThumb").attr("src", response.DocURL);
+
+                }
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+
+</script>
