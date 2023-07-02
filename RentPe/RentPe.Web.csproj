@@ -919,11 +919,11 @@
     <Content Include="Views\Ad\_Listing.cshtml" />
     <Content Include="Views\Ad\AdAction.cshtml" />
     <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\Owner\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Photos\" />
-    <Folder Include="Views\Owner\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -19,9 +19,15 @@ namespace RentPe.ViewModels
     //    public string TimeInformation { get; set; }
     //}
 
+    public class UserRatingModel
+    {
+        public UserRating UserRating { get; set; }
+        public UserInfo UserInfo { get; set; }
+    }
+
     public class AdActionViewModel
     {
-        public List<UserRating> UserRatings { get; set; }
+        public List<UserRatingModel> UserRatings { get; set; }
         public List<AdWithTimeModel> RelatedAds { get; set; }
         public List<ItemCategory> ItemCategories { get; set; }
         public List<string> otherImages { get; set; }

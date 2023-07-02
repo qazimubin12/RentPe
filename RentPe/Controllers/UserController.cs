@@ -83,6 +83,18 @@ namespace RentPe.Controllers
             return users;
         }
 
+        [HttpPost]
+        public ActionResult UserInfo(string Photo, string Address, string City, string NIC)
+        {
+            
+            var Userinfo = UserInfoServices.Instance.GetUserInfo(User.Identity.GetUserId());
+            Userinfo.Address = Address;
+            Userinfo.Photo = Photo;
+            Userinfo.City = City;
+            Userinfo.NIC = NIC;
+            UserInfoServices.Instance.UpdateUserInfo(Userinfo);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Register(RegisterViewModel model)
         {
             model.Roles = RolesManager.Roles.ToList();

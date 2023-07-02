@@ -54,17 +54,17 @@
                     <h4 class="product_title"><a href="#">@Model.ItemName</a></h4>
                     <div class="product_price">
                         <span class="price">PKR @Model.Price</span>
-                        
+
                     </div>
                     <div class="rating_wrap">
                         <!--<div class="rating">-->
-                            @*<div class="product_rate" style="width:80%"></div>*@
+                        @*<div class="product_rate" style="width:80%"></div>*@
                         <!--</div>-->
                         @*<span class="rating_num">(21)</span>*@
                     </div>
                     @*<div class="pr_desc">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                    </div>*@
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+        </div>*@
                     <div class="product_sort_info">
                         <ul>
                             <li><i class="linearicons-shield-check"></i>Authenticty: @Model.Authenticity</li>
@@ -74,13 +74,24 @@
                             <li><i class="linearicons-shield-check"></i>Owner: @Model.UserName</li>
                             @if (Model.Privacy == false)
                             {
-                            <li><i class="linearicons-bag-dollar"></i> Contact: @Model.Contact</li>
+                                <li><i class="linearicons-bag-dollar"></i> Contact: @Model.Contact</li>
                             }
 
 
                         </ul>
                     </div>
-                    
+
+                    @*//Open Modal*@
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <button class="btn btn-fill-out" href="#"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
+
+                    }
                 </div>
             </div>
         </div>
@@ -163,19 +174,24 @@
                                         foreach (var item in Model.UserRatings)
                                         {
                                         <li>
-
+                                            <div class="comment_img">
+                                                @if (item.UserInfo != null)
+                                                {
+                                                <img src="@item.UserInfo.Photo" alt="user1">
+                                                }
+                                            </div>
                                             <div class="comment_block">
                                                 <div class="rating_wrap">
                                                     <div class="rating">
-                                                        <div class="product_rate" style="width:@item.Stars%"></div>
+                                                        <div class="product_rate" style="width:@item.UserRating%"></div>
                                                     </div>
                                                 </div>
                                                 <p class="customer_meta">
-                                                    <span class="review_author">@item.Name</span>
-                                                    <span class="comment-date">@item.Date</span>
+                                                    <span class="review_author">@item.UserRating.Name</span>
+                                                    <span class="comment-date">@item.UserRating.Date</span>
                                                 </p>
                                                 <div class="description">
-                                                    <p>@item.Message</p>
+                                                    <p>@item.UserRating.Message</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -239,31 +255,36 @@
                     {
                         <div class="item">
                             <div class="product">
-
                                 <div class="product_img">
-                                    <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">
+                                    <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">
                                         <img src="@item.Ad.MainImage" alt="product_img1">
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+
+                                            <li class="add-to-favorites">
+                                                <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                    <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})">@item.Ad.ItemName</a></h6>
+                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">@item.Ad.ItemName</a></h6>
                                     <div class="product_price">
-                                        <span class="price">Rs. @item.Ad.Price</span>
-                                    </div>
-                                    <div class="rating_wrap">
-                                        <span>@item.Ad.UserName</span>
+                                        <span class="price">@item.Ad.Price PKR</span>
 
-
-                                        @*<span class="rating_num"></span>*@
                                     </div>
+
+                                    <div class="pr_desc">
+                                        <p><b>@item.Ad.ItemCategory</b></p>
+                                        <p>
+                                            @item.Ad.ItemDescription
+                                        </p>
+                                    </div>
+                                    
                                     <hr />
                                     <span>@item.Time</span>
                                 </div>

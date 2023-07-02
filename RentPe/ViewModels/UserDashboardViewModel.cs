@@ -25,6 +25,7 @@ namespace RentPe.ViewModels
     {
         public User SignedInUser { get; set; }
         public UserInfo UserInfo { get; set; }
+        public List<CustomerOfferModel> CustomOffers { get; set; }
         public string Name { get; set; }
 
         public string ID { get; set; }

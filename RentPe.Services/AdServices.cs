@@ -45,6 +45,44 @@ namespace RentPe.Services
         }
 
 
+        public List<Ad> GetAdViaSort(string SortingMethod)
+        {
+            using (var context = new DSContext())
+            {
+                if (SortingMethod == "byId")
+                {
+                    return context.Ads.OrderBy(x => x.ID).ToList();
+                }
+                else if (SortingMethod == "latest")
+                {
+                    return context.Ads.OrderByDescending(x => x.EntryDate).ToList();
+
+                }
+                else if(SortingMethod == "lowtohigh")
+                {
+                    var sortedAds = context.Ads
+                            .ToList() // Fetch the ads into memory
+                            .OrderBy(x => float.Parse(x.Price))
+                            .ToList();
+                    return sortedAds;
+                }
+                else if(SortingMethod == "hightolow")
+                {
+                    var sortedAds = context.Ads
+                          .ToList() // Fetch the ads into memory
+                          .OrderByDescending(x => float.Parse(x.Price))
+                          .ToList();
+                    return sortedAds;
+
+                }
+                else
+                {
+                    return context.Ads.OrderBy(x => x.ItemName).ToList();
+
+                }
+            }
+        }
+
         public List<Ad> GetAdWithTime(string SearchTerm = "")
         {
             using (var context = new DSContext())

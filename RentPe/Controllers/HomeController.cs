@@ -294,33 +294,13 @@ namespace RentPe.Controllers
 
         //}
 
-        public string RenderAdsHtml(List<AdWithTimeModel> ads,string sortingMethod)
+        public string RenderAdsHtml(List<AdWithTimeModel> ads)
         {
             // Render the ads HTML as a string
             StringBuilder htmlBuilder = new StringBuilder();
             var updatedAds = new List<AdWithTimeModel>();
-            if (sortingMethod == "byId")
-            {
-                updatedAds = ads.OrderBy(x => x.Ad.ID).ToList();
-            }
-            else if (sortingMethod == "latest")
-            {
-                updatedAds = ads.OrderByDescending(x => x.Ad.EntryDate).ToList();
-            }
-            else if (sortingMethod == "lowtohigh")
-            {
-                updatedAds = ads.OrderBy(x => x.Ad.Price).ToList();
-            }
-            else if (sortingMethod == "hightolow")
-            {
-                updatedAds = ads.OrderByDescending(x => x.Ad.Price).ToList();
-            }
-            else
-            {
-                // Default sorting if the sortingMethod is not recognized
-                updatedAds = ads;
-            }
-            foreach (var item in updatedAds)
+            
+            foreach (var item in ads)
             {
                 // Build the HTML for each ad item
                 htmlBuilder.Append("<div class='col-md-4 col-6'>");
@@ -376,7 +356,7 @@ namespace RentPe.Controllers
         public ActionResult SortAds(string sortingMethod)
         {
             // Retrieve the updated ads based on the selected sorting method
-            var updatedAds = AdServices.Instance.GetAd();
+            var updatedAds = AdServices.Instance.GetAdViaSort(sortingMethod);
             var AdsList = new List<AdWithTimeModel>();
             foreach (var ad in updatedAds)
             {
@@ -414,34 +394,9 @@ namespace RentPe.Controllers
                 AdsList.Add(adWithTime);
             }
 
-            if(sortingMethod == "byId")
-            {
-                // Render the updated ads HTML as a string
-                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x=>x.Ad.ID).ToList(),sortingMethod);
-                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
-            }
-            else if(sortingMethod == "latest")
-            {
-                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderByDescending(x => x.Ad.EntryDate).ToList(),sortingMethod);
-                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
-            }
-            else if(sortingMethod == "lowtohigh")
-            {
-                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x => x.Ad.Price).ToList(),sortingMethod);
-                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
-            }
-            else if (sortingMethod == "hightolow")
-            {
-                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderByDescending(x => x.Ad.Price).ToList(),sortingMethod);
-                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var updatedAdsHtml = RenderAdsHtml(AdsList.OrderBy(x => x.Ad.ID).ToList(),sortingMethod);
-                return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
-            }
 
-
+            var updatedAdsHtml = RenderAdsHtml(AdsList); ;
+            return Json(updatedAdsHtml, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -513,7 +468,14 @@ namespace RentPe.Controllers
             }
             model.RelatedAds = RelatedAdLists;
 
-            model.UserRatings = UserRatingServices.Instance.GetUserRating(model.UserID);
+            var userRatings= UserRatingServices.Instance.GetUserRating(model.UserID);
+            var list = new List<UserRatingModel>();
+            foreach (var userRating in userRatings)
+            {
+                var userinfo = UserInfoServices.Instance.GetUserInfo(model.UserID);
+                list.Add(new UserRatingModel { UserInfo = userinfo, UserRating = userRating });
+            }
+            model.UserRatings = list;
             return View(model);
         }
 

@@ -572,16 +572,21 @@
         // Iterate over each Ad after the completion of the foreach loop
         var ads = document.querySelectorAll('.product');
         console.log(favorites);
-        ads.forEach(function (ad) {
-            var productId = ad.querySelector('.add-to-favorites a').getAttribute('data-id');
-            if (favorites.includes(productId)) {
+        
+        if (ads.length > 0) {
+            
+            ads.forEach(function (ad) {
 
-                var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
-                icon.css('color', 'red');
+                var productId = ad.querySelector('.add-to-favorites a').getAttribute('data-id');
+                if (favorites.includes(productId)) {
+
+                    var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
+                    icon.css('color', 'red');
 
 
-            }
-        });
+                }
+            });
+        }
     }
     $(document).ready(function () {
         ApplyFilter();
