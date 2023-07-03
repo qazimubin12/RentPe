@@ -6,8 +6,9 @@
 <head>
     <style>
         .favourite {
-           color: #ff0000;
-        } 
+            color: #ff0000;
+        }
+
         .nav_cat {
             max-height: 0;
             overflow: hidden;
@@ -50,8 +51,8 @@
                             </div>
                             <div class="product_header_right">
                                 <div class="products_view">
-                                    <a  class="shorting_icon grid"><i class="ti-view-grid"></i></a>
-                                    <a  class="shorting_icon list active"><i class="ti-layout-list-thumb"></i></a>
+                                    <a class="shorting_icon grid"><i class="ti-view-grid"></i></a>
+                                    <a class="shorting_icon list active"><i class="ti-layout-list-thumb"></i></a>
                                 </div>
                                 <div class="custom_select">
                                     <select class="form-control form-control-sm">
@@ -117,14 +118,14 @@
                                                     </a>
                                                 </li>
                                             }
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                            <li class="add-to-favorites">
-                                                <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
-                                                    <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                                <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
+                                                <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
+                                                <li class="add-to-favorites">
+                                                    <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                        <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                     </div>
 
                                     <div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -188,7 +189,7 @@
 
 
                 </div>
-               
+
             </div>
             <div class="col-lg-3 order-lg-first mt-4 pt-2 mt-lg-0 pt-lg-0">
                 <div class="sidebar">
@@ -197,14 +198,14 @@
                         <ul class="widget_categories">
                             @foreach (var item in Model.ItemsCategories)
                             {
-                                
+
                                 <li><a href="@Url.Action("ShopByCategory", "Home", new {Category = item.CategoryName })"><span class="categories_name">@item.CategoryName</span><span class="categories_num"></span></a></li>
 
                             }
-                            
+
                         </ul>
                     </div>
-                    
+
                     <div class="widget">
                         <div class="shop_banner">
                             <div class="banner_img overlay_bg_20">
@@ -225,7 +226,11 @@
 
 
 
-
+<div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       
+    </div>
+</div>
 
 
 
@@ -235,12 +240,20 @@
 
 <script>
 
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
     $(document).ready(function () {
         $('#SortingMethod').change(function () {
             var selectedMethod = $(this).val();
             updateAds(selectedMethod);
         });
-    }); 
+    });
     function updateAds(sortingMethod) {
         $.ajax({
             url: '/Home/SortAds', // Replace with the actual URL of the action that retrieves the updated ads
@@ -267,7 +280,7 @@
     //    ads.forEach(function (ad) {
     //        var productId = ad.querySelector('.add-to-favorites a').getAttribute('data-id');
     //        if (favorites.includes(productId)) {
-               
+
     //            var icon = $('i[data-flow="' + productId + '"].fa.fa-solid.fa-heart');
     //            icon.css('color', 'red');
 

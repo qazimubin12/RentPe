@@ -6,6 +6,22 @@ using System.Web;
 
 namespace RentPe.ViewModels
 {
+
+    public class CustomOfferViewModel
+    {
+       
+        public string Owner { get; set; }
+        public DateTime OfferDate { get; set; }
+        public string Rentee { get; set; }
+        public int Item { get; set; }
+        public Ad ItemFull { get; set; }
+        public User OwnerFull { get; set; }
+        public float OfferedPrice { get; set; }
+        public string Status { get; set; }  //ACCEPTED //DECLINE // PENDING
+        public DateTime RentingDate { get; set; }
+        public DateTime ReturnDate { get; set; }
+        public int RentingPreiod { get; set; }
+    }
     public class HomeViewModel
     {
         public List<AdWithTimeModel> ExclusiveAds { get; set; }

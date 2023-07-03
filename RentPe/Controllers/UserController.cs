@@ -147,8 +147,7 @@ namespace RentPe.Controllers
                 {
                     Item = AdItem,
                     OfferedPrice = item.OfferedPrice,
-                    OfferDate = item.OfferDate
-                ,
+                    OfferDate = item.OfferDate,
                     Owner = Owner,
                     Rentee = Rentee,
                     Status = item.Status,
@@ -186,7 +185,7 @@ namespace RentPe.Controllers
                 var token = await UserManager.GeneratePasswordResetTokenAsync(model.ID);
                 var result2 = await UserManager.ResetPasswordAsync(model.ID, token, model.Password);
                 result = await UserManager.UpdateAsync(user);
-                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
                 return json;
 
 
@@ -205,7 +204,7 @@ namespace RentPe.Controllers
                     await UserManager.AddToRoleAsync(user.Id, role.Name);
                 }
 
-                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
 
                 return json;
             }
@@ -236,11 +235,11 @@ namespace RentPe.Controllers
 
                 result = await UserManager.DeleteAsync(user);
 
-                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
             }
             else
             {
-                json.Data = new { Success = false, Message = "Invalid user." };
+                json.Data = new { success = false, Message = "Invalid user." };
             }
 
             return json;
@@ -295,7 +294,7 @@ namespace RentPe.Controllers
 
             }
 
-            json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+            json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
 
             return json;
         }
@@ -322,12 +321,12 @@ namespace RentPe.Controllers
                 {
                     result = await UserManager.RemoveFromRoleAsync(userID, role.Name);
                 }
-                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
 
             }
             else
             {
-                json.Data = new { Success = false, Message = "Invalid Operation" };
+                json.Data = new { success = false, Message = "Invalid Operation" };
 
             }
 

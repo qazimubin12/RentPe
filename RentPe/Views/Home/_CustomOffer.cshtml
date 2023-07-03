@@ -1,4 +1,4 @@
-﻿@model RentPe.ViewModels.UserActionModel
+﻿@model RentPe.ViewModels.CustomOfferViewModel
 
 <style>
     #actionButton.loader {
@@ -33,21 +33,13 @@
 {
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">
-                @if (!string.IsNullOrEmpty(Model.ID))
-                {
-                    <span>Edit User</span>
-                }
-                else
-                {
-            <span>Create User</span>
-                }
+            <h5><span>Send Custom Offer</span>
             </h5>
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             </button>
         </div>
         <div class="modal-body">
-            <form id="actionForm">
+            @*<form id="actionForm">
                 <input type="hidden" name="ID" value="@Model.ID" />
                 <div class="form-group">
                     <label>Full Name</label>
@@ -83,21 +75,16 @@
                 </div>
 
 
-            </form>
+            </form>*@
 
             <div class="errorDiv">
 
             </div>
         </div>
         <div class="modal-footer">
-            @if (!string.IsNullOrEmpty(Model.ID))
-            {
-                <button id="actionButton" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i> Update</button>
-            }
-            else
-            {
-                <button id="actionButton" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i> Save</button>
-            }
+           
+                <button id="actionButton" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i> Send Ofer</button>
+            
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i> Close</button>
         </div>
     </div>
@@ -109,7 +96,7 @@
         button.classList.add('loader');
         button.disabled = true;
 		$.ajax({
-			url: '@Url.Action("Action", "User")',
+			url: '@Url.Action("SendCustomOFfer", "Home")',
 			type: "post",
 			data: $("#actionForm").serialize()
 		})
