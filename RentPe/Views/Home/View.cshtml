@@ -89,7 +89,7 @@
                     }
                     else
                     {
-                        <a href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
+                        <a class="btn btn-fill-out"  href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
 
                     }
                 </div>
@@ -385,7 +385,7 @@
     })
     .done(function (response) {
         if (response.success) {
-            // Success handling
+            // success handling
             console.log("Review submitted successfully.");
         } else {
             // Error handling

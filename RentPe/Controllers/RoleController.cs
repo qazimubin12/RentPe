@@ -132,7 +132,7 @@ namespace RentPe.Controllers
 
             }
 
-            json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+            json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
 
             return json;
         }
@@ -159,11 +159,11 @@ namespace RentPe.Controllers
 
                 result = await RolesManager.DeleteAsync(role);
 
-                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
+                json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
             }
             else
             {
-                json.Data = new { Success = false, Message = "Invalid Role." };
+                json.Data = new { success = false, Message = "Invalid Role." };
             }
 
             return json;

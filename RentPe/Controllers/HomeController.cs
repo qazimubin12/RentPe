@@ -58,6 +58,31 @@ namespace RentPe.Controllers
             }
         }
 
+        public ActionResult CustomOffer(int ID)
+        {
+            CustomOfferViewModel model = new CustomOfferViewModel();
+            model.ItemFull = AdServices.Instance.GetAd(ID);
+            model.OwnerFull = UserManager.FindById(model.ItemFull.UserID);
+            return PartialView("_CustomOffer", model);
+        }
+
+
+        public ActionResult SendCustomOffer(CustomOfferViewModel model)
+        {
+            var customOffer = new CustomOffer();
+            customOffer.OfferDate = DateTime.Now; ;
+            customOffer.OfferedPrice = model.OfferedPrice;
+            customOffer.ReturnDate = model.ReturnDate;
+            customOffer.Rentee = model.Rentee;
+            customOffer.RentingDate = model.RentingDate;
+            customOffer.Owner = model.Owner;
+            customOffer.Item = model.Item;
+            customOffer.RentingPreiod = model.RentingPreiod;
+            customOffer.Status = "PENDING";
+            CustomOfferServices.Instance.SaveCustomOffer(customOffer);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetProductDetails(int productId)
         {
             // Replace this with your logic to retrieve product details from your data source

@@ -69,7 +69,7 @@
                 .append("<div class='form-group'><label class='control-label'>Category</label><select class='form-control' name='category'></select></div>")
                 .find("select[name='category']")
                 .append("<option value='bg-danger'>Danger</option>")
-                .append("<option value='bg-success'>Success</option>")
+                .append("<option value='bg-success'>success</option>")
                 .append("<option value='bg-purple'>Purple</option>")
                 .append("<option value='bg-primary'>Primary</option>")
                 .append("<option value='bg-info'>Info</option>")

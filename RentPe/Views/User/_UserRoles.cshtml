@@ -93,7 +93,7 @@
             type:"POST"
         })
             .done(function (response) {
-                if (response.Success)
+                if (response.success)
                 {
                     $.ajax({
                         url: "@Url.Action("UserRoles", "User", new { ID = Model.UserID })",
