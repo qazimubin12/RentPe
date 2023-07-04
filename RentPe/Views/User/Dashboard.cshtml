@@ -225,13 +225,16 @@
                             </div>
                             <div class="card-body">
                                 <table class="table table-hover">
-                                    @foreach (var item in Model.Chats)
+                                    @if (Model.Chats != null)
                                     {
+                                        foreach (var item in Model.Chats)
+                                        {
                                         <tr>
                                             <td>
                                                 <span>@item</span>
                                             </td>
                                         </tr>
+                                        }
                                     }
 
                                 </table>

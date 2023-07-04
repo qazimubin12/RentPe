@@ -12,11 +12,13 @@
         .nav_cat.show {
             max-height: 900px;
         }
+
     ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
     }
+
     #navCatContent {
         padding: 0px 0px 0
     }
@@ -25,386 +27,383 @@
 
 
 
-<!-- START SECTION SHOP -->
-<div class="section">
-	<div class="container">
-		<div class="row">
-            <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
-              <div class="product-image vertical_gallery">
-                  <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-vertical="true" data-vertical-swiping="true" data-slides-to-show="5" data-slides-to-scroll="1" data-infinite="false">
-                      <div class="item">
-                          <a href="#" class="product_gallery_item active" data-image="@Model.MainImage" data-zoom-image="@Model.MainImage">
-                              <img src="@Model.MainImage" alt="Image" />
-                          </a>
-                      </div>
-                      <input type="hidden" id="UserID" value="@Model.UserID" />
-                      @foreach (var item in Model.otherImages)
-                      {
-                          <div class="item">
-                              <a href="#" class="product_gallery_item active" data-image="@item" data-zoom-image="@item">
-                                  <img src="@item" alt="Image" />
-                              </a>
-                          </div>
-                      }
-
-
-                  </div>
-                    <div class="product_img_box">
-                        <img id="product_img" src='@Model.MainImage' data-zoom-image="@Model.MainImage" alt="product_img1" />
-                        <a href="#" class="product_img_zoom" title="Zoom">
-                            <span class="linearicons-zoom-in"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="product_description">
-                    <h4 class="product_title"><a href="#">@Model.ItemName</a></h4>
-                    <div class="product_price">
-                        <span class="price">PKR @Model.Price</span>
-
-                    </div>
-                    <div class="rating_wrap">
-                        <!--<div class="rating">-->
-                        @*<div class="product_rate" style="width:80%"></div>*@
-                        <!--</div>-->
-                        @*<span class="rating_num">(21)</span>*@
-                    </div>
-                    @*<div class="pr_desc">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-        </div>*@
-                    <div class="product_sort_info">
-                        <ul>
-                            <li><i class="linearicons-shield-check"></i>Authenticty: @Model.Authenticity</li>
-                            <li><i class="linearicons-sync"></i>Condition: @Model.Condition</li>
-                            <li><i class="linearicons-bag-dollar"></i> For: @Model.Type</li>
-                            <li><i class="linearicons-sync"></i>Renting Period: @Model.RentingPeriod Days</li>
-                            <li><i class="linearicons-shield-check"></i>Owner: @Model.UserName</li>
-                            @if (Model.Privacy == false)
+    <!-- START SECTION SHOP -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                    <div class="product-image vertical_gallery">
+                        <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-vertical="true" data-vertical-swiping="true" data-slides-to-show="5" data-slides-to-scroll="1" data-infinite="false">
+                            <div class="item">
+                                <a href="#" class="product_gallery_item active" data-image="@Model.MainImage" data-zoom-image="@Model.MainImage">
+                                    <img src="@Model.MainImage" alt="Image" />
+                                </a>
+                            </div>
+                            <input type="hidden" id="UserID" value="@Model.UserID" />
+                            @foreach (var item in Model.otherImages)
                             {
-                                <li><i class="linearicons-bag-dollar"></i> Contact: @Model.Contact</li>
+                                <div class="item">
+                                    <a href="#" class="product_gallery_item active" data-image="@item" data-zoom-image="@item">
+                                        <img src="@item" alt="Image" />
+                                    </a>
+                                </div>
                             }
 
 
-                        </ul>
+                        </div>
+                        <div class="product_img_box">
+                            <img id="product_img" src='@Model.MainImage' data-zoom-image="@Model.MainImage" alt="product_img1" />
+                            <a href="#" class="product_img_zoom" title="Zoom">
+                                <span class="linearicons-zoom-in"></span>
+                            </a>
+                        </div>
                     </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product_description">
+                        <h4 class="product_title"><a href="#">@Model.ItemName</a></h4>
+                        <div class="product_price">
+                            <span class="price">PKR @Model.Price</span>
 
-                    @*//Open Modal*@
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                        </div>
+                        <div class="rating_wrap">
+                            <!--<div class="rating">-->
+                            <!--<div class="product_rate" style="width:80%"></div-->
+                            <!--</div>-->
+                            <!--<span class="rating_num">(21)</span>-->
+                        </div>
+                        @*<div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                            </div>*@
+                        <div class="product_sort_info">
+                            <ul>
+                                <li><i class="linearicons-shield-check"></i>Authenticty: @Model.Authenticity</li>
+                                <li><i class="linearicons-sync"></i>Condition: @Model.Condition</li>
+                                <li><i class="linearicons-bag-dollar"></i> For: @Model.Type</li>
+                                <li><i class="linearicons-sync"></i>Renting Period: @Model.RentingPeriod Days</li>
+                                <li><i class="linearicons-shield-check"></i>Owner: @Model.UserName</li>
+                                @if (Model.Privacy == false)
+                                {
+                                    <li><i class="linearicons-bag-dollar"></i> Contact: @Model.Contact</li>
+                                }
 
-                        <button data-href="@Url.Action("CustomOffer", "Home", new { ID = Model.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
-                    }
-                    else
-                    {
-                        <a class="btn btn-fill-out" href="@Url.Action("Login", "Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
 
-                            <div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
-                                            </button>
-                                            <div class="row g-0">
-                                                <div class="col-12">
-                                                    <div class="popup_content">
-                                                        <div class="popup-text">
-                                                            <div class="heading_s4">
-                                                                <h4>Send Custom Offer for Rental Item</h4>
-                                                            </div>
-                                                            <p>Please provide the following information to send a custom offer for the rental item.</p>
-                                                        </div>
-                                                        <form method="post">
-                                                            <div class="form-group mb-3">
-                                                                <input name="offer_price" required type="text" class="form-control rounded-0" placeholder="Offer Price">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <input name="renting_period" required type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-6 mb-3">
-                                                                    <label for="start_date">Rent Start Date:</label>
-                                                                    <input name="start_date" required type="date" class="form-control rounded-0" id="start_date">
-                                                                </div>
-                                                                <div class="form-group col-6 mb-3">
-                                                                    <label for="end_date">Rent End Date:</label>
-                                                                    <input name="end_date" required type="date" class="form-control rounded-0" id="end_date">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <textarea name="message" required class="form-control rounded-0" placeholder="Message to Seller"></textarea>
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Send Offer" type="submit">Send Offer</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    }
-        <div class="row">
-        	<div class="col-12">
-            	<div class="large_divider clearfix"></div>
-            </div>
-        </div>
-        <div class="row">
-        	<div class="col-12">
-            	<div class="tab-style3">
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Description</a>
-                      	</li>
-                      	<li class="nav-item">
-                        	<a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">Additional info</a>
-                      	</li>
-                        <li class="nav-item">
-                            @if (Model.UserRatings != null)
+                            </ul>
+                        </div>
+                        <ul class="list_nonen">
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (@Model.UserRatings.Count())</a>
+                                <li class="add-to-cart">
+                                    <button class="btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal">
+                                        <i class="icon-basket-loaded"></i>Send Custom Offer
+                                    </button>
+                                </li>
                             }
                             else
                             {
-                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (0)</a>
-
+                                <li class="add-to-cart">
+                                    <a href="@Url.Action("Login","Account")">
+                                        <i class="icon-basket-loaded"></i>Login to Send Custom Offer
+                                    </a>
+                                </li>
                             }
-                        </li>
-                    </ul>
-                	<div class="tab-content shop_info_tab">
-                      	<div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
-                        	<p>@Model.ItemDescription</p>
-                      	</div>
-                      	<div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
-                            <table class="table table-bordered">
+                        </ul>
 
-                                <tr>
-                                    <td>Authenticity</td>
-                                    <td>@Model.Authenticity</td>
-                                </tr>
-                                <tr>
-                                    <td>Condition</td>
-                                    <td>@Model.Condition</td>
-                                </tr>
-                                <tr>
-                                    <td>Type</td>
-                                    <td>@Model.Type</td>
-                                </tr>
-                                <tr>
-                                    <td>Avialable from - Available to</td>
-                                    <td>@Model.AvailableFrom.ToShortDateString() - @Model.AvailableTo.ToShortDateString()</td>
-                                </tr>
-                                <tr>
-                                    <td>Negotiable</td>
-                                    <td>@Model.Negotiable</td>
-
-                                </tr>
-                                <tr>
-                                    <td>Rent</td>
-                                    <td>@Model.Price</td>
-
-                                </tr>
-                            </table>
-                      	</div>
-                      	<div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
-                            <div class="comments">
-                                @if (Model.UserRatings != null)
-                                {
-                                    <h5 class="product_tab_title">@Model.UserRatings.Count() Review For the Owner of: <span>@Model.ItemName</span></h5>
-                                }
-                                else
-                                {
-                                    <h5 class="product_tab_title">No Review For the Owner of: <span>@Model.ItemName</span></h5>
-
-                                }
-                                <ul class="list_none comment_list mt-4">
-                                    @if (Model.UserRatings != null)
-                                    {
-                                        foreach (var item in Model.UserRatings)
-                                        {
-                                        <li>
-                                            <div class="comment_img">
-                                                @if (item.UserInfo != null)
-                                                {
-                                                <img src="@item.UserInfo.Photo" alt="user1">
-                                                }
-                                            </div>
-                                            <div class="comment_block">
-                                                <div class="rating_wrap">
-                                                    <div class="rating">
-                                                        <div class="product_rate" style="width:@item.UserRating.Stars%"></div>
+                        <div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                                        </button>
+                                        <div class="row g-0">
+                                            <div class="col-12">
+                                                <div class="popup_content">
+                                                    <div class="popup-text">
+                                                        <div class="heading_s4">
+                                                            <h4>Send Custom Offer for Rental Item</h4>
+                                                        </div>
+                                                        <p>Please provide the following information to send a custom offer for the rental item.</p>
                                                     </div>
-                                                </div>
-                                                <p class="customer_meta">
-                                                    <span class="review_author">@item.UserRating.Name</span>
-                                                    <span class="comment-date">@item.UserRating.Date</span>
-                                                </p>
-                                                <div class="description">
-                                                    <p>@item.UserRating.Message</p>
+                                                    <form method="post">
+                                                        <div class="form-group mb-3">
+                                                            <input name="offer_price" required type="text" class="form-control rounded-0" placeholder="Offer Price">
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <input name="renting_period" required type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-6 mb-3">
+                                                                <label for="start_date">Rent Start Date:</label>
+                                                                <input name="start_date" required type="date" class="form-control rounded-0" id="start_date">
+                                                            </div>
+                                                            <div class="form-group col-6 mb-3">
+                                                                <label for="end_date">Rent End Date:</label>
+                                                                <input name="end_date" required type="date" class="form-control rounded-0" id="end_date">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <textarea name="message" required class="form-control rounded-0" placeholder="Message to Seller"></textarea>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Send Offer" type="submit">Send Offer</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </li>
-
-                                        }
-
-                                    }
-
-                                </ul>
-                            </div>
-                            <div class="review_form field_form">
-                                <h5>Add a review</h5>
-                                <form id="ReviewForm" class="row mt-3">
-                                    <div class="form-group col-12 mb-3">
-                                        <div class="star_rating">
-                                            <span data-value="1"><i class="far fa-star"></i></span>
-                                            <span data-value="2"><i class="far fa-star"></i></span>
-                                            <span data-value="3"><i class="far fa-star"></i></span>
-                                            <span data-value="4"><i class="far fa-star"></i></span>
-                                            <span data-value="5"><i class="far fa-star"></i></span>
                                         </div>
                                     </div>
-
-                                    <input placeholder="Enter Name *" class="form-control" id="Stars" name="Stars" type="hidden">
-
-
-                                    <div class="form-group col-12 mb-3">
-                                        <textarea placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
-                                    </div>
-                                    <div class="form-group col-md-6 mb-3">
-                                        <input placeholder="Enter Name *" class="form-control" name="Name" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6 mb-3">
-                                        <input placeholder="Enter Email *" class="form-control" name="Email" type="email">
-                                    </div>
-
-                                    <div class="form-group col-12 mb-3">
-                                        <button type="button" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
-                                    </div>
-                                </form>
-                            </div>
-                      	</div>
-                	</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-        	<div class="col-12">
-            	<div class="small_divider"></div>
-            	<div class="divider"></div>
-                <div class="medium_divider"></div>
-            </div>
-        </div>
-        <div class="row">
-        	<div class="col-12">
-            	<div class="heading_s1">
-                	<h3>Releted Ads</h3>
-                </div>
-                <div class="releted_product_slider carousel_slider owl-carousel owl-theme" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
-                    @foreach (var item in Model.RelatedAds)
-                    {
-                        <div class="item">
-                            <div class="product">
-                                <div class="product_img">
-                                    <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">
-                                        <img src="@item.Ad.MainImage" alt="product_img1">
-                                    </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart">
-                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i>VIEW </a>
-                                            </li>
-
-                                            <li class="add-to-favorites">
-                                                <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
-                                                    <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">@item.Ad.ItemName</a></h6>
-                                    <div class="product_price">
-                                        <span class="price">@item.Ad.Price PKR</span>
-
-                                    </div>
-
-                                    <div class="pr_desc">
-                                        <p><b>@item.Ad.ItemCategory</b></p>
-                                        <p>
-                                            @item.Ad.ItemDescription
-                                        </p>
-                                    </div>
-                                    
-                                    <hr />
-                                    <span>@item.Time</span>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="large_divider clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-style3">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">Additional info</a>
+                            </li>
+                            <li class="nav-item">
+                                @if (Model.UserRatings != null)
+                                {
+                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (@Model.UserRatings.Count())</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (0)</a>
+
+                                }
+                            </li>
+                        </ul>
+                        <div class="tab-content shop_info_tab">
+                            <div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
+                                <p>@Model.ItemDescription</p>
+                            </div>
+                            <div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
+                                <table class="table table-bordered">
+
+                                    <tr>
+                                        <td>Authenticity</td>
+                                        <td>@Model.Authenticity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Condition</td>
+                                        <td>@Model.Condition</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type</td>
+                                        <td>@Model.Type</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Avialable from - Available to</td>
+                                        <td>@Model.AvailableFrom.ToShortDateString() - @Model.AvailableTo.ToShortDateString()</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Negotiable</td>
+                                        <td>@Model.Negotiable</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Rent</td>
+                                        <td>@Model.Price</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
+                                <div class="comments">
+                                    @if (Model.UserRatings != null)
+                                    {
+                                        <h5 class="product_tab_title">@Model.UserRatings.Count() Review For the Owner of: <span>@Model.ItemName</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="product_tab_title">No Review For the Owner of: <span>@Model.ItemName</span></h5>
+
+                                    }
+                                    <ul class="list_none comment_list mt-4">
+                                        @if (Model.UserRatings != null)
+                                        {
+                                            foreach (var item in Model.UserRatings)
+                                            {
+                                                <li>
+                                                    <div class="comment_img">
+                                                        @if (item.UserInfo != null)
+                                                        {
+                                                            <img src="@item.UserInfo.Photo" alt="user1">
+                                                        }
+                                                    </div>
+                                                    <div class="comment_block">
+                                                        <div class="rating_wrap">
+                                                            <div class="rating">
+                                                                <div class="product_rate" style="width:@item.UserRating.Stars%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="customer_meta">
+                                                            <span class="review_author">@item.UserRating.Name</span>
+                                                            <span class="comment-date">@item.UserRating.Date</span>
+                                                        </p>
+                                                        <div class="description">
+                                                            <p>@item.UserRating.Message</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+                                </div>
+                                <div class="review_form field_form">
+                                    <h5>Add a review</h5>
+                                    <form id="ReviewForm" class="row mt-3">
+                                        <div class="form-group col-12 mb-3">
+                                            <div class="star_rating">
+                                                <span data-value="1"><i class="far fa-star"></i></span>
+                                                <span data-value="2"><i class="far fa-star"></i></span>
+                                                <span data-value="3"><i class="far fa-star"></i></span>
+                                                <span data-value="4"><i class="far fa-star"></i></span>
+                                                <span data-value="5"><i class="far fa-star"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <input placeholder="Enter Name *" class="form-control" id="Stars" name="Stars" type="hidden">
 
 
+                                        <div class="form-group col-12 mb-3">
+                                            <textarea placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-6 mb-3">
+                                            <input placeholder="Enter Name *" class="form-control" name="Name" type="text">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-3">
+                                            <input placeholder="Enter Email *" class="form-control" name="Email" type="email">
+                                        </div>
+
+                                        <div class="form-group col-12 mb-3">
+                                            <button type="button" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="small_divider"></div>
+                    <div class="divider"></div>
+                    <div class="medium_divider"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading_s1">
+                        <h3>Releted Ads</h3>
+                    </div>
+                    <div class="releted_product_slider carousel_slider owl-carousel owl-theme" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
+                        @foreach (var item in Model.RelatedAds)
+                        {
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">
+                                            <img src="@item.Ad.MainImage" alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+
+                                                <li class="add-to-favorites">
+                                                    <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                        <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID })">@item.Ad.ItemName</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">@item.Ad.Price PKR</span>
+
+                                        </div>
+
+                                        <div class="pr_desc">
+                                            <p><b>@item.Ad.ItemCategory</b></p>
+                                            <p>
+                                                @item.Ad.ItemDescription
+                                            </p>
+                                        </div>
+
+                                        <hr />
+                                        <span>@item.Time</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END SECTION SHOP -->
+    <!-- END SECTION SHOP -->
+    <!-- START SECTION SUBSCRIBE NEWSLETTER -->
+    <!-- END MAIN CONTENT -->
+    <!-- START FOOTER -->
+    <!-- END FOOTER -->
 
-<!-- START SECTION SUBSCRIBE NEWSLETTER -->
+    <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 
-<!-- END MAIN CONTENT -->
-
-<!-- START FOOTER -->
-
-<!-- END FOOTER -->
-
-<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a> 
-
-<!-- Latest jQuery --> 
-<script src="~/Content/template/assets/js/jquery-3.6.0.min.js"></script> 
-<!-- jquery-ui --> 
-<script src="~/Content/template/assets/js/jquery-ui.js"></script>
-<!-- popper min js -->
-<script src="~/Content/template/assets/js/popper.min.js"></script>
-<!-- Latest compiled and minified Bootstrap --> 
-<script src="~/Content/template/assets/bootstrap/js/bootstrap.min.js"></script> 
-<!-- owl-carousel min js  --> 
-<script src="~/Content/template/assets/owlcarousel/js/owl.carousel.min.js"></script> 
-<!-- magnific-popup min js  --> 
-<script src="~/Content/template/assets/js/magnific-popup.min.js"></script> 
-<!-- waypoints min js  --> 
-<script src="~/Content/template/assets/js/waypoints.min.js"></script> 
-<!-- parallax js  --> 
-<script src="~/Content/template/assets/js/parallax.js"></script> 
-<!-- countdown js  --> 
-<script src="~/Content/template/assets/js/jquery.countdown.min.js"></script> 
-<!-- imagesloaded js --> 
-<script src="~/Content/template/assets/js/imagesloaded.pkgd.min.js"></script>
-<!-- isotope min js --> 
-<script src="~/Content/template/assets/js/isotope.min.js"></script>
-<!-- jquery.dd.min js -->
-<script src="~/Content/template/assets/js/jquery.dd.min.js"></script>
-<!-- slick js -->
-<script src="~/Content/template/assets/js/slick.min.js"></script>
-<!-- elevatezoom js -->
-<script src="~/Content/template/assets/js/jquery.elevatezoom.js"></script>
-<!-- scripts js --> 
-<script src="~/Content/template/assets/js/scripts.js"></script>
+    <!-- Latest jQuery -->
+    <script src="~/Content/template/assets/js/jquery-3.6.0.min.js"></script>
+    <!-- jquery-ui -->
+    <script src="~/Content/template/assets/js/jquery-ui.js"></script>
+    <!-- popper min js -->
+    <script src="~/Content/template/assets/js/popper.min.js"></script>
+    <!-- Latest compiled and minified Bootstrap -->
+    <script src="~/Content/template/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- owl-carousel min js  -->
+    <script src="~/Content/template/assets/owlcarousel/js/owl.carousel.min.js"></script>
+    <!-- magnific-popup min js  -->
+    <script src="~/Content/template/assets/js/magnific-popup.min.js"></script>
+    <!-- waypoints min js  -->
+    <script src="~/Content/template/assets/js/waypoints.min.js"></script>
+    <!-- parallax js  -->
+    <script src="~/Content/template/assets/js/parallax.js"></script>
+    <!-- countdown js  -->
+    <script src="~/Content/template/assets/js/jquery.countdown.min.js"></script>
+    <!-- imagesloaded js -->
+    <script src="~/Content/template/assets/js/imagesloaded.pkgd.min.js"></script>
+    <!-- isotope min js -->
+    <script src="~/Content/template/assets/js/isotope.min.js"></script>
+    <!-- jquery.dd.min js -->
+    <script src="~/Content/template/assets/js/jquery.dd.min.js"></script>
+    <!-- slick js -->
+    <script src="~/Content/template/assets/js/slick.min.js"></script>
+    <!-- elevatezoom js -->
+    <script src="~/Content/template/assets/js/jquery.elevatezoom.js"></script>
+    <!-- scripts js -->
+    <script src="~/Content/template/assets/js/scripts.js"></script>
 
 
-<script>
-    $(".data-btn").click(function () {
-        $.ajax({
-            url: $(this).attr("data-href"),
-        })
-            .done(function (response) {
-                $("#actionModal .modal-dialog").html(response);
-            });
-    });
+    <script>
+
     $(document).ready(function () {
         $('.star_rating span').click(function () {
             var selectedValue = $(this).data('value');
@@ -415,14 +414,14 @@
 
 
     $("#ReviewForm button[name='submit']").click(function () {
-        
+
     var button = $(this);
         var stars = $("#Stars").val();
     var message = $("textarea[name='message']").val();
     var name = $("input[name='Name']").val();
     var email = $("input[name='Email']").val();
         var UserID = $("#UserID").val();
-        
+
     // Check if any required field is empty
     if (!stars || !message || !name || !email) {
         // Display an error message or perform any necessary action
@@ -462,6 +461,6 @@
     });
 });
 
-</script>
+    </script>
 </body>
 </html>

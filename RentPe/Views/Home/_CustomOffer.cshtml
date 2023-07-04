@@ -31,68 +31,68 @@
 </style>
 @if (Model != null)
 {
-<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
     <div class="modal-content">
-        <div class="modal-header">
-            <div class="popup-text m-2 text-center">
-                <div class="heading_s4">
-                    <h4>Send Custom Offer for Rental Item</h4>
-                </div>
-                <p class="m-0">Please provide the following information to send a custom offer for the rental item.</p>
-            </div>
-        </div>
         <div class="modal-body">
-            <form id="actionForm">
-                <input type="hidden" name="Owner" id="Owner" value="@Model.OwnerFull.Id" />
-                <input type="hidden" name="Rentee" id="Rentee" value="@Model.Rentee" />
-                <div class="form-group mb-3">
-                    <label>Item Name</label>
-                    <input class="form-control" type="hidden" name="Item" value="@Model.ItemFull.ID">
-                    <input class="form-control" type="text" disabled name="ItemName" value="@Model.ItemFull.ItemName">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+            </button>
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="popup_content">
+                        <div class="popup-text">
+                            <div class="heading_s4">
+                                <h4>Send Custom Offer for Rental Item</h4>
+                            </div>
+                            <p>Please provide the following information to send a custom offer for the rental item.</p>
+                        </div>
+                        <form id="ActionForm">
+                            <input type="hidden" name="Owner" id="Owner" value="@Model.OwnerFull.Id" />
+                            <input type="hidden" name="Rentee" id="Rentee" value="@Model.Rentee" />
 
+                            <div class="form-group mb-3">
+                                <label>Item Name</label>
+                                <input class="form-control rounded-0" type="hidden" name="Item" value="@Model.ItemFull.ID">
+                                <input class="form-control" type="text" disabled name="ItemName" value="@Model.ItemFull.ItemName">
+
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <input class="form-control rounded-0" name="OfferedPrice" id="OfferedPrice" placeholder="Enter Your Offer">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <input name="renting_period" required type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6 mb-3">
+                                    <label for="start_date">Renting  Date:</label>
+                                    @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+                                </div>
+                                <div class="form-group col-6 mb-3">
+                                    <label for="end_date">Return Date Date:</label>
+                                    @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <textarea name="Message" required class="form-control rounded-0" placeholder="Message to Seller"></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
+
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="form-group col-6">
-                        <label>Offering Rent (PKR)</label>
-                        <input class="form-control" name="OfferedPrice" id="OfferedPrice" placeholder="Enter Your Offer">
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="Renting Period">Renting Period *</label>
-                        <input id="RentingPeriod2" class="form-control" name="RentingPeriod2" type="number">
-                        <input id="RentingPeriod" class="form-control" name="RentingPeriod" type="hidden">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-6 mb-3">
-                        <label>Renting Date</label>
-                        @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
-
-                    </div>
-
-                    <div class="form-group col-6 mb-3">
-                        <label>Return Date</label>
-                        @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
-                    </div>
-                </div>
-
-            </form>
-
-            <div class="errorDiv">
-
             </div>
         </div>
-        <div class="modal-footer">
-
-            <button id="actionButton" type="button" class="btn btn-fill-out"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
-
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times mr-1"></i> Close</button>
-        </div>
     </div>
-    </div>
-    }
 
-    <script>
+
+    
+}
+
+<script>
 
     function calculateRentingPeriod() {
         // Get the values of the "Available From" and "Available To" fields
@@ -137,4 +137,4 @@
 			}
 		});
 	});
-    </script>
+</script>
