@@ -93,11 +93,11 @@
                     @if (User.Identity.IsAuthenticated)
                     {
 
-                        <button data-href="@Url.Action("CustomOffer", "Home", new { ID = Model.ID})" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
+                        <button data-href="@Url.Action("CustomOffer", "Home", new { ID = Model.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
                     }
                     else
                     {
-                        <a class="btn btn-fill-out" href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
+                        <a class="btn btn-fill-out" href="@Url.Action("Login", "Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
 
                             <div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -146,9 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-</div>
-            </div>
-        </div>
+                    }
         <div class="row">
         	<div class="col-12">
             	<div class="large_divider clearfix"></div>

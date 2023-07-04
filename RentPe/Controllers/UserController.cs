@@ -78,8 +78,6 @@ namespace RentPe.Controllers
             {
                 users = users.Where(a => a.Email.ToLower().Contains(searchTerm.ToLower()));
             }
-
-
             return users;
         }
 
@@ -159,7 +157,8 @@ namespace RentPe.Controllers
             model.CustomOffers = listOfOffers;
 
 
-            model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
+
+            //model.Chats = ConversationServices.Instance.GetConversation(model.SignedInUser.Id);
             return View("Dashboard", "_Layout",model);
         }
 
