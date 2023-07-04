@@ -19,10 +19,18 @@ namespace RentPe.ViewModels
         public string Password { get; set; }
         public string Contact { get; set; }
         public string SearchTerm { get; set; }
-        public List<string> Chats { get; set; }
+        public List<Conversation> Chats { get; set; }
+        public List<ChatInboxModel> InboxList { get;  set; }
     }
 
     
+    public class ChatInboxModel
+    {
+        public User SentBy { get; set; }
+        public User RecievedBy { get; set; }
+        public string Message { get; set; }
+        public DateTime Date { get;  set; }
+    }
 
     public class OwnerDashboardViewModel
     {

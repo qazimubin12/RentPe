@@ -155,12 +155,29 @@ namespace RentPe.Controllers
                 });
             }
             model.CustomOffers = listOfOffers;
-
-
-
-            //model.Chats = ConversationServices.Instance.GetConversation(model.SignedInUser.Id);
+            var InboxList = new List<ChatInboxModel>();
+            model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
+            foreach (var item in model.Chats)
+            {
+                var SentBy =UserManager.FindById(item.SentBy);
+                var RecivedBy = UserManager.FindById(item.RecievedBy);
+                InboxList.Add(new ChatInboxModel { RecievedBy = RecivedBy, SentBy = SentBy, Message = item.Message, Date = item.Date });
+            }
+            model.InboxList = InboxList;
             return View("Dashboard", "_Layout",model);
         }
+
+
+        // GET: Conversation/ChatPartial
+        public ActionResult ChatPartial(string SentBy,string RecievedBy)
+        {
+            UserDashboardViewModel model = new UserDashboardViewModel();    
+            var conversation = ConversationServices.Instance.GetConversation(SentBy,RecievedBy);
+            model.Chats = conversation;
+            model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
+            return PartialView("_Chat", model);
+        }
+
 
 
         [HttpPost]

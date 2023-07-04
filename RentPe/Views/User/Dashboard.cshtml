@@ -112,8 +112,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var item in Model.CustomOffers)
+                                            @if (Model.CustomOffers != null)
                                             {
+                                                foreach (var item in Model.CustomOffers)
+                                                {
                                                 <tr>
                                                     <td><img src="@item.Item.MainImage" style="height:50px;width:50px;" /></td>
                                                     <td>@item.OfferDate.ToShortDateString()</td>
@@ -122,12 +124,12 @@
                                                     <td>@item.RentingDate.ToShortDateString()</td>
                                                     <td>@item.ReturnDate.ToShortDateString()</td>
                                                     <td>@item.Status</td>
-                                                    <td><a href="@Url.Action("View", "Home", new {ID=item.Item.ID })" class="btn btn-fill-out btn-sm">View</a></td>
+                                                    <td><a href="@Url.Action("View", "Home", new { ID = item.Item.ID })" class="btn btn-fill-out btn-sm">View</a></td>
                                                     <td><button type="button" id="CancelOffer" data-id="@item.ID" class="btn btn-fill-out btn-sm">CANCEL OFFER</button></td>
                                                 </tr>
-                                            }
+                                                }
 
-                                            
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -138,14 +140,17 @@
                     @*//USer Info*@
                 <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                     
-                        <div class="row">
+                    <div class="row">
+                        @if (Model.UserInfo != null)
+                        {
+
                             <div class="col-lg-6">
                                 <div class="card mb-3 mb-lg-0">
                                     <div class="card-header">
                                         <h3>User Info</h3>
                                     </div>
                                     <div class="card-body">
-                                        <p>Photo: </p><img  style="height:200px; width:200px; object-fit:cover;"  src="@Model.UserInfo.Photo" />
+                                        <p>Photo: </p><img style="height:200px; width:200px; object-fit:cover;" src="@Model.UserInfo.Photo" />
                                         <address>Address: @Model.UserInfo.Address</address>
                                         <p>City: @Model.UserInfo.City</p>
                                         <p>NIC: @Model.UserInfo.NIC</p>
@@ -154,12 +159,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div  id="UpdateInfo"  style="display:none;" class="card mb-3 mb-lg-0">
+                                <div id="UpdateInfo" style="display:none;" class="card mb-3 mb-lg-0">
                                     <div class="card-header">
                                         <h3>Update User Info</h3>
                                     </div>
                                     <div class="card-body">
-                                        
+
                                         <div class="form-group">
                                             <label for="photoInput">Photo:</label>
                                             <input class="form-control" type="file" id="PhotoUpload" />
@@ -186,7 +191,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        }
                         </div>
 
                 </div>
@@ -224,20 +229,33 @@
                                 <h3>Conversations</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-hover">
-                                    @if (Model.Chats != null)
-                                    {
-                                        foreach (var item in Model.Chats)
-                                        {
-                                        <tr>
-                                            <td>
-                                                <span>@item</span>
-                                            </td>
-                                        </tr>
-                                        }
-                                    }
+                                @if (Model.InboxList != null)
+                                {
+                                    <ul>
 
-                                </table>
+                                        @foreach (var conversation in Model.InboxList)
+                                        {
+                                            <li>
+                                                <div style="float:right;">
+                                                    <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
+                                                    <br />
+                                                    <span>@conversation.Date</span>
+                                                </div>
+                                                <div>
+                                                    <strong>@conversation.SentBy.Name</strong> to <strong>@conversation.RecievedBy.Name</strong>
+                                                </div>
+                                                <div>
+                                                    @conversation.Message
+                                                </div>
+
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+
+
+                                <div id="chat-container"></div>
+
                             </div>
                         </div>
                     </div>
@@ -318,5 +336,35 @@
                 alert("FAIL");
             })
     });
+
+
+
+    $(document).ready(function () {
+            $('.open-chat').click(function () {
+                var recivedby = $(this).data('recieved-id');
+                var sentby = $(this).data('sentby-id');
+                openChat(sentby, recivedby);
+            });
+
+            $('#chat-container').on('click', '.back-button', function () {
+                showInbox();
+            });
+        });
+
+        function openChat(sentby,recievedby) {
+            $.ajax({
+                url: '@Url.Action("ChatPartial", "User")',
+                data: { SentBy: sentby, RecievedBy: recievedby },
+                success: function (result) {
+                    $('#chat-container').html(result).hide().fadeIn();
+                }
+            });
+        }
+
+        function showInbox() {
+            $('#chat-container').fadeOut(function () {
+                $(this).empty();
+            });
+        }
 
 </script>

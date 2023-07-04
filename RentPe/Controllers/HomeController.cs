@@ -99,7 +99,7 @@ namespace RentPe.Controllers
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
 
             var conversation = new Conversation();
-            conversation.Message = "Hi, I'm interesting in this Item. "+itemFull.ItemName;
+            conversation.Message = model.Message+" "+itemFull.ItemName;
             conversation.SentBy = User.Identity.GetUserId();
             conversation.RecievedBy = model.Owner;
             conversation.Date = DateTime.Now;

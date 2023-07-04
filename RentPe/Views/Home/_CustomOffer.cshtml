@@ -45,43 +45,56 @@
                             </div>
                             <p>Please provide the following information to send a custom offer for the rental item.</p>
                         </div>
-                        <form id="ActionForm">
-                            <input type="hidden" name="Owner" id="Owner" value="@Model.OwnerFull.Id" />
-                            <input type="hidden" name="Rentee" id="Rentee" value="@Model.Rentee" />
+                        
+                        <div class="row">
+                            <form class="col-md-8" id="ActionForm">
+                                <input type="hidden" name="Owner" id="Owner" value="@Model.OwnerFull.Id" />
+                                <input type="hidden" name="Rentee" id="Rentee" value="@Model.Rentee" />
 
-                            <div class="form-group mb-3">
-                                <label>Item Name</label>
-                                <input class="form-control rounded-0" type="hidden" name="Item" value="@Model.ItemFull.ID">
-                                <input class="form-control" type="text" disabled name="ItemName" value="@Model.ItemFull.ItemName">
+                                <div class="form-group mb-3">
+                                    <label>Item Name</label>
+                                    <input class="form-control rounded-0" type="hidden" name="Item" value="@Model.ItemFull.ID">
+                                    <input class="form-control" type="text" disabled name="ItemName" value="@Model.ItemFull.ItemName">
 
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <input class="form-control rounded-0" name="OfferedPrice" id="OfferedPrice" placeholder="Enter Your Offer">
-                            </div>
-
-
-                            <div class="form-group mb-3">
-                                <input name="renting_period" required type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-6 mb-3">
-                                    <label for="start_date">Renting  Date:</label>
-                                    @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
                                 </div>
-                                <div class="form-group col-6 mb-3">
-                                    <label for="end_date">Return Date Date:</label>
-                                    @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+
+                                <div class="form-group mb-3">
+                                    <input class="form-control rounded-0" name="OfferedPrice" id="OfferedPrice" placeholder="Enter Your Offer">
+                                </div>
+
+
+                                <div class="form-group mb-3">
+                                    <input name="RentingPeriod" id="RentingPeriod" hidden  type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
+                                    <input name="RentingPeriod2" id="RentingPeriod2" disabled  type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6 mb-3">
+                                        <label for="start_date">Renting  Date:</label>
+                                        @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+                                    </div>
+                                    <div class="form-group col-6 mb-3">
+                                        <label for="end_date">Return Date Date:</label>
+                                        @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <textarea name="Message" id="Message"  class="form-control rounded-0" placeholder="Message to Seller"></textarea>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
+
+                                </div>
+                            </form>
+                            <div class="col-md-4">
+                                <label class="text-center">Image</label>
+                                <img src="@Model.ItemFull.MainImage" style="height:300px;object-fit:cover;" />
+                                <div class="form-group">
+                                    <label class="text-center">Asking Rent</label>
+                                    <input type="text" class="form-control" disabled value="@Model.ItemFull.Price" />
                                 </div>
                             </div>
-                            <div class="form-group mb-3">
-                                <textarea name="Message" required class="form-control rounded-0" placeholder="Message to Seller"></textarea>
-                            </div>
-                            <div class="form-group mb-3">
-                                <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
-
-                            </div>
-                        </form>
+                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -125,7 +138,7 @@
 		$.ajax({
 			url: '@Url.Action("SendCustomOffer", "Home")',
 			type: "post",
-			data: $("#actionForm").serialize()
+            data: $("#ActionForm").serialize()
 		})
 		.done(function (response) {
 			if(response.success)

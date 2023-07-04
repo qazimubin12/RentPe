@@ -1,0 +1,50 @@
+﻿@model RentPe.ViewModels.UserDashboardViewModel
+
+@{
+    ViewBag.Title = "_Chat";
+   
+}
+<style>
+    .chat-messages {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sent-by-user {
+        background-color: #DCF8C6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: right;
+    }
+
+    .received-from-owner {
+        background-color: #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: left;
+    }
+
+</style>
+<div>
+    <button class="back-button">Back</button>
+</div>
+<h3>Chat</h3>
+
+<!-- Display conversation messages -->
+<ul class="chat-messages">
+    @foreach (var message in Model.Chats)
+    {
+        if (message.SentBy == Model.SignedInUser.Id)
+        {
+            <li class="sent-by-user">@message.Message</li>
+
+        }
+        else
+        {
+            <li class="received-from-owner">@message.Message</li>
+
+        }
+    }
+</ul>
