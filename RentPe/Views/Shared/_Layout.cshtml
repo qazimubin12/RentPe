@@ -183,7 +183,7 @@
                             </button>
                             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                                 <ul class="navbar-nav">
-                                    <li><a id="Home" class="nav-link nav_item" href="@Url.Action("", "")">Home</a></li>
+                                    <li><a id="Home" class="nav-link nav_item mx-3" href="@Url.Action("", "")">Home</a></li>
                                     @*<li class="dropdown">
                                             <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
                                             <div class="dropdown-menu">
@@ -201,9 +201,9 @@
                                                 </ul>
                                             </div>
                                         </li>*@
-                                    <li><a id="About" class="nav-link nav_item" href="@Url.Action("About", "Home")">About us</a></li>
-                                    <li><a id="Contact" class="nav-link nav_item" href="@Url.Action("Contact", "Home")">Contact us</a></li>
-                                    <li><a id="Shop" class="nav-link nav_item" href="@Url.Action("Shop", "Home")">Shop</a></li>
+                                    <li><a id="About" class="nav-link nav_item mx-3" href="@Url.Action("About", "Home")">About us</a></li>
+                                    <li><a id="Contact" class="nav-link nav_item mx-3" href="@Url.Action("Contact", "Home")">Contact us</a></li>
+                                    <li><a id="Shop" class="nav-link nav_item mx-3" href="@Url.Action("Shop", "Home")">Shop</a></li>
 
                                     
                                 </ul>
@@ -211,27 +211,28 @@
                             <ul class="navbar-nav attr-nav align-items-center">
                                 @if (!User.Identity.IsAuthenticated)
                                 {
-                                    <li><a href="@Url.Action("Login", "Account")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                    <li><a href="@Url.Action("Login", "Account")" class="nav-link"><i class="linearicons-user"></i> &nbsp;&nbsp;LOGIN/SIGNUP</a></li>
                                 }
                                 else
                                 {
                                     if (User.IsInRole("Admin"))
                                     {
-                                        <li><a href="@Url.Action("Dashboard", "Admin")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                        <li><a href="@Url.Action("Dashboard", "Admin")" class="nav-link"><i class="linearicons-user"></i>&nbsp;&nbsp;DASHBOARD</a></li>
                                     }
                                     else if (User.IsInRole("User"))
                                     {
-                                        <li><a href="@Url.Action("Dashboard", "User")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                        <li><a href="@Url.Action("Dashboard", "User")" class="nav-link"><i class="linearicons-user"></i>&nbsp;&nbsp;PROFILE</a></li>
 
                                     }
                                     else if (User.IsInRole("Owner"))
                                     {
-                                        <li><a href="@Url.Action("Dashboard", "Owner")" class="nav-link"><i class="linearicons-user"></i></a></li>
+                                        <li><a href="@Url.Action("Dashboard", "Owner")" class="nav-link"><i class="linearicons-user"></i>&nbsp;&nbsp;DASHBOARD</a></li>
 
                                     }
                                 }
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <li>
-                                    <a href="#" class="nav-link cart_trigger" data-bs-toggle="dropdown"><i class="linearicons-heart"></i><span class="wishlist_count">0</span></a>
+                                    <a href="#" class="nav-link cart_trigger" data-bs-toggle="dropdown"><i class="linearicons-heart"></i><span class="wishlist_count">0</span>&nbsp;&nbsp;FAVOURITES</a>
                                     <div style="padding:10px;" class="cart_box dropdown-menu dropdown-menu-right">
                                         <ul id="favoritesList" class="cart_list">
                                         </ul>
@@ -271,8 +272,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="widget">
-                            <div class="footer_logo mr-2">
-                                <a href="~/Content/template/#"><img src="~/Content/template/RentPeContent/logo-title-white.png" alt="logo" /></a>
+                            <div class="footer_logo">
+                                <a href="~/Content/template/#"><img src="~/Content/template/RentPeContent/white_footer_logo.png" alt="logo" /></a>
                             </div>
                             <p style="padding-right:50px">Shop smarter, not harder - find amazing deals and save big with us.</p>
                         </div>
@@ -290,11 +291,11 @@
                         <div class="widget">
                             <h6 class="widget_title">Useful Links</h6>
                             <ul class="widget_links">
-                                <li><a href="~/Content/template/#">About Us</a></li>
-                                <li><a href="~/Content/template/#">FAQ</a></li>
-                                <li><a href="~/Content/template/#">Location</a></li>
-                                <li><a href="~/Content/template/#">Affiliates</a></li>
-                                <li><a href="~/Content/template/#">Contact</a></li>
+                                <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                                <li><a href="@Url.Action("PostAd", "Home")">Post an Ad</a></li>
+                                <li><a href="@Url.Action("Contact", "Home")">Location</a></li>
+                                <li><a href="@Url.Action("Shop", "Home")">Shop</a></li>
+                                <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -305,8 +306,8 @@
                                 <li><a href="~/Content/template/#">Men</a></li>
                                 <li><a href="~/Content/template/#">Woman</a></li>
                                 <li><a href="~/Content/template/#">Kids</a></li>
-                                <li><a href="~/Content/template/#">Best Saller</a></li>
-                                <li><a href="~/Content/template/#">New Arrivals</a></li>
+                                <li><a href="~/Content/template/#">Featured Products</a></li>
+                                <li><a href="~/Content/template/#">Latest Items</a></li>
                             </ul>
                         </div>
                     </div>

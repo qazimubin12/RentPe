@@ -95,7 +95,7 @@
                                     </div>
 
                                     <div class="pr_desc">
-                                        <p><b>@item.Ad.ItemCategory</b></p>
+                                        <p><b>@item.Ad.ItemCategory</b></p>  
                                         <p>
                                             @item.Ad.ItemDescription
                                         </p>
@@ -110,8 +110,11 @@
                                             }
                                             else
                                             {
-                                                <li class="add-to-cart"><a href="@Url.Action("Login", "Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a></li>
-
+                                                <li class="add-to-cart">
+                                                    <a href="@Url.Action("Login","Account")">
+                                                        <i class="icon-basket-loaded"></i>Login to Send Custom Offer
+                                                    </a>
+                                                </li>
                                             }
                                                 <li class="add-to-favorites">
                                                     <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
@@ -120,6 +123,59 @@
                                                 </li>
                                             </ul>
                                     </div>
+
+                                    <div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                                                    </button>
+                                                    <div class="row g-0">
+                                                        <div class="col-12">
+                                                            <div class="popup_content">
+                                                                <div class="popup-text">
+                                                                    <div class="heading_s4">
+                                                                        <h4>Send Custom Offer for Rental Item</h4>
+                                                                    </div>
+                                                                    <p>Please provide the following information to send a custom offer for the rental item.</p>
+                                                                </div>
+                                                                <form method="post">
+                                                                    <div class="form-group mb-3">
+                                                                        <input name="offer_price" required type="text" class="form-control rounded-0" placeholder="Offer Price">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <input name="renting_period" required type="number" class="form-control rounded-0" placeholder="Renting Period (in days)">
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-6 mb-3">
+                                                                            <label for="start_date">Rent Start Date:</label>
+                                                                            <input name="start_date" required type="date" class="form-control rounded-0" id="start_date">
+                                                                        </div>
+                                                                        <div class="form-group col-6 mb-3">
+                                                                            <label for="end_date">Rent End Date:</label>
+                                                                            <input name="end_date" required type="date" class="form-control rounded-0" id="end_date">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <textarea name="message" required class="form-control rounded-0" placeholder="Message to Seller"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <button class="btn btn-fill-line btn-block text-uppercase rounded-0" title="Send Offer" type="submit">Send Offer</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
                                     <hr />
                                     <span>@item.Time</span>
                                 </div>

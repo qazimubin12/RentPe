@@ -770,6 +770,7 @@
     <Content Include="Content\template\RentPeContent\team1.png" />
     <Content Include="Content\template\RentPeContent\team2.png" />
     <Content Include="Content\template\RentPeContent\team3.png" />
+    <Content Include="Content\template\RentPeContent\white_footer_logo.png" />
     <Content Include="Content\template\shop-cart.html" />
     <Content Include="Content\template\shop-compare.html" />
     <Content Include="Content\template\shop-left-sidebar.html" />
