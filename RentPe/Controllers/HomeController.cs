@@ -62,24 +62,48 @@ namespace RentPe.Controllers
         {
             CustomOfferViewModel model = new CustomOfferViewModel();
             model.ItemFull = AdServices.Instance.GetAd(ID);
+            model.Rentee = User.Identity.GetUserId();
             model.OwnerFull = UserManager.FindById(model.ItemFull.UserID);
             return PartialView("_CustomOffer", model);
         }
 
+        [HttpPost]
+        public ActionResult ContactUs(ContactUsViewModel model)
+        {
+            //Add saved
+            var query = new Query();
+            query.PhoneNumber = model.PhoneNumber;
+            query.Subject = model.Subject;
+            query.Email = model.Email;
+            query.Message = model.Message;
+            query.Name = model.Name;
+            QueryServices.Instance.SaveQuery(query);
 
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult SendCustomOffer(CustomOfferViewModel model)
         {
             var customOffer = new CustomOffer();
-            customOffer.OfferDate = DateTime.Now; ;
+            customOffer.OfferDate = DateTime.Now;
             customOffer.OfferedPrice = model.OfferedPrice;
             customOffer.ReturnDate = model.ReturnDate;
             customOffer.Rentee = model.Rentee;
             customOffer.RentingDate = model.RentingDate;
             customOffer.Owner = model.Owner;
             customOffer.Item = model.Item;
+            var itemFull = AdServices.Instance.GetAd(model.Item);
             customOffer.RentingPreiod = model.RentingPreiod;
             customOffer.Status = "PENDING";
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
+
+            var conversation = new Conversation();
+            conversation.Message = "Hi, I'm interesting in this Item. "+itemFull.ItemName;
+            conversation.SentBy = User.Identity.GetUserId();
+            conversation.RecievedBy = model.Owner;
+            conversation.Date = DateTime.Now;
+            ConversationServices.Instance.SaveConversation(conversation);   
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 

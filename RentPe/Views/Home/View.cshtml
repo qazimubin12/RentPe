@@ -85,11 +85,11 @@
                     @if (User.Identity.IsAuthenticated)
                     {
 
-                        <button class="btn btn-fill-out" href="#"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
+                        <button data-href="@Url.Action("CustomOffer", "Home", new { ID = Model.ID})" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
                     }
                     else
                     {
-                        <a class="btn btn-fill-out"  href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
+                        <a class="btn btn-fill-out" href="@Url.Action("Login","Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a>
 
                     }
                 </div>
@@ -183,7 +183,7 @@
                                             <div class="comment_block">
                                                 <div class="rating_wrap">
                                                     <div class="rating">
-                                                        <div class="product_rate" style="width:@item.UserRating%"></div>
+                                                        <div class="product_rate" style="width:@item.UserRating.Stars%"></div>
                                                     </div>
                                                 </div>
                                                 <p class="customer_meta">
@@ -261,7 +261,9 @@
                                     </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
+                                            <li class="add-to-cart">
+                                            <a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i>VIEW </a>
+                                            </li>
 
                                             <li class="add-to-favorites">
                                                 <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
@@ -343,7 +345,14 @@
 
 
 <script>
-
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
     $(document).ready(function () {
         $('.star_rating span').click(function () {
             var selectedValue = $(this).data('value');

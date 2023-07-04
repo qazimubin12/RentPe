@@ -35,47 +35,42 @@
         <div class="modal-header">
             <h5><span>Send Custom Offer</span>
             </h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <button class="btn btn-sm btn-rounded btn-dark" data-bs-dismiss="modal" aria-label="Close">
+                X
             </button>
         </div>
         <div class="modal-body">
-            @*<form id="actionForm">
-                <input type="hidden" name="ID" value="@Model.ID" />
+            <form id="actionForm">
+                <input type="hidden" name="Owner" id="Owner" value="@Model.OwnerFull.Id" />
+                <input type="hidden" name="Rentee" id="Rentee" value="@Model.Rentee" />
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input class="form-control" name="Name" placeholder="Enter Full Name." value="@Model.Name">
+                    <label>Item Name</label>
+                    <input class="form-control" type="hidden" name="Item" value="@Model.ItemFull.ID">
+                    <input class="form-control" type="text" disabled name="ItemName" value="@Model.ItemFull.ItemName">
+
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" name="Email" placeholder="Enter Email." value="@Model.Email">
-                </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Role</label>
-                        <div class="col-sm-9">
-                            <select name="RoleID" class="form-control">
-                                @foreach (var item in Model.Roles)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
-
-
-                            </select>
-                        </div>
-                    </div>
-
-                <div class="form-group">
-                    <label>Contact</label>
-                    <input class="form-control" name="Contact" placeholder="Enter Contact." value="@Model.Contact">
+                    <label>Offering Rent (PKR)</label>
+                    <input class="form-control" name="OfferedPrice" id="OfferedPrice" placeholder="Enter Offering Rent in PKR.">
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
-                    <input class="form-control" name="Password" type="password" placeholder="Enter Password." value="@Model.Password">
+                    <label>Renting Date</label>
+                    @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+
                 </div>
 
+                <div class="form-group">
+                    <label>Renting Date</label>
+                    @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+                </div>
 
-            </form>*@
+                <div class="form-group col-md-6 mb-3">
+                    <label for="Renting Period">Renting Period *</label>
+                    <input id="RentingPeriod2" class="form-control" name="RentingPeriod2" type="number">
+                    <input id="RentingPeriod" class="form-control" name="RentingPeriod" type="hidden">
+                </div>
+            </form>
 
             <div class="errorDiv">
 
@@ -83,27 +78,52 @@
         </div>
         <div class="modal-footer">
            
-                <button id="actionButton" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i> Send Ofer</button>
+                <button id="actionButton" type="button" class="btn btn-fill-out"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Ofer</button>
             
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i> Close</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times mr-1"></i> Close</button>
         </div>
     </div>
 }
 
 <script>
+
+    function calculateRentingPeriod() {
+        // Get the values of the "Available From" and "Available To" fields
+        var availableFrom = new Date(document.getElementById('RentingDate').value);
+        var availableTo = new Date(document.getElementById('ReturnDate').value);
+
+        // Calculate the renting period in milliseconds
+        var rentingPeriodMs = availableTo - availableFrom;
+
+        // Convert the renting period to days
+        var rentingPeriodDays = Math.ceil(rentingPeriodMs / (1000 * 60 * 60 * 24));
+
+        // Display the renting period
+        $("#RentingPeriod").val(rentingPeriodDays);
+        $("#RentingPeriod2").val(rentingPeriodDays);
+    }
+
+    // Add onchange event listeners to the date pickers
+    document.getElementById('RentingDate').onchange = calculateRentingPeriod;
+    document.getElementById('ReturnDate').onchange = calculateRentingPeriod;
+
+    $(document).ready(function () {
+        calculateRentingPeriod();
+    })
+
     $("#actionButton").click(function () {
         var button = document.getElementById('actionButton');
         button.classList.add('loader');
         button.disabled = true;
 		$.ajax({
-			url: '@Url.Action("SendCustomOFfer", "Home")',
+			url: '@Url.Action("SendCustomOffer", "Home")',
 			type: "post",
 			data: $("#actionForm").serialize()
 		})
 		.done(function (response) {
 			if(response.success)
-			{
-				location.reload();
+            {
+                window.location.href = '@Url.Action("Dashboard", "User")';
 			}
 			else {
 				$(".errorDiv").html(response.Message);

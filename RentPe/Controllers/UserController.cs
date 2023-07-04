@@ -157,6 +157,9 @@ namespace RentPe.Controllers
                 });
             }
             model.CustomOffers = listOfOffers;
+
+
+            model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
             return View("Dashboard", "_Layout",model);
         }
 

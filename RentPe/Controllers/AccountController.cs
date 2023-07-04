@@ -102,7 +102,7 @@ namespace RentPe.Controllers
                 var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
-                    case SignInStatus.success:
+                    case SignInStatus.Success:
                         Session["ID"] = user.Id;
                         return RedirectToLocal(returnUrl);
                     case SignInStatus.LockedOut:
@@ -156,7 +156,7 @@ namespace RentPe.Controllers
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
-                case SignInStatus.success:
+                case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -410,7 +410,7 @@ namespace RentPe.Controllers
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
-                case SignInStatus.success:
+                case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

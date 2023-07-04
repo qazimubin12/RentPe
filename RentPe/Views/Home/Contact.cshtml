@@ -1,4 +1,5 @@
-﻿<style>
+﻿@model RentPe.ViewModels.ContactUsViewModel
+<style>
     .nav_cat {
         max-height: 0;
         overflow: hidden;
@@ -82,25 +83,25 @@
                     However, if you still require more information or assistance, feel free to contact us!
                 </p>
                 <div class="field_form">
-                    <form method="post" name="enq">
+                    <form id="ActionForm" name="enq">
                         <div class="row">
                             <div class="form-group col-md-6 mb-3">
-                                <input required placeholder="Enter Name *" id="first-name" class="form-control" name="name" type="text">
+                                <input required placeholder="Enter Name *" id="first-name" class="form-control" name="Name" type="text">
                             </div>
                             <div class="form-group col-md-6 mb-3">
-                                <input required placeholder="Enter Email *" id="email" class="form-control" name="email" type="email">
+                                <input required placeholder="Enter Email *" id="email" class="form-control" name="Email" type="email">
                             </div>
                             <div class="form-group col-md-6 mb-3">
-                                <input required placeholder="Enter Phone No. *" id="phone" class="form-control" name="phone">
+                                <input required placeholder="Enter Phone No. *" id="phone" class="form-control" name="Phone">
                             </div>
                             <div class="form-group col-md-6 mb-3">
-                                <input placeholder="Enter Subject" id="subject" class="form-control" name="subject">
+                                <input placeholder="Enter Subject" id="subject" class="form-control" name="Subject">
                             </div>
                             <div class="form-group col-md-12 mb-3">
-                                <textarea required placeholder="Message *" id="description" class="form-control" name="message" rows="4"></textarea>
+                                <textarea required placeholder="Message *" id="description" class="form-control" name="Message" rows="4"></textarea>
                             </div>
                             <div class="col-md-12 mb-3">
-                                <button type="submit" title="Submit Your Message!" class="btn btn-fill-out" id="submitButton" name="submit" value="Submit">Send Message</button>
+                                <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="submitButton" name="submit" value="Submit">Send Message</button>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div id="alert-msg" class="alert-msg text-center"></div>
@@ -115,4 +116,30 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#submitButton").click(function () {
+        var button = document.getElementById('submitButton');
+        button.classList.add('loader');
+        button.disabled = true;
+        $.ajax({
+            url: '@Url.Action("ContactUs", "Home")',
+            type: "POST",
+            data: $("#ActionForm").serialize()
+        })
+            .done(function (response) {
+                if (response.success) {
+                    alert("Saved");
+                    location.reload();
+                } else {
+                    $(".errorDiv").html(response.Message);
+                }
+            })
+            .fail(function (xhr, status, error) {
+                console.error(xhr.responseText);
+            });
+    });
+
+</script>
 <!-- END SECTION CONTACT -->

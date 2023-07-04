@@ -122,7 +122,7 @@
                                                     <td>@item.RentingDate.ToShortDateString()</td>
                                                     <td>@item.ReturnDate.ToShortDateString()</td>
                                                     <td>@item.Status</td>
-                                                    <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                                    <td><a href="@Url.Action("View", "Home", new {ID=item.Item.ID })" class="btn btn-fill-out btn-sm">View</a></td>
                                                     <td><button type="button" id="CancelOffer" data-id="@item.ID" class="btn btn-fill-out btn-sm">CANCEL OFFER</button></td>
                                                 </tr>
                                             }
@@ -224,7 +224,15 @@
                                 <h3>Conversations</h3>
                             </div>
                             <div class="card-body">
-                               
+                                <table class="table table-hover">
+                                    @foreach (var item in Model.Chats)
+                                    {
+                                        <tr>
+                                            <span>@item</span>
+                                        </tr>
+                                    }
+
+                                </table>
                             </div>
                         </div>
                     </div>

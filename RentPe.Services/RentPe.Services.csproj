@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ConversationServices.cs" />
     <Compile Include="CustomOfferServices.cs" />
+    <Compile Include="QueryServices.cs" />
     <Compile Include="UserInfoServices.cs" />
     <Compile Include="UserRatingServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

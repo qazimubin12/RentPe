@@ -465,7 +465,7 @@ PAGE JS
 	
 	$(document).ready(function () {
 		carousel_slider();
-		slick_slider();
+	//	slick_slider();
 	});
 	/*===================================*
 	11. CONTACT FORM JS

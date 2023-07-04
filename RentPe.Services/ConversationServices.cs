@@ -35,6 +35,17 @@ namespace RentPe.Services
             }
         }
 
+
+        public List<string> GetConversationChat(string SentBy)
+        {
+            using (var context = new DSContext())
+            {
+
+                return context.Conversations.Where(x => x.SentBy == SentBy).Select(x=>x.RecievedBy).Distinct().ToList();
+
+            }
+        }
+
         public Conversation GetConversation(int ID)
         {
             using (var context = new DSContext())

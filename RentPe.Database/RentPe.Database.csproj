@@ -101,6 +101,10 @@
     <Compile Include="Migrations\202307011334283_includesmessagesdatauserinfo.designer.cs">
       <DependentUpon>202307011334283_includesmessagesdatauserinfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307031617454_contactus.cs" />
+    <Compile Include="Migrations\202307031617454_contactus.designer.cs">
+      <DependentUpon>202307031617454_contactus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DSContext.cs" />
@@ -148,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307011334283_includesmessagesdatauserinfo.resx">
       <DependentUpon>202307011334283_includesmessagesdatauserinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307031617454_contactus.resx">
+      <DependentUpon>202307031617454_contactus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

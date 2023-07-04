@@ -29,6 +29,7 @@ namespace RentPe.Database
         public DbSet<UserRating> UserRatings { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
 
+        public DbSet<Query> Queries { get; set; }
 
     }
 }

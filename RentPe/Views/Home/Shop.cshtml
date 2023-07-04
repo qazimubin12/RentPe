@@ -105,7 +105,7 @@
                                             @if (User.Identity.IsAuthenticated)
                                             {
                                                 <li class="add-to-cart">
-                                                    <button data-href="@Url.Action("CustomOffer", "Home", new { ID = item.Ad.ID })" type="button" class="data-btn btn btn-fill-out" data-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
+                                                    <button data-href="@Url.Action("CustomOffer", "Home", new { ID = item.Ad.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#actionModal"><i class="icon-basket-loaded"></i>Send Custom Offer</button>
                                                    </li>
                                             }
                                             else
@@ -113,8 +113,6 @@
                                                 <li class="add-to-cart"><a href="@Url.Action("Login", "Account")"><i class="icon-basket-loaded"></i>Login to Send Custom Offer</a></li>
 
                                             }
-                                                <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                                <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
                                                 <li class="add-to-favorites">
                                                     <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
                                                         <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
