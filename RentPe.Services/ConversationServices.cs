@@ -1,4 +1,5 @@
-﻿using RentPe.Database;
+﻿using Microsoft.AspNet.Identity;
+using RentPe.Database;
 using RentPe.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace RentPe.Services
             using (var context = new DSContext())
             {
 
-                return context.Conversations.Where(x=>x.SentBy == SentBy && x.RecievedBy == RecievedBy).ToList();
+                return context.Conversations.Where(x=>x.SentBy == SentBy && x.RecievedBy == RecievedBy
+                                                  || x.SentBy == RecievedBy && x.RecievedBy == SentBy).ToList();
 
             }
         }
@@ -44,20 +46,17 @@ namespace RentPe.Services
             {
 
                 var conversations = context.Conversations
-                             .Where(c => c.SentBy == Rentee || c.RecievedBy == Rentee)
-                             .GroupBy(c => new { c.SentBy, c.RecievedBy })
-                             .Select(g => g.OrderByDescending(c => c.Date).FirstOrDefault())
-                             .ToList();
-
+            .Where(c => c.SentBy == Rentee || c.RecievedBy == Rentee)
+            .GroupBy(c => c.SentBy == Rentee ? c.RecievedBy : c.SentBy)
+            .Select(g => g.OrderByDescending(c => c.Date).FirstOrDefault())
+            .ToList();
                 return conversations;
             }
         }
-
         public Conversation GetConversation(int ID)
         {
             using (var context = new DSContext())
             {
-
                 return context.Conversations.Find(ID);
 
             }

@@ -349,7 +349,9 @@
             $('#chat-container').on('click', '.back-button', function () {
                 showInbox();
             });
-        });
+    });
+
+
 
         function openChat(sentby,recievedby) {
             $.ajax({
@@ -359,7 +361,19 @@
                     $('#chat-container').html(result).hide().fadeIn();
                 }
             });
-        }
+    }
+
+    function updateChat(sentby,recievedby) {
+            $.ajax({
+                url: '@Url.Action("ChatPartial", "User")',
+                data: { SentBy: sentby, RecievedBy: recievedby },
+                success: function (result) {
+                    $('#chat-container').html(result).hide().fadeIn();
+                }
+            });
+    }
+
+
 
         function showInbox() {
             $('#chat-container').fadeOut(function () {

@@ -2,12 +2,22 @@
 
 @{
     ViewBag.Title = "_Chat";
-   
+
 }
 <style>
     .chat-messages {
         list-style-type: none;
         padding: 0;
+    }
+
+    .message-info {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .message-date {
+        font-size: 12px;
+        color: gray;
     }
 
     .sent-by-user {
@@ -25,26 +35,149 @@
         margin-bottom: 10px;
         float: left;
     }
-
 </style>
+<br />
+<hr />
+
 <div>
-    <button class="back-button">Back</button>
 </div>
-<h3>Chat</h3>
 
 <!-- Display conversation messages -->
-<ul class="chat-messages">
-    @foreach (var message in Model.Chats)
-    {
-        if (message.SentBy == Model.SignedInUser.Id)
-        {
-            <li class="sent-by-user">@message.Message</li>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <button class="back-button btn btn-sm btn-fill-out">< INBOX</button>
+                @if (Model.SignedInUser.Id == Model.Rentee.Id)
+                {
+                    <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
+                    <input type="hidden" data-name="@Model.Owner.Name"  id="RecievedID" value="@Model.Owner.Id" />
+                }
+                else
+                {
+                    <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
+                    <input type="hidden" data-name="@Model.Rentee.Name"  id="RecievedID" value="@Model.Rentee.Id" />
+                }
+            </div>
+            <div class="col-md-10">
+                <h2 class="card-title text-center">
+                    @if (Model.Rentee.Id == Model.SignedInUser.Id)
+                    {
+                        @Model.Owner.Name
 
-        }
-        else
-        {
-            <li class="received-from-owner">@message.Message</li>
+                    }
+                    else
+                    {
+                        @Model.Rentee.Name
+                    }
+                </h2>
+            </div>
+        </div>
 
+
+        <hr />
+        <ul class="chat-messages">
+            @foreach (var message in Model.Chats)
+            {
+                <li class="@(message.SentBy == Model.SignedInUser.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
+                    <div class="message-date">@message.Date</div>
+                    <div class="message-info">
+                    </div>
+                    <div class="message-content">
+                        @message.Message
+                        @if (message.Attachments != null && message.Attachments != "")
+                        {
+                            <br />
+                            <img src="@message.Attachments" style="height:200px" />
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" id="Message" name="Message" placeholder="Write your message" class="form-control" />
+            <div class="input-group-append">
+                <button type="button" id="attachmentButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-solid fa-paperclip"></i></button>
+                <button type="button" id="sendButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-sharp fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="file" id="imageUpload" name="Image" style="display: none;" />
+    </div>
+    <div class="form-group">
+        <img id="productimage" src="" style="display: none; max-width: 200px; max-height: 200px;" />
+        <input type="hidden" id="ImageURL" name="ImageURL" />
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function() {
+    $("#attachmentButton").click(function() {
+        $("#imageUpload").click();
+    });
+
+    $("#imageUpload").change(function() {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
         }
-    }
-</ul>
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImage", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+        .done(function(response) {
+            console.log(response);
+            if (response.success) {
+                $("#ImageURL").val(response.DocURL);
+                $("#productimage").attr("src", response.DocURL).show();
+            }
+        })
+        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        });
+    });
+
+    $("#sendButton").click(function() {
+        var message = $("input[name='Message']").val();
+        var imageURL = $("#ImageURL").val();
+        var recivedby = $("#RecievedID").val();
+        var sentby = $("#SignedInUserID").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SendMessage", "User")',
+            data: {
+                message: message,
+                imageURL: imageURL,
+                sentBy: sentby,
+                recivedby: recivedby
+            },
+            dataType: 'json'
+        })
+        .done(function(response) {
+
+
+            openChat(sentby, recivedby);
+        })
+        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        });
+    });
+});
+
+</script>

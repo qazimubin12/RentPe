@@ -174,8 +174,23 @@ namespace RentPe.Controllers
             UserDashboardViewModel model = new UserDashboardViewModel();    
             var conversation = ConversationServices.Instance.GetConversation(SentBy,RecievedBy);
             model.Chats = conversation;
+            model.Owner = UserManager.FindById(RecievedBy);
+            model.Rentee = UserManager.FindById(SentBy);
             model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
             return PartialView("_Chat", model);
+        }
+
+        [HttpPost]
+        public ActionResult SendMessage(string message,string imageURL,string sentBy,string recivedby)
+        {
+            var conversation = new Conversation();
+            conversation.SentBy = sentBy;
+            conversation.RecievedBy = recivedby;
+            conversation.Message = message;
+            conversation.Date = DateTime.Now;
+            conversation.Attachments = imageURL;
+            ConversationServices.Instance.SaveConversation(conversation);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);   
         }
 
 

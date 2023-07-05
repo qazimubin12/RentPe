@@ -9,6 +9,7 @@ namespace RentPe.ViewModels
     public class UserDashboardViewModel
     {
         public User SignedInUser { get; set; }
+        public User Owner { get; set; }
         public UserInfo UserInfo { get; set; }
         public List<CustomerOfferModel> CustomOffers { get; set; }
         public string Name { get; set; }
@@ -21,6 +22,7 @@ namespace RentPe.ViewModels
         public string SearchTerm { get; set; }
         public List<Conversation> Chats { get; set; }
         public List<ChatInboxModel> InboxList { get;  set; }
+        public User Rentee { get;  set; }
     }
 
     
