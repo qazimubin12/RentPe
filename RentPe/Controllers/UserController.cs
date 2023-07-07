@@ -123,12 +123,24 @@ namespace RentPe.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult CancelCustomOffer(int ID)
+        {
+            var customOffer = CustomOfferServices.Instance.GetCustomOffer(ID);
+            customOffer.Status = "WITHDRAWN";
+            CustomOfferServices.Instance.UpdateCustomOffer(customOffer);
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
+
+        }
+
         [HttpGet]  
-        public ActionResult Dashboard()
+        public ActionResult Dashboard(string Chat = "")
         {
             UserDashboardViewModel model = new UserDashboardViewModel();
             model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
-
+            model.ChatActiveOrNot = Chat;
             model.UserInfo = UserInfoServices.Instance.GetUserInfo(model.SignedInUser.Id);
             model.Contact = model.SignedInUser.PhoneNumber;
             model.Email = model.SignedInUser.Email;

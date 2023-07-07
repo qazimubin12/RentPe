@@ -14,9 +14,26 @@ namespace RentPe.Hubs
     [HubName("letsChatHub")]
     public class LetsChatHub:Hub
     {
+
+        public class ChatCustomOffer
+        {
+            public string Message { get; set; }
+            public string Name { get; set; }
+            public string SentBy { get; set; }
+            public string RecievedBy { get; set; }
+            public string Attachments { get; set; }
+            public string FriendUniqueId { get; set; }
+
+            public int Item { get; set; }
+            public float OfferedPrice { get; set; }
+            public DateTime RentingDate { get; set; }
+            public int RentingPeriod { get; set; }
+            public DateTime ReturnDate { get; set; }
+        }
         public class ChatMessage
         {
             public string Message { get; set; }
+            public string Name { get; set; }
             public string SentBy { get; set; }
             public string RecievedBy { get; set; }
             public string Attachments { get; set; }
@@ -48,10 +65,31 @@ namespace RentPe.Hubs
 
             // Save the conversation
             ConversationServices.Instance.SaveConversation(conversation);
-
+            
 
             // Send the message to the intended receiver
-            Clients.Client(message.FriendUniqueId).addNewPrivateMessageToPage(message.SentBy, message.Message, Context.ConnectionId);
+            Clients.Client(message.FriendUniqueId).addNewPrivateMessageToPage(message.Name,message.Attachments, message.Message, Context.ConnectionId);
+        }
+
+
+
+        public void sendPrivateOffer(ChatCustomOffer offer)
+        {
+            var customOffer = new CustomOffer();
+            customOffer.OfferedPrice = offer.OfferedPrice;
+            customOffer.RentingDate = offer.RentingDate;
+            customOffer.ReturnDate = offer.ReturnDate;
+            customOffer.OfferDate = DateTime.Now;
+            customOffer.Owner = offer.RecievedBy;
+            customOffer.Rentee = offer.SentBy;
+            customOffer.Item = offer.Item;
+            customOffer.RentingPreiod = offer.RentingPeriod;
+            customOffer.Status = "PENDING";
+            // Save the conversation
+            CustomOfferServices.Instance.SaveCustomOffer(customOffer);
+
+            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name, offer.Attachments, offer.Message, Context.ConnectionId);
+
         }
 
     }

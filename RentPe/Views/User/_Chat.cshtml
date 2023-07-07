@@ -45,7 +45,7 @@
 </div>
 
 <!-- Display conversation messages -->
-<div class="card" style=" max-height: 300px;  overflow-y: scroll;  ">
+<div class="card"   ">
     <div class="card-body">
         <div class="row">
             <div class="col-md-2">
@@ -91,7 +91,7 @@
 
 
         <hr />
-        <ul class="chat-messages">
+        <ul id="messagingChatBox" style=" max-height: 300px;  overflow-y: scroll;overflow-x:clip;" class="chat-messages">
             @foreach (var message in Model.Chats)
             {
                 <li class="@(message.SentBy == Model.SignedInUser.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
@@ -124,12 +124,29 @@
         </ul>
 
     </div>
+    <div  id="OfferControls" style="display:none;"  class="mb-3 mx-3">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Send New Offer</h2>
+                <div class="form-group">
+                    <input type="text" id="OfferedPrice" name="OfferedPrice" placeholder="Write your Offered Price" class="form-control" />
+                    <label for="start_date">Renting  Date:</label>
+                    @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+                    <label for="end_date">Return Date:</label>
+                    @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+                </div>
+            </div>
+        </div>
+        
+        <br />
+    </div>
     <div class="form-group">
         <div class="input-group">
             <input type="text" id="Message" name="Message" placeholder="Write your message" class="form-control" />
             <div class="input-group-append">
                 <button type="button" id="attachmentButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-solid fa-paperclip"></i></button>
                 <button type="button" id="sendButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-sharp fa-solid fa-paper-plane"></i></button>
+                <button type="button" onclick="toggleOfferControls()" id="ToggleOfferControls" class="btn btn-sm btn-fill-out rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i></button>
             </div>
         </div>
     </div>
@@ -149,26 +166,55 @@
 
 
 <script>
+    function toggleOfferControls() {
+        $("#OfferControls").toggle(); // or $("#OfferControls").toggleClass("hidden");
+        if ($("#OfferControls").is(":visible")) {
+            // Clear the input fields
+            $("#OfferedPrice").val("");
+            $("#RentingDate").val("");
+            $("#ReturnDate").val("");
+        }
+    }
+
 
     $(function () {
 
         var chat = $.connection.letsChatHub;
 
         /*------------ Declare a function on the chat hub so the server can invoke it for Private Chat------------------*/
-        chat.client.addNewPrivateMessageToPage = function (name, message, senderconnId) {
+        chat.client.addNewPrivateMessageToPage = function (name,attachment, message, senderconnId) {
             console.log("you got a new message " + message);
 
             var newLi = $('<li>').addClass('received-from-owner row col-7');
             var messageDate = $('<div>').addClass('message-date').text(currentTime());
+
+
+            var senderName = $('<div>').text(name);
+
+
+            messageDate.append(senderName);
             var messageInfo = $('<div>').addClass('message-info');
-            var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
-            
+            var messageContent = $('<div>').addClass('message-content').text(message);
+            if (attachment != null && attachment != "") {
+                var image = $('<img>').attr('src', attachment).css('height', '200px');
+                messageContent.append($('<br>'), image);
+            }
             newLi.append(messageDate, messageInfo, messageContent);
             $('.chat-messages').append(newLi);
             $("#Message").val('');
+            $("#productimage").attr("src", "");
+
+        };
+
+
+        chat.client.addNewPrivateOfferToPage = function (name, attachment, message, senderconnId) {
+            console.log("you got a new Offer " + message);
 
 
         };
+
+
+
         $.connection.hub.start().done(function () {
             $("#sendButton").prop('disabled', true);
             //Who Ever loggeed in get's their ConnectionID saved in their DB
@@ -226,23 +272,69 @@
                 var sentBy = $("#SignedInUserID").val();
                 var RecieverID = $("#RecievedID").val();
 
-                getConnectionIDByUserID(RecieverID)
-                    .then(function (friendID) {
-                        chat.server.sendPrivateMessage({ Name: $('#Name').val(), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
-                        console.log("Message Sent");
-                        // openChat(SentBy, RecievedBy);
-                        var newLi = $('<li>').addClass('sent-by-user row col-7');
-                        var messageDate = $('<div>').addClass('message-date').text(currentTime());
-                        var messageInfo = $('<div>').addClass('message-info');
-                        var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
+                if ($("#OfferControls").is(":visible")) {
+                    // Clear the input fields
+                    getConnectionIDByUserID(RecieverID)
+                        .then(function (friendID) {
+                            chat.server.sendPrivateOffer({ Name: $('#Name').val(), OfferedPrice: $('#OfferedPrice').val(),RentingDate:$("#RentingDate").val(),ReturnDate:$("#ReturnDate"), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
+                            console.log("Offer Sent");
+                            // openChat(SentBy, RecievedBy);
+                            //var newLi = $('<li>').addClass('sent-by-user row col-7');
+                            //var messageDate = $('<div>').addClass('message-date').text(currentTime());
+                            //var messageInfo = $('<div>').addClass('message-info');
+                            //var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
+                            //var senderName = $('<div>').text($('#Name').val());
+                            //messageDate.append(senderName);
+                            //if (imageURL != null && imageURL != "") {
+                            //    var image = $('<img>').attr('src', imageURL).css('height', '200px');
+                            //    messageContent.append($('<br>'), image);
+                            //}
+                            //newLi.append(messageDate, messageInfo, messageContent);
+                            //$('.chat-messages').append(newLi);
+                            //$("#Message").val('');
+                            //$("#productimage").attr("src", "");
 
-                        newLi.append(messageDate, messageInfo, messageContent);
-                        $('.chat-messages').append(newLi);
-                        $("#Message").val('');
-                    })
-                    .catch(function (error) {
-                        console.log("Error retrieving connection ID: " + error);
-                    });
+                            //ScrollToEnd();
+
+
+
+
+                        })
+                        .catch(function (error) {
+                            console.log("Error retrieving connection ID: " + error);
+                        });
+                } else {
+
+                    getConnectionIDByUserID(RecieverID)
+                        .then(function (friendID) {
+                            chat.server.sendPrivateMessage({ Name: $('#Name').val(), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
+                            console.log("Message Sent");
+                            // openChat(SentBy, RecievedBy);
+                            var newLi = $('<li>').addClass('sent-by-user row col-7');
+                            var messageDate = $('<div>').addClass('message-date').text(currentTime());
+                            var messageInfo = $('<div>').addClass('message-info');
+                            var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
+                            var senderName = $('<div>').text($('#Name').val());
+                            messageDate.append(senderName);
+                            if (imageURL != null && imageURL != "") {
+                                var image = $('<img>').attr('src', imageURL).css('height', '200px');
+                                messageContent.append($('<br>'), image);
+                            }
+                            newLi.append(messageDate, messageInfo, messageContent);
+                            $('.chat-messages').append(newLi);
+                            $("#Message").val('');
+                            $("#productimage").attr("src", "");
+
+                            ScrollToEnd();
+
+
+
+
+                        })
+                        .catch(function (error) {
+                            console.log("Error retrieving connection ID: " + error);
+                        });
+                }
             });
 
 
@@ -251,13 +343,17 @@
     });
 
 
-
+    function ScrollToEnd() {
+        var container = document.getElementById("messagingChatBox");
+        container.scrollTop = container.scrollHeight;
+    }
 
 
     $(document).ready(function () {
 
-
-
+        ScrollToEnd();
+     
+        
         $("#attachmentButton").click(function () {
             $("#imageUpload").click();
         });

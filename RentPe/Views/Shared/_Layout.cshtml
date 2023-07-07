@@ -183,7 +183,7 @@
                             </button>
                             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                                 <ul class="navbar-nav">
-                                    <li><a id="Home" class="nav-link nav_item mx-3" href="@Url.Action("", "")">Home</a></li>
+                                    <li><a id="Home" class="nav-link nav_item mx-2" href="@Url.Action("", "")">Home</a></li>
                                     @*<li class="dropdown">
                                             <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Categories</a>
                                             <div class="dropdown-menu">
@@ -201,10 +201,11 @@
                                                 </ul>
                                             </div>
                                         </li>*@
-                                    <li><a id="About" class="nav-link nav_item mx-3" href="@Url.Action("About", "Home")">About us</a></li>
-                                    <li><a id="Contact" class="nav-link nav_item mx-3" href="@Url.Action("Contact", "Home")">Contact us</a></li>
-                                    <li><a id="Shop" class="nav-link nav_item mx-3" href="@Url.Action("Shop", "Home")">Shop</a></li>
+                                    <li><a id="About" class="nav-link nav_item mx-2" href="@Url.Action("About", "Home")">About us</a></li>
+                                    <li><a id="Contact" class="nav-link nav_item mx-2" href="@Url.Action("Contact", "Home")">Contact us</a></li>
+                                    <li><a id="Shop" class="nav-link nav_item mx-2" href="@Url.Action("Shop", "Home")">Shop</a></li>
 
+                                    
                                     
                                 </ul>
                             </div>
@@ -222,6 +223,7 @@
                                     else if (User.IsInRole("User"))
                                     {
                                         <li><a href="@Url.Action("Dashboard", "User")" class="nav-link"><i class="linearicons-user"></i>&nbsp;&nbsp;PROFILE</a></li>
+                                        <li><a href="@Url.Action("Dashboard", "User", new {Chat="Chat Active"})" class="nav-link"><i class="linearicons-envelope"></i>&nbsp;&nbsp;INBOX</a></li>
 
                                     }
                                     else if (User.IsInRole("Owner"))
@@ -270,24 +272,23 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="widget">
                             <div class="footer_logo">
-                                <a href="~/Content/template/#"><img src="~/Content/template/RentPeContent/white_footer_logo.png" alt="logo" /></a>
+                                <a href="@Url.Action("","")"><img src="~/Content/template/RentPeContent/white_footer_logo.png" alt="logo" /></a>
                             </div>
                             <p style="padding-right:50px">Shop smarter, not harder - find amazing deals and save big with us.</p>
                         </div>
                         <div class="widget">
                             <ul class="social_icons social_white">
-                                <li><a href="~/Content/template/#"><i class="ion-social-facebook"></i></a></li>
-                                <li><a href="~/Content/template/#"><i class="ion-social-twitter"></i></a></li>
-                                <li><a href="~/Content/template/#"><i class="ion-social-googleplus"></i></a></li>
-                                <li><a href="~/Content/template/#"><i class="ion-social-youtube-outline"></i></a></li>
-                                <li><a href="~/Content/template/#"><i class="ion-social-instagram-outline"></i></a></li>
+                                <li><a href="https://www.facebook.com/MubixSol?mibextid=ZbWKwL"><i class="ion-social-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/MubixSol?t=UsQ9i_-PFDBQ9TthMAdE-A&s=09"><i class="ion-social-twitter"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/mubix-solutions-112078278/"><i class="ion-social-linkedin"></i></a></li>
+                                <li><a href="https://instagram.com/mubixsol"><i class="ion-social-instagram-outline"></i></a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="col-lg-4 col-md-3 col-sm-6">
                         <div class="widget">
                             <h6 class="widget_title">Useful Links</h6>
                             <ul class="widget_links">
@@ -299,31 +300,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="widget">
-                            <h6 class="widget_title">Category</h6>
-                            <ul class="widget_links">
-                                <li><a href="~/Content/template/#">Men</a></li>
-                                <li><a href="~/Content/template/#">Woman</a></li>
-                                <li><a href="~/Content/template/#">Kids</a></li>
-                                <li><a href="~/Content/template/#">Featured Products</a></li>
-                                <li><a href="~/Content/template/#">Latest Items</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6">
-                        <div class="widget">
-                            <h6 class="widget_title">My Account</h6>
-                            <ul class="widget_links">
-                                <li><a href="~/Content/template/#">My Account</a></li>
-                                <li><a href="~/Content/template/#">Discount</a></li>
-                                <li><a href="~/Content/template/#">Returns</a></li>
-                                <li><a href="~/Content/template/#">Orders History</a></li>
-                                <li><a href="~/Content/template/#">Order Tracking</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="widget">
                             <h6 class="widget_title">Contact Info</h6>
                             <ul class="contact_info contact_info_light">
@@ -338,7 +317,12 @@
                                 <li>
                                     <i class="ti-mobile"></i>
                                     <p>+ 92 307 287 6363</p>
+                                    <br />
+                                    <i class="ti-mobile"></i>
                                     <p>+ 92 300 925 9266</p>
+                                    <br />
+                                    <i class="ti-mobile"></i>
+                                    <p>+ 92 324 252 6234</p>
                                 </li>
                             </ul>
                         </div>
@@ -353,13 +337,7 @@
                         <p class="mb-md-0 text-center text-md-start">© 2023 All Rights Reserved by RentPe</p>
                     </div>
                     <div class="col-md-6">
-                        <ul class="footer_payment text-center text-lg-end">
-                            <li><a href="~/Content/template/#"><img src="~/Content/template/assets/images/visa.png" alt="visa"></a></li>
-                            <li><a href="~/Content/template/#"><img src="~/Content/template/assets/images/discover.png" alt="discover"></a></li>
-                            <li><a href="~/Content/template/#"><img src="~/Content/template/assets/images/master_card.png" alt="master_card"></a></li>
-                            <li><a href="~/Content/template/#"><img src="~/Content/template/assets/images/paypal.png" alt="paypal"></a></li>
-                            <li><a href="~/Content/template/#"><img src="~/Content/template/assets/images/amarican_express.png" alt="amarican_express"></a></li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>

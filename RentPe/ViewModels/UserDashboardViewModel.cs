@@ -8,6 +8,7 @@ namespace RentPe.ViewModels
 {
     public class UserDashboardViewModel
     {
+        public string ChatActiveOrNot { get; set; }
         public User SignedInUser { get; set; }
         public User Owner { get; set; }
         public UserInfo UserInfo { get; set; }
