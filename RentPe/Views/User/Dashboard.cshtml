@@ -91,7 +91,7 @@
                                 <h3>Dashboard</h3>
                             </div>
                             <div class="card-body">
-                                <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addressesedit your password and account details.</a></p>
+                                <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addressesedit your password and account details.</p>
                             </div>
                         </div>
                     </div>
@@ -341,21 +341,41 @@
             })
     });
 
-
-
     $(document).ready(function () {
-            $('.open-chat').click(function () {
-                var recivedby = $(this).data('recieved-id');
-                var sentby = $(this).data('sentby-id');
-                openChat(sentby, recivedby);
-            });
 
-            $('#chat-container').on('click', '.back-button', function () {
-                showInbox();
-            });
-    });
+        $('.open-chat').click(function () {
+            var $button = $(this); // Store reference to the clicked button
 
-        function openChat(sentby,recievedby) {
+            var recivedby = $(this).data('recieved-id');
+            var sentby = $(this).data('sentby-id');
+
+            $button.prop('disabled', true).html('<span class="spinner"></span>Loading...'); // Disable the button and change its content
+
+            openChat(sentby, recivedby, $button);
+
+        });
+
+        $('#chat-container').on('click', '.back-button', function () {
+            showInbox();
+        });
+
+
+        function openChat(sentby, recievedby, $button) {
+            var $originalButton = $button; // Store reference to the button outside the callback
+            $.ajax({
+                url: '@Url.Action("ChatPartial", "User")',
+                data: { SentBy: sentby, RecievedBy: recievedby },
+                success: function (result) {
+                    $('#chat-container').html(result).hide().fadeIn();
+                },
+                complete: function () {
+                    $originalButton.prop('disabled', false).html('Open Chat'); // Enable the button and restore its original content
+                }
+            });
+        }
+
+
+        function updateChat(sentby, recievedby) {
             $.ajax({
                 url: '@Url.Action("ChatPartial", "User")',
                 data: { SentBy: sentby, RecievedBy: recievedby },
@@ -363,17 +383,7 @@
                     $('#chat-container').html(result).hide().fadeIn();
                 }
             });
-    }
-
-    function updateChat(sentby,recievedby) {
-            $.ajax({
-                url: '@Url.Action("ChatPartial", "User")',
-                data: { SentBy: sentby, RecievedBy: recievedby },
-                success: function (result) {
-                    $('#chat-container').html(result).hide().fadeIn();
-                }
-            });
-    }
+        }
 
 
 
@@ -382,5 +392,5 @@
                 $(this).empty();
             });
         }
-
+    });
 </script>

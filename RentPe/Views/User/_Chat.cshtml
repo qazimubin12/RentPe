@@ -45,15 +45,15 @@
 </div>
 
 <!-- Display conversation messages -->
-<div class="card">
+<div class="card" style=" max-height: 300px;  overflow-y: scroll;  ">
     <div class="card-body">
         <div class="row">
             <div class="col-md-2">
                 <button class="back-button btn btn-sm btn-fill-out">< INBOX</button>
-                <input type="text" id="Name" value="@Model.SignedInUser.Name" />
-                <input type="text" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
-                <input type="text" id="ConnectionID" />
-                <input type="text" id="FriendConnectionID" />
+                <input type="hidden" id="Name" value="@Model.SignedInUser.Name" />
+                <input type="hidden" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
+                <input type="hidden" id="ConnectionID" />
+                <input type="hidden" id="FriendConnectionID" />
 
 
                 @if (Model.SignedInUser.Id == Model.Rentee.Id)
@@ -95,7 +95,20 @@
             @foreach (var message in Model.Chats)
             {
                 <li class="@(message.SentBy == Model.SignedInUser.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
-                    <div class="message-date">@message.Date</div>
+                    <div class="message-date">
+                        @message.Date
+                        <br />
+                        @if (message.SentBy == Model.SignedInUser.Id)
+                        {
+                            @Model.Rentee.Name
+
+                        }
+                        else
+                        {
+                            @Model.Owner.Name
+
+                        }
+                    </div>
                     <div class="message-info">
                     </div>
                     <div class="message-content">
