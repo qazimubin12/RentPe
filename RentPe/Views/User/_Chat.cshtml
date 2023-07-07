@@ -1,5 +1,7 @@
 ﻿@model RentPe.ViewModels.UserDashboardViewModel
 
+<script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="/signalr/hubs"></script>
 @{
     ViewBag.Title = "_Chat";
 
@@ -51,16 +53,22 @@
                 @if (Model.SignedInUser.Id == Model.Rentee.Id)
                 {
                     <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
-                    <input type="hidden" data-name="@Model.Owner.Name"  id="RecievedID" value="@Model.Owner.Id" />
+                    <input type="hidden" data-name="@Model.Owner.Name" id="RecievedID" value="@Model.Owner.Id" />
                 }
                 else
                 {
                     <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
-                    <input type="hidden" data-name="@Model.Rentee.Name"  id="RecievedID" value="@Model.Rentee.Id" />
+                   
+                    <input type="hidden" data-name="@Model.Rentee.Name" id="RecievedID" value="@Model.Rentee.Id" />
                 }
+                <input type="text" id="Name"value="@Model.SignedInUser.Name" />
+                <input type="text" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
             </div>
             <div class="col-md-10">
                 <h2 class="card-title text-center">
+                    <input type="hidden" id="ConnectionID" />
+                    <input type="hidden" id="FriendConnectionID" />
+
                     @if (Model.Rentee.Id == Model.SignedInUser.Id)
                     {
                         @Model.Owner.Name
@@ -113,71 +121,141 @@
         <input type="hidden" id="ImageURL" name="ImageURL" />
     </div>
 
+    
+</div>
+<div id="messagesPvt">
+
 </div>
 
 
 <script>
-    $(document).ready(function() {
-    $("#attachmentButton").click(function() {
-        $("#imageUpload").click();
-    });
 
-    $("#imageUpload").change(function() {
-        var element = this;
-        var formData = new FormData();
-        var totalFiles = element.files.length;
+    $(function () {
 
-        for (var i = 0; i < totalFiles; i++) {
-            var file = element.files[i];
-            formData.append("Photo", file);
-        }
+        var chat = $.connection.letsChatHub;
+        /*------------ Declare a function on the chat hub so the server can invoke it for Private Chat------------------*/
+        chat.client.addNewPrivateMessageToPage = function (name, message, senderconnId) {
 
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("UploadImage", "Shared")',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false
-        })
-        .done(function(response) {
-            console.log(response);
-            if (response.success) {
-                $("#ImageURL").val(response.DocURL);
-                $("#productimage").attr("src", response.DocURL).show();
+            if (senderconnId != $("#connId").text()) {
+
+                $('#messagesPvt').append('<div class="bubble-left">' + name + ' : ' + message + '<br>' + currentTime() + '</div>');
             }
-        })
-        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("FAIL");
+
+        };
+        $.connection.hub.start().done(function () {
+
+            //Who Ever loggeed in get's their ConnectionID saved in their DB
+            $("#ConnectionID").val($.connection.hub.id);
+            var SignedInUserID = $("#SignedInUserID").val();
+            var connectionId = $("#ConnectionID").val();  //for loggedin User
+
+
+            @*$.ajax({
+                url: '@Url.Action("GetConnectionIDByUserID", "User")',
+                type: "post",
+                data: { UserID: SignedInUserID }
+            })
+                .done(function (response) {
+                    if (response.success) {
+                        console.log("Got the ConnectionID" + response.ConnectionID);
+                        $("#FriendConnectionID").val(response.ConnectionID);
+                    }
+                    else {
+                        $(".errorDiv").html(response.Message);
+                    }
+                });*@
+
+            $("#sendButton").click(function () {
+                var message = $("input[name='Message']").val();
+                var imageURL = $("#ImageURL").val();
+                var receivedBy = $("#RecievedID").val();
+                var sentBy = $("#SignedInUserID").val();
+                var friendID = $("#FriendConnectionID").val();
+
+
+                @*$.ajax({
+                    url: '@Url.Action("UpdateConnectionID", "User")',
+                    type: "post",
+                    data: { ConnectionID: connectionId, UserID: SignedInUserID }
+                })
+                    .done(function (response) {
+                        if (response.success) {
+                            console.log("User ID added for");
+                        }
+                        else {
+                            $(".errorDiv").html(response.Message);
+                        }
+                    });*@
+
+
+
+
+
+                chat.server.sendPrivateMessage({ Name: $('#Name').val(), Message: message, FriendUniqueId: $('#txtFriendUniqueId').val() });
+                //openChat(SentBy, RecievedBy);
+
+            });
+
+
+
         });
     });
 
-    $("#sendButton").click(function() {
-        var message = $("input[name='Message']").val();
-        var imageURL = $("#ImageURL").val();
-        var recivedby = $("#RecievedID").val();
-        var sentby = $("#SignedInUserID").val();
-
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("SendMessage", "User")',
-            data: {
-                message: message,
-                imageURL: imageURL,
-                sentBy: sentby,
-                recivedby: recivedby
-            },
-            dataType: 'json'
-        })
-        .done(function(response) {
 
 
-            openChat(sentby, recivedby);
-        })
-        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("FAIL");
+
+
+    $(document).ready(function () {
+
+
+
+        $("#attachmentButton").click(function () {
+            $("#imageUpload").click();
         });
-    });
-});
+        $("#imageUpload").change(function () {
+            var element = this;
+            var formData = new FormData();
+            var totalFiles = element.files.length;
 
+            for (var i = 0; i < totalFiles; i++) {
+                var file = element.files[i];
+                formData.append("Photo", file);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadImage", "Shared")',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+            })
+                .done(function (response) {
+                    console.log(response);
+                    if (response.success) {
+                        $("#ImageURL").val(response.DocURL);
+                        $("#productimage").attr("src", response.DocURL).show();
+                    }
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                });
+        });
+
+        // Start the SignalR connection
+            // Set up the click event for the send button
+
+    });
+
+
+    function currentTime() {
+        return new Date().toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
 </script>

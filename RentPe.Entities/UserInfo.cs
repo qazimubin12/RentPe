@@ -15,7 +15,7 @@ namespace RentPe.Entities
         public string City { get; set; }
         public string NIC { get; set; }
         public DateTime MemberSince { get; set; }
-
+        public string TempConnectionID { get; set; }
         public string Rating { get; set; }
     }
 }

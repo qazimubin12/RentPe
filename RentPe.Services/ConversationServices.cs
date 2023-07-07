@@ -9,6 +9,7 @@ using System.Text;
 
 namespace RentPe.Services
 {
+
     public class ConversationServices
     {
         #region Singleton
@@ -26,6 +27,7 @@ namespace RentPe.Services
         }
         #endregion
 
+       
         public List<Conversation> GetConversation(string SentBy,string RecievedBy)
         {
             using (var context = new DSContext())

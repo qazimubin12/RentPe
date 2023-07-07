@@ -15,7 +15,7 @@ namespace RentPe.Services
     public class AMUserManager : UserManager<User>
     {
        
-        
+
         public AMUserManager(IUserStore<User> store)
             : base(store)
         {

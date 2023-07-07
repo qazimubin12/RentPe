@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Claims;
 
 namespace RentPe.Controllers
 {
@@ -177,22 +180,42 @@ namespace RentPe.Controllers
             model.Owner = UserManager.FindById(RecievedBy);
             model.Rentee = UserManager.FindById(SentBy);
             model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
+
             return PartialView("_Chat", model);
         }
 
+
+       
         [HttpPost]
-        public ActionResult SendMessage(string message,string imageURL,string sentBy,string recivedby)
+        public ActionResult UpdateConnectionID(string UserID, string ConnectionID)
         {
-            var conversation = new Conversation();
-            conversation.SentBy = sentBy;
-            conversation.RecievedBy = recivedby;
-            conversation.Message = message;
-            conversation.Date = DateTime.Now;
-            conversation.Attachments = imageURL;
-            ConversationServices.Instance.SaveConversation(conversation);
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);   
+            var userInfo = UserInfoServices.Instance.GetUserInfo(UserID);
+            userInfo.TempConnectionID = ConnectionID;
+            UserInfoServices.Instance.UpdateUserInfo(userInfo);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        public ActionResult GetConnectionIDByUserID(string UserID)
+        {
+            try
+            {
+                var UserInfo= UserInfoServices.Instance.GetUserInfo(UserID);
+                // Your code to retrieve the ConnectionID based on the UserID
+
+                // Assuming you have retrieved the ConnectionID successfully
+                string connectionID = UserInfo.TempConnectionID;
+
+                // Return the response as JSON
+                return Json(new { success = true, ConnectionID = connectionID });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur
+                return Json(new { success = false, Message = ex.Message });
+            }
+        }
 
 
         [HttpPost]

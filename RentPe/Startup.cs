@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Web.Routing;
 
 [assembly: OwinStartupAttribute(typeof(RentPe.Startup))]
 namespace RentPe
@@ -9,7 +10,8 @@ namespace RentPe
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-           
+            app.MapSignalR();
+
         }
     }
 }
