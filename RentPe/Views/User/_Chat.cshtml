@@ -50,6 +50,12 @@
         <div class="row">
             <div class="col-md-2">
                 <button class="back-button btn btn-sm btn-fill-out">< INBOX</button>
+                <input type="text" id="Name" value="@Model.SignedInUser.Name" />
+                <input type="text" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
+                <input type="text" id="ConnectionID" />
+                <input type="text" id="FriendConnectionID" />
+
+
                 @if (Model.SignedInUser.Id == Model.Rentee.Id)
                 {
                     <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
@@ -58,20 +64,21 @@
                 else
                 {
                     <input type="hidden" data-name="@Model.SignedInUser.Name" id="SignedInUserID" value="@Model.SignedInUser.Id" />
-                   
+
                     <input type="hidden" data-name="@Model.Rentee.Name" id="RecievedID" value="@Model.Rentee.Id" />
                 }
-                <input type="text" id="Name"value="@Model.SignedInUser.Name" />
-                <input type="text" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
+
+
+
             </div>
             <div class="col-md-10">
                 <h2 class="card-title text-center">
-                    <input type="hidden" id="ConnectionID" />
-                    <input type="hidden" id="FriendConnectionID" />
+                    
 
                     @if (Model.Rentee.Id == Model.SignedInUser.Id)
                     {
                         @Model.Owner.Name
+                        
 
                     }
                     else
@@ -133,67 +140,96 @@
     $(function () {
 
         var chat = $.connection.letsChatHub;
+
         /*------------ Declare a function on the chat hub so the server can invoke it for Private Chat------------------*/
         chat.client.addNewPrivateMessageToPage = function (name, message, senderconnId) {
+            console.log("you got a new message " + message);
 
-            if (senderconnId != $("#connId").text()) {
+            var newLi = $('<li>').addClass('received-from-owner row col-7');
+            var messageDate = $('<div>').addClass('message-date').text(currentTime());
+            var messageInfo = $('<div>').addClass('message-info');
+            var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
+            
+            newLi.append(messageDate, messageInfo, messageContent);
+            $('.chat-messages').append(newLi);
+            $("#Message").val('');
 
-                $('#messagesPvt').append('<div class="bubble-left">' + name + ' : ' + message + '<br>' + currentTime() + '</div>');
-            }
 
         };
         $.connection.hub.start().done(function () {
-
+            $("#sendButton").prop('disabled', true);
             //Who Ever loggeed in get's their ConnectionID saved in their DB
             $("#ConnectionID").val($.connection.hub.id);
+            var ConnectionIDOFCurrentSignedInUser = $("#ConnectionID").val();
             var SignedInUserID = $("#SignedInUserID").val();
-            var connectionId = $("#ConnectionID").val();  //for loggedin User
 
-
-            @*$.ajax({
-                url: '@Url.Action("GetConnectionIDByUserID", "User")',
+            $.ajax({
+                url: '@Url.Action("UpdateConnectionID", "User")',
                 type: "post",
-                data: { UserID: SignedInUserID }
+                data: { ConnectionID: ConnectionIDOFCurrentSignedInUser, UserID: SignedInUserID }
             })
                 .done(function (response) {
                     if (response.success) {
-                        console.log("Got the ConnectionID" + response.ConnectionID);
-                        $("#FriendConnectionID").val(response.ConnectionID);
+                        console.log("Logged In UserID saved in DB");
+                        $("#sendButton").prop('disabled', false);
+
                     }
                     else {
                         $(".errorDiv").html(response.Message);
                     }
-                });*@
+                });
+
+
+
+            function getConnectionIDByUserID(userID) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: '@Url.Action("GetConnectionIDByUserID", "User")',
+                        type: "post",
+                        data: { UserID: userID }
+                    })
+                        .done(function (response) {
+                            if (response.success) {
+                                console.log("Got the ConnectionID: " + response.ConnectionID);
+                                resolve(response.ConnectionID);
+                            }
+                            else {
+                                $(".errorDiv").html(response.Message);
+                                reject(response.Message);
+                            }
+                        })
+                        .fail(function (error) {
+                            console.log("An error occurred: " + error);
+                            reject(error);
+                        });
+                });
+            }
+
 
             $("#sendButton").click(function () {
                 var message = $("input[name='Message']").val();
                 var imageURL = $("#ImageURL").val();
                 var receivedBy = $("#RecievedID").val();
                 var sentBy = $("#SignedInUserID").val();
-                var friendID = $("#FriendConnectionID").val();
+                var RecieverID = $("#RecievedID").val();
 
+                getConnectionIDByUserID(RecieverID)
+                    .then(function (friendID) {
+                        chat.server.sendPrivateMessage({ Name: $('#Name').val(), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
+                        console.log("Message Sent");
+                        // openChat(SentBy, RecievedBy);
+                        var newLi = $('<li>').addClass('sent-by-user row col-7');
+                        var messageDate = $('<div>').addClass('message-date').text(currentTime());
+                        var messageInfo = $('<div>').addClass('message-info');
+                        var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
 
-                @*$.ajax({
-                    url: '@Url.Action("UpdateConnectionID", "User")',
-                    type: "post",
-                    data: { ConnectionID: connectionId, UserID: SignedInUserID }
-                })
-                    .done(function (response) {
-                        if (response.success) {
-                            console.log("User ID added for");
-                        }
-                        else {
-                            $(".errorDiv").html(response.Message);
-                        }
-                    });*@
-
-
-
-
-
-                chat.server.sendPrivateMessage({ Name: $('#Name').val(), Message: message, FriendUniqueId: $('#txtFriendUniqueId').val() });
-                //openChat(SentBy, RecievedBy);
-
+                        newLi.append(messageDate, messageInfo, messageContent);
+                        $('.chat-messages').append(newLi);
+                        $("#Message").val('');
+                    })
+                    .catch(function (error) {
+                        console.log("Error retrieving connection ID: " + error);
+                    });
             });
 
 
