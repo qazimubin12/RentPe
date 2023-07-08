@@ -77,19 +77,19 @@
 
                     @if (Model.Rentee.Id == Model.SignedInUser.Id)
                     {
-                        @Model.Owner.Name
+                        @Model.Owner.Name   <span>- @Model.Ad.ItemName</span>
                         
 
                     }
                     else
                     {
-                        @Model.Rentee.Name
+                        @Model.Rentee.Name <span>- @Model.Ad.ItemName</span>
                     }
                 </h2>
             </div>
         </div>
-
-
+        <input type="hidden" value="@Model.Ad.ID" id="Item" />
+ 
         <hr />
         <ul id="messagingChatBox" style=" max-height: 300px;  overflow-y: scroll;overflow-x:clip;" class="chat-messages">
             @foreach (var message in Model.Chats)
@@ -98,16 +98,7 @@
                     <div class="message-date">
                         @message.Date
                         <br />
-                        @if (message.SentBy == Model.SignedInUser.Id)
-                        {
-                            @Model.Rentee.Name
-
-                        }
-                        else
-                        {
-                            @Model.Owner.Name
-
-                        }
+                      @message.SentByName
                     </div>
                     <div class="message-info">
                     </div>
@@ -131,6 +122,7 @@
                 <div class="form-group">
                     <input type="text" id="OfferedPrice" name="OfferedPrice" placeholder="Write your Offered Price" class="form-control" />
                     <label for="start_date">Renting  Date:</label>
+                    <input type="hidden" value="RentingPeriod" />
                     @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
                     <label for="end_date">Return Date:</label>
                     @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
@@ -146,7 +138,10 @@
             <div class="input-group-append">
                 <button type="button" id="attachmentButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-solid fa-paperclip"></i></button>
                 <button type="button" id="sendButton" class="btn btn-sm btn-fill-out rounded-0"><i style="font-size:18px;" class="fas fa-sharp fa-solid fa-paper-plane"></i></button>
+                @if (Model.SignedInUser.Id == Model.Rentee.Id)
+                {
                 <button type="button" onclick="toggleOfferControls()" id="ToggleOfferControls" class="btn btn-sm btn-fill-out rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i></button>
+                }
             </div>
         </div>
     </div>
@@ -166,16 +161,6 @@
 
 
 <script>
-    function toggleOfferControls() {
-        $("#OfferControls").toggle(); // or $("#OfferControls").toggleClass("hidden");
-        if ($("#OfferControls").is(":visible")) {
-            // Clear the input fields
-            $("#OfferedPrice").val("");
-            $("#RentingDate").val("");
-            $("#ReturnDate").val("");
-        }
-    }
-
 
     $(function () {
 
@@ -206,9 +191,40 @@
 
         };
 
-
-        chat.client.addNewPrivateOfferToPage = function (name, attachment, message, senderconnId) {
+        chat.client.addNewPrivateOfferToPage = function (name, rentingPeriod, rentingDate, returnDate, OfferedPrice,ItemName,Status, attachment, message, senderconnId) {
             console.log("you got a new Offer " + message);
+            var offerCard = $('<div>').addClass('offer-card');
+            var offerDetails = $('<div>').addClass('offer-details');
+            var offerTitle = $('<h3>').addClass('offer-title').text('Offer: ').append($('<span>').addClass('item-name').text(ItemName+ "by "+name));
+            var offerInfo = $('<p>').addClass('offer-info').html('Renting Period: <span class="renting-period">' + rentingPeriod + '</span><br>' +
+                'Renting Date: <span class="renting-date">' + rentingDate + '</span><br>' +
+                'Return Date: <span class="return-date">' + returnDate + '</span><br>' +
+                'Offered Price: <span class="offered-price">' + OfferedPrice + '</span><br>' +
+                'Status: <span class="status">' + Status + '</span>');
+            offerDetails.append(offerTitle, offerInfo);
+
+            var offerActions = $('<div>').addClass('offer-actions');
+            var productImage = $('<img>').attr('src', attachment).addClass('product-image').attr('alt', 'Product Image');
+            var offerMessage = $('<p>').addClass('offer-message').text(message);
+            var buttonsContainer = $('<div>').addClass('buttons-container');
+            var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
+                acceptOffer(senderconnId);
+            });
+            var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
+                declineOffer(senderconnId);
+            });
+            buttonsContainer.append(acceptButton, declineButton);
+            offerActions.append(productImage, offerMessage, buttonsContainer);
+
+            offerCard.append(offerDetails, offerActions);
+
+            // Append the offer card to a container element in your page
+            var newLi = $('<li>').addClass('sent-by-user row col-7');
+            $(newLi).append(offerCard);
+            $('.chat-messages').append(newLi);
+
+            $("#Message").val('');
+            $("#productimage").attr("src", "");
 
 
         };
@@ -271,30 +287,47 @@
                 var receivedBy = $("#RecievedID").val();
                 var sentBy = $("#SignedInUserID").val();
                 var RecieverID = $("#RecievedID").val();
-
+                var Name = $('#Name').val();
+                var RentingDate = $("#RentingDate").val();
+                var Item = $("#Item").val();
+                var OfferedPrice = $("#OfferedPrice").val();
+                var ReturnDate = $("#ReturnDate").val();
                 if ($("#OfferControls").is(":visible")) {
+                    
                     // Clear the input fields
                     getConnectionIDByUserID(RecieverID)
                         .then(function (friendID) {
-                            chat.server.sendPrivateOffer({ Name: $('#Name').val(), OfferedPrice: $('#OfferedPrice').val(),RentingDate:$("#RentingDate").val(),ReturnDate:$("#ReturnDate"), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
+                            chat.server.sendPrivateOffer({ Name: Name, Item: Item, OfferedPrice: OfferedPrice, RentingDate: RentingDate, ReturnDate: ReturnDate, SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
                             console.log("Offer Sent");
-                            // openChat(SentBy, RecievedBy);
-                            //var newLi = $('<li>').addClass('sent-by-user row col-7');
-                            //var messageDate = $('<div>').addClass('message-date').text(currentTime());
-                            //var messageInfo = $('<div>').addClass('message-info');
-                            //var messageContent = $('<div>').addClass('message-content').text(/*name + ' : ' + */message);
-                            //var senderName = $('<div>').text($('#Name').val());
-                            //messageDate.append(senderName);
-                            //if (imageURL != null && imageURL != "") {
-                            //    var image = $('<img>').attr('src', imageURL).css('height', '200px');
-                            //    messageContent.append($('<br>'), image);
-                            //}
-                            //newLi.append(messageDate, messageInfo, messageContent);
-                            //$('.chat-messages').append(newLi);
-                            //$("#Message").val('');
-                            //$("#productimage").attr("src", "");
+                            var offerCard = $('<div>').addClass('offer-card');
+                            var offerDetails = $('<div>').addClass('offer-details');
+                            var offerTitle = $('<h3>').addClass('offer-title').text('Offer: ').append($('<span>').addClass('item-name').text(Item + "by " + Name));
+                            var offerInfo = $('<p>').addClass('offer-info').html('Renting Period: <span class="renting-period">' + $("#RentingPeriod").val() + '</span><br>' +
+                                'Renting Date: <span class="renting-date">' + $("#RentingDate").val() + '</span><br>' +
+                                'Return Date: <span class="return-date">' + $("#ReturnDate").val() + '</span><br>' +
+                                'Offered Price: <span class="offered-price">' + $("#OfferedPrice").val() + '</span><br>' +
+                                'Status: <span class="status">PENDING</span>');
+                            offerDetails.append(offerTitle, offerInfo);
 
-                            //ScrollToEnd();
+                            var offerActions = $('<div>').addClass('offer-actions');
+                            var productImage = $('<img>').attr('src', $("#ImageURL").val()).addClass('product-image').attr('alt', 'Product Image');
+                            var offerMessage = $('<p>').addClass('offer-message').text($("Message").val());
+                            var buttonsContainer = $('<div>').addClass('buttons-container');
+                            var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
+                                acceptOffer(senderconnId);
+                            });
+                            var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
+                                declineOffer(senderconnId);
+                            });
+                            buttonsContainer.append(acceptButton, declineButton);
+                            offerActions.append(productImage, offerMessage, buttonsContainer);
+
+                            offerCard.append(offerDetails, offerActions);
+
+                            // Append the offer card to a container element in your page
+                            var newLi = $('<li>').addClass('sent-by-user row col-7');
+                            $(newLi).append(offerCard);
+                            $('.chat-messages').append(newLi);
 
 
 
@@ -325,7 +358,6 @@
                             $("#Message").val('');
                             $("#productimage").attr("src", "");
 
-                            ScrollToEnd();
 
 
 
@@ -343,16 +375,14 @@
     });
 
 
-    function ScrollToEnd() {
-        var container = document.getElementById("messagingChatBox");
-        container.scrollTop = container.scrollHeight;
-    }
 
 
     $(document).ready(function () {
 
-        ScrollToEnd();
-     
+
+            var container = document.getElementById("messagingChatBox");
+            container.scrollTop = container.scrollHeight;
+            
         
         $("#attachmentButton").click(function () {
             $("#imageUpload").click();
@@ -403,4 +433,33 @@
             second: '2-digit'
         });
     }
+
+    function toggleOfferControls() {
+        $("#OfferControls").toggle(); // or $("#OfferControls").toggleClass("hidden");
+        if ($("#OfferControls").is(":visible")) {
+            // Clear the input fields
+            $("#OfferedPrice").val("");
+            $("#RentingDate").val("");
+            $("#ReturnDate").val("");
+        }
+    }
+
+
+    function calculateRentingPeriod() {
+        // Get the values of the "Available From" and "Available To" fields
+        var availableFrom = new Date(document.getElementById('RentingDate').value);
+        var availableTo = new Date(document.getElementById('ReturnDate').value);
+
+        // Calculate the renting period in milliseconds
+        var rentingPeriodMs = availableTo - availableFrom;
+
+        // Convert the renting period to days
+        var rentingPeriodDays = Math.ceil(rentingPeriodMs / (1000 * 60 * 60 * 24));
+
+        // Display the renting period
+        $("#RentingPeriod").val(rentingPeriodDays);
+    }
+    document.getElementById('ReturnDate').onchange = calculateRentingPeriod;
+    document.getElementById('RentingDate').onchange = calculateRentingPeriod;
+
 </script>

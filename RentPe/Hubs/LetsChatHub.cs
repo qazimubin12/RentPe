@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNetCore.Identity;
 using RentPe.Entities;
 using RentPe.Services;
 using System;
@@ -34,6 +35,7 @@ namespace RentPe.Hubs
         {
             public string Message { get; set; }
             public string Name { get; set; }
+            public int Item { get; set; }
             public string SentBy { get; set; }
             public string RecievedBy { get; set; }
             public string Attachments { get; set; }
@@ -62,7 +64,8 @@ namespace RentPe.Hubs
             conversation.Message = message.Message;
             conversation.Date = DateTime.Now;
             conversation.Attachments = message.Attachments;
-
+            conversation.SentByName = message.Name;
+            conversation.Item = message.Item;
             // Save the conversation
             ConversationServices.Instance.SaveConversation(conversation);
             
@@ -85,10 +88,11 @@ namespace RentPe.Hubs
             customOffer.Item = offer.Item;
             customOffer.RentingPreiod = offer.RentingPeriod;
             customOffer.Status = "PENDING";
+            var Ad = AdServices.Instance.GetAd(offer.Item);
             // Save the conversation
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
 
-            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name, offer.Attachments, offer.Message, Context.ConnectionId);
+            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name,offer.RentingPeriod,offer.RentingDate ,offer.ReturnDate,offer.OfferedPrice,Ad.ItemName,customOffer.Status, offer.Attachments, offer.Message, Context.ConnectionId);
 
         }
 

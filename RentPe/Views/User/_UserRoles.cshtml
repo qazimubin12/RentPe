@@ -31,7 +31,7 @@
                                     @role.Name
                                 </td>
                                 <td>
-                                    <button data-bs-href="@Url.Action("UserRoleOperation", "User", new { userID = Model.UserID, roleID = role.Id, isDelete = true })" type="button" class="btnRoleOperation btn btn-danger"><i class="fas fa-user-times mr-1"></i> Delete</button>
+                                    <button data-href="@Url.Action("UserRoleOperation", "User", new { userID = Model.UserID, roleID = role.Id, isDelete = true })" type="button" class="btnRoleOperation btn btn-danger"><i class="fas fa-user-times mr-1"></i> Delete</button>
                                 </td>
                             </tr>
                         }
@@ -45,38 +45,40 @@
                 </div>
             }
             <hr />
-            @if (Model.Roles != null && Model.Roles.Count() > 0)
-            {
-                <table class="table table-responsive col-md-12">
-                    <thead>
-                        <tr>
-                            <th colspan="2">
-                              Assign new Role
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var role in Model.Roles)
-                        {
+            <div class="row">
+                @if (Model.Roles != null && Model.Roles.Count() > 0)
+                {
+                    <table class="table col-md-12">
+                        <thead>
                             <tr>
-                                <td>
-                                    @role.Name
-                                </td>
-                                <td>
-                                    <button data-bs-href="@Url.Action("UserRoleOperation", "User", new {userID = Model.UserID, roleID = role.Id })" type="button" class="btnRoleOperation btn btn-success btn-icon-text" ><i class="mdi mdi-account-details"></i>Assign</button>
-
-                                </td>
+                                <th colspan="2">
+                                    Assign new Role
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <div class="alert alert-warning col-md-12" role="alert">
-                    Sorry! No records left.
-                </div>
-            }
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <tr>
+                                    <td>
+                                        @role.Name
+                                    </td>
+                                    <td>
+                                        <button data-href="@Url.Action("UserRoleOperation", "User", new {userID = Model.UserID, roleID = role.Id })" type="button" class="btnRoleOperation btn btn-success btn-icon-text"><i class="mdi mdi-account-details"></i>Assign</button>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning col-md-12" role="alert">
+                        Sorry! No records left.
+                    </div>
+                }
+            </div>
 
             <div class="errorDiv">
 

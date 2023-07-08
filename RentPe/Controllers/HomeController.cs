@@ -103,6 +103,8 @@ namespace RentPe.Controllers
             conversation.SentBy = User.Identity.GetUserId();
             conversation.RecievedBy = model.Owner;
             conversation.Date = DateTime.Now;
+            conversation.Item = model.Item;
+            conversation.SentByName = UserManager.FindById(conversation.SentBy).Name;
             ConversationServices.Instance.SaveConversation(conversation);   
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
@@ -280,15 +282,17 @@ namespace RentPe.Controllers
         [HttpPost]
         public ActionResult PostAd(ProductViewModel model)
         {
+            var user = UserManager.FindById(User.Identity.GetUserId());
             if (model.ID != 0)
             {
                 var ad = AdServices.Instance.GetAd(model.ID);
                 ad.ID = model.ID;
-                ad.UserName = model.UserName;
+                ad.UserName = user.Name;
+                ad.UserID = user.Id;
+               
                 ad.Contact = model.Contact;
                 ad.Privacy = model.Privacy;
                 ad.ItemName = model.ItemName;
-                ad.UserID = model.UserID;
                 ad.ItemDescription = model.ItemDescription;
                 ad.AvailableFrom = model.AvailableFrom;
                 ad.AvailableTo = model.AvailableTo;
@@ -303,21 +307,24 @@ namespace RentPe.Controllers
                 ad.Note = model.Note;
                 ad.AdStatus = model.AdStatus;
                 ad.RentingPeriod = model.RentingPeriod;
+                ad.MainImage = model.MainImage;
+                ad.Tag = model.Tag;
                 ad.Featured = model.Featured;
+
                 AdServices.Instance.UpdateAd(ad);
                 return Json(new {success=true},JsonRequestBehavior.AllowGet);
             }
             else
             {
                 var ad = new Ad();
+                ad.UserName = user.Name;
+                ad.UserID = user.Id;
                 ad.ID = model.ID;
-                ad.UserName = model.UserName;
                 ad.Contact = model.Contact;
                 ad.Privacy = model.Privacy;
                 ad.ItemName = model.ItemName;
-                ad.UserID = model.UserID;
                 ad.ItemDescription = model.ItemDescription;
-                ad.AvailableFrom = model.AvailableFrom;  //ye nayta hai
+                ad.AvailableFrom = model.AvailableFrom; 
                 ad.AvailableTo = model.AvailableTo;
                 ad.Authenticity = model.Authenticity;
                 ad.ItemCategory = model.ItemCategory;
@@ -331,7 +338,22 @@ namespace RentPe.Controllers
                 ad.AdStatus = model.AdStatus;
                 ad.RentingPeriod = model.RentingPeriod;
                 ad.Featured = model.Featured;
+                ad.MainImage = model.MainImage;
+
                 AdServices.Instance.SaveAd(ad);
+
+                if (model.otherImages.Count() != 0)
+                {
+                    foreach (var item in model.otherImages)
+                    {
+                        var adImage = new AdImage();
+                        adImage.AdID = ad.ID;
+                        adImage.ImageURL = item;
+                        AdServices.Instance.SaveAdImage(adImage);
+
+                    }
+
+                }
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }

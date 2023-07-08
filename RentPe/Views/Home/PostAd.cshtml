@@ -204,7 +204,9 @@
                                 <input required placeholder="Enter Renting Period *" value="@Model.RentingPeriod" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
                             </div>
 
-                            <div hidden class="form-group col-md-6 mb-3">
+                            @if (User.IsInRole("Admin"))
+                            {
+                            <div  class="form-group col-md-6 mb-3">
                                 <label for="Featured">Featured</label>
                                 <select required id="Featured" class="form-control" name="Featured">
                                     @if (Model.Featured == "Yes")
@@ -222,6 +224,7 @@
                                     }
                                 </select>
                             </div>
+                            }
 
                             @if (Model.ID == 0)
                             {
@@ -277,6 +280,8 @@
                                 </select>
                             </div>
 
+                            @if (User.IsInRole("Admin"))
+                            {
                             <div class="form-group col-md-6 mb-3">
                                 <label for="ad-status">Tag *</label>
                                 <select required id="tag" class="form-control" name="Tag">
@@ -304,6 +309,7 @@
                                     }
                                 </select>
                             </div>
+                            }
                             <table class="table" id="hiddenTable" style="">
                                 <thead>
                                     <tr>
@@ -370,11 +376,11 @@
                                 {
 
 
-                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out loader" id="ActionButton">UPDATE</button>
+                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="ActionButton">UPDATE</button>
                                 }
                                 else
                                 {
-                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out loader" id="ActionButton">SAVE</button>
+                                    <button type="button" title="Submit Your Message!" class="btn btn-fill-out" id="ActionButton">SAVE</button>
 
                                 }
                             </div>

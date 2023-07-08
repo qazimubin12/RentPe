@@ -11,6 +11,7 @@ namespace RentPe.ViewModels
         public string ChatActiveOrNot { get; set; }
         public User SignedInUser { get; set; }
         public User Owner { get; set; }
+        public Ad Ad { get; set; }
         public UserInfo UserInfo { get; set; }
         public List<CustomerOfferModel> CustomOffers { get; set; }
         public string Name { get; set; }
@@ -32,6 +33,7 @@ namespace RentPe.ViewModels
         public User SentBy { get; set; }
         public User RecievedBy { get; set; }
         public string Message { get; set; }
+        public int Item { get; set; }
         public DateTime Date { get;  set; }
     }
 

@@ -292,7 +292,7 @@
                                             {
                                                 <li>
                                                     <div style="float:right;">
-                                                        <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
+                                                        <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-item-id="@conversation.Item" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
                                                         <br />
                                                         <span>@conversation.Date</span>
                                                     </div>
@@ -331,7 +331,7 @@
                                             {
                                                 <li>
                                                     <div style="float:right;">
-                                                        <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
+                                                        <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-item-id="@conversation.Item" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
                                                         <br />
                                                         <span>@conversation.Date</span>
                                                     </div>
@@ -476,10 +476,11 @@
 
             var recivedby = $(this).data('recieved-id');
             var sentby = $(this).data('sentby-id');
-
+            var item = $(this).data('item-id');
+            
             $button.prop('disabled', true).html('<span class="spinner"></span>Loading...'); // Disable the button and change its content
 
-            openChat(sentby, recivedby, $button);
+            openChat(sentby, recivedby,item, $button);
 
         });
 
@@ -488,11 +489,12 @@
         });
 
 
-        function openChat(sentby, recievedby, $button) {
+        function openChat(sentby, recievedby, item, $button) {
+            
             var $originalButton = $button; // Store reference to the button outside the callback
             $.ajax({
                 url: '@Url.Action("ChatPartial", "User")',
-                data: { SentBy: sentby, RecievedBy: recievedby },
+                data: { SentBy: sentby, RecievedBy: recievedby,Item:item },
                 success: function (result) {
                     $('#chat-container').html(result).hide().fadeIn();
                 },

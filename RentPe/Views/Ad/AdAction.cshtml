@@ -38,6 +38,8 @@
 </style>
 <form id="PostAdForm" name="enq">
     <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+    <input type="hidden" name="UserName" id="UserName" value="@Model.UserName" />
+    <input type="hidden" name="UserID" id="UserID" value="@Model.UserID" />
     @Html.TextBox("EntryDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%; display:none", @id = "EntryDate", @class = "form-control", type = "date" })
 
     <div class="row">
@@ -182,7 +184,7 @@
             <input required placeholder="Enter Renting Period *" value="@Model.RentingPeriod" id="RentingPeriod" class="form-control" name="RentingPeriod" type="number">
         </div>
 
-        <div hidden class="form-group col-md-6 mb-3">
+        <div class="form-group col-md-6 mb-3">
             <label for="Featured">Featured</label>
             <select required id="Featured" class="form-control" name="Featured">
                 @if (Model.Featured == "Yes")

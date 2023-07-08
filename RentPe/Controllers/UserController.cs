@@ -176,7 +176,7 @@ namespace RentPe.Controllers
             {
                 var SentBy =UserManager.FindById(item.SentBy);
                 var RecivedBy = UserManager.FindById(item.RecievedBy);
-                InboxList.Add(new ChatInboxModel { RecievedBy = RecivedBy, SentBy = SentBy, Message = item.Message, Date = item.Date });
+                InboxList.Add(new ChatInboxModel {Item=item.Item, RecievedBy = RecivedBy, SentBy = SentBy, Message = item.Message, Date = item.Date });
             }
             model.InboxList = InboxList;
             return View("Dashboard", "_Layout",model);
@@ -184,15 +184,24 @@ namespace RentPe.Controllers
 
 
         // GET: Conversation/ChatPartial
-        public ActionResult ChatPartial(string SentBy,string RecievedBy)
+        public ActionResult ChatPartial(string SentBy,string RecievedBy,int Item)
         {
             UserDashboardViewModel model = new UserDashboardViewModel();    
             var conversation = ConversationServices.Instance.GetConversation(SentBy,RecievedBy);
             model.Chats = conversation;
-            model.Owner = UserManager.FindById(RecievedBy);
-            model.Rentee = UserManager.FindById(SentBy);
-            model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
+            model.Ad =  AdServices.Instance.GetAd(Item);
+            model.Owner = UserManager.FindById(model.Ad.UserID);
+            if(model.Owner.Id == RecievedBy)
+            {
+                model.Rentee = UserManager.FindById(SentBy);
 
+            }
+            else
+            {
+                model.Rentee = UserManager.FindById(RecievedBy);
+            }
+            model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
+            
             return PartialView("_Chat", model);
         }
 
@@ -390,6 +399,8 @@ namespace RentPe.Controllers
                 {
                     result = await UserManager.RemoveFromRoleAsync(userID, role.Name);
                 }
+                user.Role = role.Name;
+                UserManager.Update(user);
                 json.Data = new { success = result.Succeeded, Message = string.Join(", ", result.Errors) };
 
             }

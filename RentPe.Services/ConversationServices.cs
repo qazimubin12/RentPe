@@ -41,20 +41,21 @@ namespace RentPe.Services
 
 
 
-
+    
         public List<Conversation> GetConversationChat(string Rentee)
         {
             using (var context = new DSContext())
             {
-
                 var conversations = context.Conversations
             .Where(c => c.SentBy == Rentee || c.RecievedBy == Rentee)
-            .GroupBy(c => c.SentBy == Rentee ? c.RecievedBy : c.SentBy)
+            .GroupBy(c => new { Rentee = c.SentBy == Rentee ? c.SentBy : c.RecievedBy, c.Item })
             .Select(g => g.OrderByDescending(c => c.Date).FirstOrDefault())
             .ToList();
+
                 return conversations;
             }
         }
+
         public Conversation GetConversation(int ID)
         {
             using (var context = new DSContext())
