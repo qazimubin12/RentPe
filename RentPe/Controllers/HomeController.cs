@@ -94,7 +94,7 @@ namespace RentPe.Controllers
             customOffer.Owner = model.Owner;
             customOffer.Item = model.Item;
             var itemFull = AdServices.Instance.GetAd(model.Item);
-            customOffer.RentingPreiod = model.RentingPreiod;
+            customOffer.RentingPeriod = model.RentingPreiod;
             customOffer.Status = "PENDING";
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
 
@@ -104,6 +104,7 @@ namespace RentPe.Controllers
             conversation.RecievedBy = model.Owner;
             conversation.Date = DateTime.Now;
             conversation.Item = model.Item;
+            conversation.IsOffer = true;
             conversation.SentByName = UserManager.FindById(conversation.SentBy).Name;
             ConversationServices.Instance.SaveConversation(conversation);   
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);

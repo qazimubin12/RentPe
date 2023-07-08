@@ -15,5 +15,6 @@ namespace RentPe.Entities
         public string RecievedBy { get; set; }
         public string Attachments { get; set; }
         public DateTime Date { get; set; }
+        public bool IsOffer { get; set; }
     }
 }

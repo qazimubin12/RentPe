@@ -38,6 +38,7 @@ namespace RentPe.Hubs
             public int Item { get; set; }
             public string SentBy { get; set; }
             public string RecievedBy { get; set; }
+            public string IsOffer { get; set; }
             public string Attachments { get; set; }
             public string FriendUniqueId { get; set; }
         }
@@ -86,7 +87,7 @@ namespace RentPe.Hubs
             customOffer.Owner = offer.RecievedBy;
             customOffer.Rentee = offer.SentBy;
             customOffer.Item = offer.Item;
-            customOffer.RentingPreiod = offer.RentingPeriod;
+            customOffer.RentingPeriod = offer.RentingPeriod;
             customOffer.Status = "PENDING";
             var Ad = AdServices.Instance.GetAd(offer.Item);
             // Save the conversation

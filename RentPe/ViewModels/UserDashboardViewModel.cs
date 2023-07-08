@@ -23,10 +23,17 @@ namespace RentPe.ViewModels
         public string Contact { get; set; }
         public string SearchTerm { get; set; }
         public List<Conversation> Chats { get; set; }
+        public List<MainChatModel> MainChats { get; set; }
         public List<ChatInboxModel> InboxList { get;  set; }
         public User Rentee { get;  set; }
     }
 
+
+    public class MainChatModel
+    {
+        public Conversation Chats { get; set; }
+        public CustomOffer CustomOffer { get; set; }
+    }
     
     public class ChatInboxModel
     {

@@ -17,6 +17,6 @@ namespace RentPe.Entities
         public float OfferedPrice { get; set; }
         public DateTime RentingDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public int RentingPreiod { get; set; }
+        public int RentingPeriod { get; set; }
     }
 }

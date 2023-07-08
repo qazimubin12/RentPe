@@ -92,24 +92,54 @@
  
         <hr />
         <ul id="messagingChatBox" style=" max-height: 300px;  overflow-y: scroll;overflow-x:clip;" class="chat-messages">
-            @foreach (var message in Model.Chats)
+            @foreach (var message in Model.MainChats)
             {
-                <li class="@(message.SentBy == Model.SignedInUser.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
+                <li class="@(message.Chats.SentBy == Model.SignedInUser.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
                     <div class="message-date">
-                        @message.Date
+                        @message.Chats.Date
                         <br />
-                      @message.SentByName
+                        @message.Chats.SentByName
                     </div>
                     <div class="message-info">
                     </div>
                     <div class="message-content">
-                        @message.Message
-                        @if (message.Attachments != null && message.Attachments != "")
+                        @message.Chats.Message
+                        @if (message.Chats.Attachments != null && message.Chats.Attachments != "")
                         {
                             <br />
-                            <img src="@message.Attachments" style="height:200px" />
+                            <img src="@message.Chats.Attachments" style="height:200px" />
                         }
                     </div>
+
+                    @if (message.CustomOffer != null)
+                    {
+                        <div class="offer-card">
+                            <div class="offer-details">
+                                <p class="offer-info">
+                                    @*Renting Period: <span class="renting-period">@message.CustomOffer.RentingPeriod</span><br>*@
+                                    Renting Date: <span class="renting-date">@message.CustomOffer.RentingDate.ToShortDateString()</span><br>
+                                    Return Date: <span class="return-date">@message.CustomOffer.ReturnDate.ToShortDateString()</span><br>
+                                    Offered Price: <span class="offered-price">@message.CustomOffer.OfferedPrice</span><br>
+                                    Status: <span class="status">@message.CustomOffer.Status</span>
+                                </p>
+                            </div>
+                            <div class="offer-actions">
+                                <div class="buttons-container">
+                                    @if (Model.SignedInUser.Id == message.CustomOffer.Rentee)
+                                    {
+                                        <button class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="accept-button btn btn-sm btn-fill-out">Accept</button>
+                                        <button class="decline-button btn btn-sm btn-fill-out">Decline</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
                 </li>
             }
         </ul>
@@ -340,7 +370,7 @@
 
                     getConnectionIDByUserID(RecieverID)
                         .then(function (friendID) {
-                            chat.server.sendPrivateMessage({ Name: $('#Name').val(), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
+                            chat.server.sendPrivateMessage({ Name: $('#Name').val(), SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL,Item:$("#Item").val(), Message: message, FriendUniqueId: friendID });
                             console.log("Message Sent");
                             // openChat(SentBy, RecievedBy);
                             var newLi = $('<li>').addClass('sent-by-user row col-7');

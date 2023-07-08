@@ -13,6 +13,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
+using System.Data.Entity;
+using Microsoft.AspNet.SignalR.Messaging;
 
 namespace RentPe.Controllers
 {
@@ -135,6 +137,22 @@ namespace RentPe.Controllers
 
         }
 
+        public abstract class MessageBase
+        {
+            public string Message { get; set; }
+            public string Name { get; set; }
+            public string SentBy { get; set; }
+            public string RecievedBy { get; set; }
+            public string Attachments { get; set; }
+
+            public Ad Item { get; set; }
+            public float OfferedPrice { get; set; }
+            public DateTime RentingDate { get; set; }
+            public DateTime OfferedDate { get; set; }
+            public int RentingPeriod { get; set; }
+            public DateTime ReturnDate { get; set; }
+        }
+
         [HttpGet]  
         public ActionResult Dashboard(string Chat = "")
         {
@@ -166,12 +184,18 @@ namespace RentPe.Controllers
                     Status = item.Status,
                     RentingDate = item.RentingDate,
                     ReturnDate = item.ReturnDate,
-                    RentingPreiod = item.RentingPreiod
+                    RentingPreiod = item.RentingPeriod
                 });
             }
             model.CustomOffers = listOfOffers;
             var InboxList = new List<ChatInboxModel>();
             model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
+
+
+            //foreach (var item in mergedChats)
+            //{
+            //    item.
+            //}
             foreach (var item in model.Chats)
             {
                 var SentBy =UserManager.FindById(item.SentBy);
@@ -186,20 +210,44 @@ namespace RentPe.Controllers
         // GET: Conversation/ChatPartial
         public ActionResult ChatPartial(string SentBy,string RecievedBy,int Item)
         {
-            UserDashboardViewModel model = new UserDashboardViewModel();    
-            var conversation = ConversationServices.Instance.GetConversation(SentBy,RecievedBy);
-            model.Chats = conversation;
-            model.Ad =  AdServices.Instance.GetAd(Item);
+            UserDashboardViewModel model = new UserDashboardViewModel();
+            model.Ad = AdServices.Instance.GetAd(Item);
             model.Owner = UserManager.FindById(model.Ad.UserID);
+
+            var conversation = ConversationServices.Instance.GetConversation(SentBy,RecievedBy);
+            var MainChatList = new List<MainChatModel>();
             if(model.Owner.Id == RecievedBy)
             {
                 model.Rentee = UserManager.FindById(SentBy);
-
             }
             else
             {
                 model.Rentee = UserManager.FindById(RecievedBy);
             }
+            foreach (var item in conversation)
+            {
+                if(item.IsOffer == true)
+                {
+                    MainChatList.Add(new MainChatModel { Chats = item, CustomOffer = GetClosestOffer(item.Date) });
+                }
+                else
+                {
+                    MainChatList.Add(new MainChatModel { Chats = item });
+
+                }
+            }
+
+            CustomOffer GetClosestOffer(DateTime chatTime)
+            {
+                var closestOffer =  CustomOfferServices.Instance.GetCustomOfferByRentee(model.Rentee.Id)
+
+                    .Where(co => co.OfferDate < chatTime)
+                    .OrderByDescending(co => co.OfferDate)
+                    .FirstOrDefault();
+
+                return closestOffer;
+            }
+            model.MainChats = MainChatList;
             model.SignedInUser = UserManager.FindById(User.Identity.GetUserId());
             
             return PartialView("_Chat", model);
