@@ -254,7 +254,26 @@ namespace RentPe.Controllers
         }
 
 
-       
+
+        [HttpPost]
+        public ActionResult UpdateOfferStatus(int offerId, string status)
+        {
+            // Update the status of the offer in the database (example code)
+            var offer = CustomOfferServices.Instance.GetCustomOffer(offerId);
+
+            if (offer != null)
+            {
+                offer.Status = status;
+                CustomOfferServices.Instance.UpdateCustomOffer(offer);
+                return Json(new { updatedStatus = offer.Status });
+            }
+            else
+            {
+                return Json(new { error = "Offer not found" });
+            }
+        }
+
+
         [HttpPost]
         public ActionResult UpdateConnectionID(string UserID, string ConnectionID)
         {

@@ -124,17 +124,20 @@
                                 </p>
                             </div>
                             <div class="offer-actions">
+                                @if (message.CustomOffer.Status == "PENDING")
+                                {
                                 <div class="buttons-container">
                                     @if (Model.SignedInUser.Id == message.CustomOffer.Rentee)
                                     {
-                                        <button class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
+                                        <button id="@message.CustomOffer.ID" class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
                                     }
                                     else
                                     {
-                                        <button class="accept-button btn btn-sm btn-fill-out">Accept</button>
-                                        <button class="decline-button btn btn-sm btn-fill-out">Decline</button>
+                                        <button id="@message.CustomOffer.ID" class="accept-button btn btn-sm btn-fill-out">Accept</button>
+                                        <button id="@message.CustomOffer.ID" class="decline-button btn btn-sm btn-fill-out">Decline</button>
                                     }
                                 </div>
+                                }
                             </div>
                         </div>
 
@@ -255,7 +258,7 @@
 
             $("#Message").val('');
             $("#productimage").attr("src", "");
-
+            $("#OfferControls").toggle();
 
         };
 
@@ -359,14 +362,17 @@
                             $(newLi).append(offerCard);
                             $('.chat-messages').append(newLi);
 
-
+                            $("#Message").val('');
+                            $("#productimage").attr("src", "");
+                            $("#OfferControls").toggle();
 
 
                         })
                         .catch(function (error) {
                             console.log("Error retrieving connection ID: " + error);
                         });
-                } else {
+                }
+                else {
 
                     getConnectionIDByUserID(RecieverID)
                         .then(function (friendID) {
@@ -396,7 +402,10 @@
                         .catch(function (error) {
                             console.log("Error retrieving connection ID: " + error);
                         });
+
+
                 }
+                ScrollToEnd();
             });
 
 
@@ -408,10 +417,7 @@
 
 
     $(document).ready(function () {
-
-
-            var container = document.getElementById("messagingChatBox");
-            container.scrollTop = container.scrollHeight;
+        ScrollToEnd();
             
         
         $("#attachmentButton").click(function () {
@@ -452,6 +458,76 @@
 
     });
 
+    // Accept button click event
+    $('.accept-button').click(function () {
+        var offerId = $(this).attr('id');
+        var confirmAccept = confirm("Are you sure you want to accept this offer?");
+
+        if (confirmAccept) {
+            updateOfferStatus(offerId, "ACCEPTED");
+        }
+    });
+
+    // Decline button click event
+    $('.decline-button').click(function () {
+        var offerId = $(this).attr('id');
+        var confirmDecline = confirm("Are you sure you want to decline this offer?");
+
+        if (confirmDecline) {
+            updateOfferStatus(offerId, "DECLINED");
+        }
+    });
+
+    // Withdraw button click event
+    $('.withdraw-button').click(function () {
+        var offerId = $(this).attr('id');
+        
+        var confirmWithdraw = confirm("Are you sure you want to withdraw this offer?");
+
+        if (confirmWithdraw) {
+            updateOfferStatus(offerId, "WITHDRAWN");
+        }
+    });
+
+    // Function to update offer status using Ajax
+    function updateOfferStatus(offerId, status) {
+        
+        $.ajax({
+            url: '@Url.Action("UpdateOfferStatus","User")',
+            type: 'POST',
+            data: { offerId: offerId, status: status },
+            success: function (response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    // Update the status on the offer card
+                    $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+
+                    // Hide the button group
+                    $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+                    alert("Offer Updated");
+
+                }
+            },
+            error: function () {
+                alert('Error updating the offer status.');
+            }
+        });
+    }
+
+
+    function ScrollToEnd() {
+
+        var chatBox = document.getElementById('messagingChatBox');
+
+        // Get the last message element
+        var lastMessage = chatBox.querySelector('li:last-child');
+
+        // Scroll the chat box to the last message
+        lastMessage.scrollIntoView();
+
+    }
+  
 
     function currentTime() {
         return new Date().toLocaleString('en-GB', {
@@ -473,6 +549,8 @@
             $("#ReturnDate").val("");
         }
     }
+
+
 
 
     function calculateRentingPeriod() {
