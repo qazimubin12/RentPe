@@ -206,6 +206,13 @@ namespace RentPe.Controllers
             return View("Dashboard", "_Layout",model);
         }
 
+        public ActionResult GetMainImage(int item)
+        {
+            // Logic to retrieve the main image URL based on the item value
+            string imageUrl = AdServices.Instance.GetAd(item).MainImage;
+
+            return Content(imageUrl); // Assuming the image URL is returned as a string
+        }
 
         // GET: Conversation/ChatPartial
         public ActionResult ChatPartial(string SentBy,string RecievedBy,int Item)

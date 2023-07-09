@@ -93,7 +93,7 @@ namespace RentPe.Hubs
             // Save the conversation
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
 
-            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name,offer.RentingPeriod,offer.RentingDate ,offer.ReturnDate,offer.OfferedPrice,Ad.ItemName,customOffer.Status, offer.Attachments, offer.Message, Context.ConnectionId);
+            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name,offer.RentingPeriod,offer.RentingDate ,offer.ReturnDate,offer.OfferedPrice,Ad.ItemName,customOffer.Status, Ad.MainImage, offer.Message, Context.ConnectionId);
 
         }
 
