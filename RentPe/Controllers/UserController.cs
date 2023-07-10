@@ -206,6 +206,7 @@ namespace RentPe.Controllers
             return View("Dashboard", "_Layout",model);
         }
 
+        [HttpGet]
         public ActionResult GetMainImage(int item)
         {
             // Logic to retrieve the main image URL based on the item value

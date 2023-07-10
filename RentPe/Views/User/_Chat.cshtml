@@ -51,6 +51,8 @@
             <div class="col-md-2">
                 <button class="back-button btn btn-sm btn-fill-out">< INBOX</button>
                 <input type="hidden" id="Name" value="@Model.SignedInUser.Name" />
+                <input type="hidden" data-name="@Model.Rentee.Name" id="SNRentee" value="@Model.Rentee.Id" />
+
                 <input type="hidden" id="txtFriendUniqueId" placeholder="Friend Unique ID" />
                 <input type="hidden" id="ConnectionID" />
                 <input type="hidden" id="FriendConnectionID" />
@@ -73,12 +75,12 @@
             </div>
             <div class="col-md-10">
                 <h2 class="card-title text-center">
-                    
+
 
                     @if (Model.Rentee.Id == Model.SignedInUser.Id)
                     {
-                        @Model.Owner.Name   <span>- @Model.Ad.ItemName</span>
-                        
+                        @Model.Owner.Name <span>- @Model.Ad.ItemName</span>
+
 
                     }
                     else
@@ -88,9 +90,13 @@
                 </h2>
             </div>
         </div>
+        <input type="hidden" value="@Model.Ad.MainImage" id="AdMainImage" />
         <input type="hidden" value="@Model.Ad.ID" id="Item" />
- 
-        <hr />
+        @if (Model.Rentee.Id == Model.SignedInUser.Id)
+        {
+            <input type="hidden" id="RenteeDeets" value="@Model.Rentee.Name" />
+        }
+            <hr />
         <ul id="messagingChatBox" style=" max-height: 300px;  overflow-y: scroll;overflow-x:clip;" class="chat-messages">
             @foreach (var message in Model.MainChats)
             {
@@ -126,17 +132,17 @@
                             <div class="offer-actions">
                                 @if (message.CustomOffer.Status == "PENDING")
                                 {
-                                <div class="buttons-container">
-                                    @if (Model.SignedInUser.Id == message.CustomOffer.Rentee)
-                                    {
-                                        <button id="@message.CustomOffer.ID" class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
-                                    }
-                                    else
-                                    {
-                                        <button id="@message.CustomOffer.ID" class="accept-button btn btn-sm btn-fill-out">Accept</button>
-                                        <button id="@message.CustomOffer.ID" class="decline-button btn btn-sm btn-fill-out">Decline</button>
-                                    }
-                                </div>
+                                    <div class="buttons-container">
+                                        @if (Model.SignedInUser.Id == message.CustomOffer.Rentee)
+                                        {
+                                            <button id="@message.CustomOffer.ID" class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
+                                        }
+                                        else
+                                        {
+                                            <button id="@message.CustomOffer.ID" class="accept-button btn btn-sm btn-fill-out">Accept</button>
+                                            <button id="@message.CustomOffer.ID" class="decline-button btn btn-sm btn-fill-out">Decline</button>
+                                        }
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -195,6 +201,9 @@
 
 <script>
 
+    var SNUSer = $("#SignedInUserID").val();
+    var SNRENTEE = $("#SNRentee").val();
+
     $(function () {
 
         var chat = $.connection.letsChatHub;
@@ -237,15 +246,32 @@
 
             var offerActions = $('<div>').addClass('offer-actions');
             var productImage = $('<img>').attr('src', attachment).addClass('product-image').attr('alt', 'Product Image');
-            debugger
+            
             var offerMessage = $('<p>').addClass('offer-message').text(message);
             var buttonsContainer = $('<div>').addClass('buttons-container');
-            var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
-                acceptOffer(senderconnId);
-            });
-            var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
-                declineOffer(senderconnId);
-            });
+            
+            if (SNUSer == SNRENTEE) {
+                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').on('click', function () {
+                    updateOfferStatus(senderconnId, 'WITHDRAWN');
+                    buttonsContainer.append(withdraw);
+
+                });
+            }
+            else {
+
+                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
+                    updateOfferStatus(senderconnId, 'ACCEPTED');
+                });
+                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
+                    updateOfferStatus(senderconnId, 'DECLINED');
+                });
+                buttonsContainer.append(acceptButton, declineButton);
+
+            }
+
+
+
+
             buttonsContainer.append(acceptButton, declineButton);
             offerActions.append(productImage, offerMessage, buttonsContainer);
 
@@ -258,8 +284,9 @@
 
             $("#Message").val('');
             $("#productimage").attr("src", "");
-            $("#OfferControls").toggle();
-
+            if (SNUSer == SNRENTEE) {
+                $("#OfferControls").toggle();
+            }
         };
 
 
@@ -322,25 +349,9 @@
                 var RecieverID = $("#RecievedID").val();
                 var Name = $('#Name').val();
                 var RentingDate = $("#RentingDate").val();
-                var ProductAdImage = "";
-
+                var RenteeDeets = $("#RenteeDeets").val();
                 var Item = $("#Item").val();
-                //write ajax to get the Main Image from AdController
-                $.ajax({
-                    url: '@Url.Action("GetMainImage", "User")', // Assuming "Ad" is the name of your controller
-                    type: 'GET',
-                    data: { item: Item },
-                    success: function (imageUrl) {
-                        // Handle the success response and use the retrieved image URL
-                        // For example, you can update an image element's source attribute
-                        ProductAdImage = imageURl;
-                    },
-                    error: function () {
-                        // Handle the error case
-                        console.log('Error occurred while retrieving the main image.');
-                    }
-                });
-
+                var AdMain = $("#AdMainImage").val();
                 var OfferedPrice = $("#OfferedPrice").val();
                 var ReturnDate = $("#ReturnDate").val();
                 if ($("#OfferControls").is(":visible")) {
@@ -352,7 +363,7 @@
                             console.log("Offer Sent");
                             var offerCard = $('<div>').addClass('offer-card');
                             var offerDetails = $('<div>').addClass('offer-details');
-                            var offerTitle = $('<h3>').addClass('offer-title').text('Offer');
+                            var offerTitle = $('<h3>').addClass('offer-title').text('New Custom Offer');
                             var offerInfo = $('<p>').addClass('offer-info').html('Renting Date: <span class="renting-date">' + $("#RentingDate").val() + '</span><br>' +
                                 'Return Date: <span class="return-date">' + $("#ReturnDate").val() + '</span><br>' +
                                 'Offered Price: <span class="offered-price">' + $("#OfferedPrice").val() + '</span><br>' +
@@ -360,16 +371,30 @@
                             offerDetails.append(offerTitle, offerInfo);
 
                             var offerActions = $('<div>').addClass('offer-actions');
-                            var productImage = $('<img>').attr('src', ProductAdImage).addClass('product-image').attr('alt', 'Product Image NEW');
+                            var productImage = $('<img>').attr('src', AdMain).addClass('product-image').attr('alt', 'Product Image NEW');
                             var offerMessage = $('<p>').addClass('offer-message').text($("Message").val());
                             var buttonsContainer = $('<div>').addClass('buttons-container');
-                            var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
-                                acceptOffer(senderconnId);
-                            });
-                            var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
-                                declineOffer(senderconnId);
-                            });
-                            buttonsContainer.append(acceptButton, declineButton);
+                            
+                            if (SNUSer == SNRENTEE) {
+                                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').on('click', function () {
+                                    updateOfferStatus(senderconnId, 'WITHDRAWN');
+
+                                });
+                                buttonsContainer.append(withdraw);
+
+                            }
+                            else {
+
+                                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
+                                    updateOfferStatus(senderconnId,'ACCEPTED');
+                                });
+                                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
+                                    updateOfferStatus(senderconnId,'DECLINED');
+                                });
+                                buttonsContainer.append(acceptButton, declineButton);
+
+                            }
+
                             offerActions.append(productImage, offerMessage, buttonsContainer);
 
                             offerCard.append(offerDetails, offerActions);
@@ -382,7 +407,9 @@
 
                             $("#Message").val('');
                             $("#productimage").attr("src", "");
-                            $("#OfferControls").toggle();
+                            if (SNUSer == SNRENTEE) {
+                                $("#OfferControls").toggle();
+                            }
 
 
                         })
