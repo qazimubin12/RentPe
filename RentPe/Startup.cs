@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Owin;
 using Owin;
 using System.Web.Routing;
 
@@ -13,5 +14,7 @@ namespace RentPe
             app.MapSignalR();
 
         }
+
+       
     }
 }

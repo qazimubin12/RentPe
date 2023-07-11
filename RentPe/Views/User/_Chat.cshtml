@@ -256,7 +256,7 @@
 
             if (SNUSer == SNRENTEE) {
                 var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').attr('id', id).on('click', function () {
-                    
+
                     updateOfferStatus($(this).attr('id'), 'WITHDRAWN');
                     buttonsContainer.append(withdraw);
                 });
@@ -318,7 +318,92 @@
                 });
 
 
+        function getConnectionIDByUserID(userID) {
+                         return new Promise(function (resolve, reject) {
+                             $.ajax({
+                                 url: '@Url.Action("GetConnectionIDByUserID", "User")',
+                                 type: "post",
+                                 data: { UserID: userID }
+                             })
+                                 .done(function (response) {
+                                     if (response.success) {
+                                         console.log("Got the ConnectionID: " + response.ConnectionID);
+                                         resolve(response.ConnectionID);
+                                     }
+                                     else {
+                                         $(".errorDiv").html(response.Message);
+                                         reject(response.Message);
+                                     }
+                                 })
+                                 .fail(function (error) {
+                                     console.log("An error occurred: " + error);
+                                     reject(error);
+                                 });
+                         });
+            };
 
+
+        $('.accept-button').click(function () {
+            var RecieverID = $("#RecievedID").val();
+
+            var offerId = $(this).attr('id');
+            var confirmAccept = confirm("Are you sure you want to accept this offer?");
+
+            if (confirmAccept) {
+                // Clear the input fields
+                getConnectionIDByUserID(RecieverID).then(function (friendID) {
+                    chat.server.sendAcceptRequest({ FriendUniqueId: friendID, OfferID: offerId, status: 'ACCEPTED' });
+                });
+
+                updateOfferStatus(offerId, "ACCEPTED");
+
+            }
+        });
+
+        $('.decline-button').click(function () {
+            var RecieverID = $("#RecievedID").val();
+            var offerId = $(this).attr('id');
+            var confirmDecline = confirm("Are you sure you want to decline this offer?");
+
+            if (confirmDecline) {
+                // Clear the input fields
+                getConnectionIDByUserID(RecieverID).then(function (friendID) {
+                    chat.server.sendDeclineRequest({ FriendUniqueId: friendID, OfferID: offerId, status: 'DECLINED' });
+                });
+
+                updateOfferStatus(offerId, "DECLINED");
+            }
+
+
+        });
+
+        $('.withdraw-button').click(function () {
+
+                var RecieverID = $("#RecievedID").val();
+                var status = "WITHDRAWN";
+                var offerId = $(this).attr('id');
+                var confirmWithdraw = confirm("Are you sure you want to withdraw this offer?");
+
+                if (confirmWithdraw) {
+                    // Clear the input fields
+                    getConnectionIDByUserID(RecieverID)
+                        .then(function (friendID) {
+
+                            chat.server.sendwithdrawalrequest({ OfferID: offerId, status: status, FriendUniqueId: friendID });
+                            console.log("tried withdrawing");
+
+                        })
+                        .catch(function (error) {
+                            console.log("Error retrieving connection ID: " + error);
+                        });
+
+                    // Clear the input fields
+
+                    updateOfferStatus(offerId, "WITHDRAWN");
+                }
+
+
+            });
 
 
             $("#sendButton").click(function () {
@@ -356,24 +441,14 @@
                             var buttonsContainer = $('<div>').addClass('buttons-container');
 
                             if (SNUSer == SNRENTEE) {
-                                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').on('click', function () {
-                                    updateOfferStatus(senderconnId, 'WITHDRAWN');
-
-                                });
+                                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw');
                                 buttonsContainer.append(withdraw);
-
-                            }
-                            else {
-
-                                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
-                                    updateOfferStatus(senderconnId, 'ACCEPTED');
-                                });
-                                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
-                                    updateOfferStatus(senderconnId, 'DECLINED');
-                                });
+                            } else {
+                                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept');
+                                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline');
                                 buttonsContainer.append(acceptButton, declineButton);
-
                             }
+
 
                             offerActions.append(productImage, offerMessage, buttonsContainer);
 
@@ -437,90 +512,29 @@
 
         });
 
-                    function getConnectionIDByUserID(userID) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        url: '@Url.Action("GetConnectionIDByUserID", "User")',
-                        type: "post",
-                        data: { UserID: userID }
-                    })
-                        .done(function (response) {
-                            if (response.success) {
-                                console.log("Got the ConnectionID: " + response.ConnectionID);
-                                resolve(response.ConnectionID);
-                            }
-                            else {
-                                $(".errorDiv").html(response.Message);
-                                reject(response.Message);
-                            }
-                        })
-                        .fail(function (error) {
-                            console.log("An error occurred: " + error);
-                            reject(error);
-                        });
-                });
-            }
 
-
-        $('.accept-button').click(function () {
-            var RecieverID = $("#RecievedID").val();
-
-            var offerId = $(this).attr('id');
-            var confirmAccept = confirm("Are you sure you want to accept this offer?");
-
-            if (confirmAccept) {
-                // Clear the input fields
-                getConnectionIDByUserID(RecieverID).then(function (friendID) {
-                    chat.server.AcceptOffer({ FriendUniqueId: friendID, OfferID: offerId, status: 'ACCEPTED' });
-                });
-
-                updateOfferStatus(offerId, "ACCEPTED");
-            }
-        });
-
-
-
-        $('.decline-button').click(function () {
-            var RecieverID = $("#RecievedID").val();
-            var offerId = $(this).attr('id');
-            var confirmDecline = confirm("Are you sure you want to decline this offer?");
-
-            if (confirmDecline) {
-                // Clear the input fields
-                getConnectionIDByUserID(RecieverID).then(function (friendID) {
-                    chat.server.DeclineOffer({ FriendUniqueId: friendID, OfferID: offerId, status: 'DECLINED' });
-                });
-
-                updateOfferStatus(offerId, "DECLINED");
-            }
-
-
-        });
-
-
-
-        // Withdraw button click event
-        $('.withdraw-button').click(function () {
-            var RecieverID = $("#RecievedID").val();
-            var offerId = $(this).attr('id');
-            var confirmWithdraw = confirm("Are you sure you want to withdraw this offer?");
-            
-            if (confirmWithdraw) {
-                // Clear the input fields
-                getConnectionIDByUserID(RecieverID).then(function (friendID) {
-                    debugger
-                    chat.server.WithdrawOffer({ FriendUniqueId: friendID, OfferID: offerId, status: 'WITHDRAWN' });
-                });
-
-                updateOfferStatus(offerId, "WITHDRAWN");
-            }
-
-
-        });
     });
 
 
 
+    function updateOfferStatus(offerId, status) {
+
+        if (status == "ACCEPTED") {
+            $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+            $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+            alert("Offer Accepted");
+        }
+        else if (status == "DECLINED") {
+            $('.decline-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+            $('.decline-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+            alert("Offer Declined");
+        } else {
+
+            $('.withdraw-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+            $('.withdraw-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+            alert("Offer Withdrawn");
+        }
+    }
 
     $(document).ready(function () {
         ScrollToEnd();
@@ -568,39 +582,6 @@
 
 
     // Function to update offer status using Ajax
-    function updateOfferStatus(offerId, status) {
-
-        $.ajax({
-            url: '@Url.Action("UpdateOfferStatus","User")',
-            type: 'POST',
-            data: { offerId: offerId, status: status },
-            success: function (response) {
-                if (response.error) {
-                    alert(response.error);
-                } else {
-                    if (status == "ACCEPTED") {
-                        $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-                        $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-                        alert("Offer Accepted");
-                    }
-                    else if (status == "DECLINED") {
-                        $('.decline-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-                        $('.decline-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-                        alert("Offer Declined");
-                    } else {
-
-                        $('.withdraw-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-                        $('.withdraw-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-                        alert("Offer Withdrawn");
-                    }
-
-                }
-            },
-            error: function () {
-                alert('Error updating the offer status.');
-            }
-        });
-    }
 
 
     function ScrollToEnd() {

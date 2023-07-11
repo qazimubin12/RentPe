@@ -9,12 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using static RentPe.Hubs.LetsChatHub;
 
 namespace RentPe.Hubs
 {
     [HubName("letsChatHub")]
     public class LetsChatHub:Hub
     {
+        public class OfferStatus
+        {
+            public string FriendUniqueId { get; set; }
+            public int OfferID { get; set; }
+            public string status { get; set; }
+        }
 
         public class ChatCustomOffer
         {
@@ -77,33 +84,34 @@ namespace RentPe.Hubs
             Clients.Client(message.FriendUniqueId).addNewPrivateMessageToPage(message.Name,message.Attachments, message.Message, Context.ConnectionId);
         }
 
-        public void AcceptOffer(string FriendUniqueId, int OfferID,string Status)
+        public void sendAcceptRequest(OfferStatus offerStatus)
         {
-            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
-            offer.Status= Status;
+            var offer = CustomOfferServices.Instance.GetCustomOffer(offerStatus.OfferID);
+            offer.Status= offerStatus.status;
             CustomOfferServices.Instance.UpdateCustomOffer(offer);
 
-            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status,Context.ConnectionId);
+            Clients.Client(offerStatus.FriendUniqueId).updateStatusToPage(offer.ID, offer.Status,Context.ConnectionId);
 
         }
 
-        public void WithdrawOffer(string FriendUniqueId, int OfferID, string Status)
+        public void sendwithdrawalrequest(OfferStatus offerStatus)
         {
-            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
-            offer.Status = Status;
+            var offer = CustomOfferServices.Instance.GetCustomOffer(offerStatus.OfferID);
+            offer.Status = offerStatus.status;
             CustomOfferServices.Instance.UpdateCustomOffer(offer);
 
-            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
+            Clients.Client(offerStatus.FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
 
         }
 
-        public void DeclineOffer(string FriendUniqueId, int OfferID, string Status)
+        public void sendDeclineRequest(OfferStatus offerStatus)
         {
-            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
-            offer.Status = Status;
+            var offer = CustomOfferServices.Instance.GetCustomOffer(offerStatus.OfferID);
+            offer.Status = offerStatus.status;
             CustomOfferServices.Instance.UpdateCustomOffer(offer);
 
-            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
+
+            Clients.Client(offerStatus.FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
 
         }
 
