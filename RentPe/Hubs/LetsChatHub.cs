@@ -77,6 +77,35 @@ namespace RentPe.Hubs
             Clients.Client(message.FriendUniqueId).addNewPrivateMessageToPage(message.Name,message.Attachments, message.Message, Context.ConnectionId);
         }
 
+        public void AcceptOffer(string FriendUniqueId, int OfferID,string Status)
+        {
+            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
+            offer.Status= Status;
+            CustomOfferServices.Instance.UpdateCustomOffer(offer);
+
+            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status,Context.ConnectionId);
+
+        }
+
+        public void WithdrawOffer(string FriendUniqueId, int OfferID, string Status)
+        {
+            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
+            offer.Status = Status;
+            CustomOfferServices.Instance.UpdateCustomOffer(offer);
+
+            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
+
+        }
+
+        public void DeclineOffer(string FriendUniqueId, int OfferID, string Status)
+        {
+            var offer = CustomOfferServices.Instance.GetCustomOffer(OfferID);
+            offer.Status = Status;
+            CustomOfferServices.Instance.UpdateCustomOffer(offer);
+
+            Clients.Client(FriendUniqueId).updateStatusToPage(offer.ID, offer.Status, Context.ConnectionId);
+
+        }
 
 
         public void sendPrivateOffer(ChatCustomOffer offer)
@@ -109,6 +138,7 @@ namespace RentPe.Hubs
             Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(customOffer.ID,offer.Name,offer.RentingPeriod,offer.RentingDate.ToShortDateString() ,offer.ReturnDate.ToShortDateString(),offer.OfferedPrice,Ad.ItemName,customOffer.Status, Ad.MainImage, offer.Message, Context.ConnectionId);
 
         }
+
 
     }
 }
