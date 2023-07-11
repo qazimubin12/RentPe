@@ -56,6 +56,15 @@
     .row {
         margin-left: calc(0 * var(--bs-gutter-x))
     }
+    ul, li, ol{
+        list-style-type:none;
+    }
+    .card-body {
+        padding: 1rem 2rem;
+    }
+    .card-header {
+        padding: 1rem 1rem;
+    }
 </style>
 <div class="section">
     <div class="container">
@@ -123,7 +132,7 @@
                                     <h3>Dashboard</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addressesedit your password and account details.</p>
+                                    <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses edit your password and account details.</p>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +303,7 @@
                                                     <div style="float:right;">
                                                         <button class="open-chat btn btn-sm btn-fill-out rounded-0" type="button" data-item-id="@conversation.Item" data-recieved-id="@conversation.RecievedBy.Id" data-sentby-id="@conversation.SentBy.Id">Open Chat</button>
                                                         <br />
-                                                        <span>@conversation.Date</span>
+                                                        <span style="font-size:13px">@conversation.Date</span>
                                                     </div>
                                                     <div>
                                                         <strong>@conversation.SentBy.Name</strong> to <strong>@conversation.RecievedBy.Name</strong>
