@@ -114,6 +114,7 @@
                         {
                             <br />
                             <img src="@message.Chats.Attachments" style="height:200px" />
+                            <br />
                         }
                     </div>
 
@@ -121,6 +122,7 @@
                     {
                         <div class="offer-card">
                             <div class="offer-details">
+                                <h3>Offer</h3>
                                 <p class="offer-info">
                                     @*Renting Period: <span class="renting-period">@message.CustomOffer.RentingPeriod</span><br>*@
                                     Renting Date: <span class="renting-date">@message.CustomOffer.RentingDate.ToShortDateString()</span><br>
@@ -130,6 +132,7 @@
                                 </p>
                             </div>
                             <div class="offer-actions">
+                                <image src="@Model.Ad.MainImage" style="height:200px;"
                                 @if (message.CustomOffer.Status == "PENDING")
                                 {
                                     <div class="buttons-container">
@@ -161,7 +164,7 @@
                 <div class="form-group">
                     <input type="text" id="OfferedPrice" name="OfferedPrice" placeholder="Write your Offered Price" class="form-control" />
                     <label for="start_date">Renting  Date:</label>
-                    <input type="hidden" value="RentingPeriod" />
+                    <input type="hidden" id="RentingPeriod" />
                     @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
                     <label for="end_date">Return Date:</label>
                     @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
@@ -203,7 +206,8 @@
 
     var SNUSer = $("#SignedInUserID").val();
     var SNRENTEE = $("#SNRentee").val();
-
+    document.getElementById('ReturnDate').onchange = calculateRentingPeriod;
+    document.getElementById('RentingDate').onchange = calculateRentingPeriod;
     $(function () {
 
         var chat = $.connection.letsChatHub;
@@ -233,7 +237,7 @@
 
         };
 
-        chat.client.addNewPrivateOfferToPage = function (name, rentingPeriod, rentingDate, returnDate, OfferedPrice,ItemName,Status, attachment, message, senderconnId) {
+        chat.client.addNewPrivateOfferToPage = function (id,name, rentingPeriod, rentingDate, returnDate, OfferedPrice,ItemName,Status, attachment, message, senderconnId) {
             console.log("you got a new Offer " + message);
             var offerCard = $('<div>').addClass('offer-card');
             var offerDetails = $('<div>').addClass('offer-details');
@@ -251,22 +255,18 @@
             var buttonsContainer = $('<div>').addClass('buttons-container');
             
             if (SNUSer == SNRENTEE) {
-                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').on('click', function () {
-                    updateOfferStatus(senderconnId, 'WITHDRAWN');
+                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').attr('id', id).on('click', function () {
+                    updateOfferStatus($(this).attr('id'), 'WITHDRAWN');
                     buttonsContainer.append(withdraw);
-
                 });
-            }
-            else {
-
-                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').on('click', function () {
-                    updateOfferStatus(senderconnId, 'ACCEPTED');
+            } else {
+                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').attr('id', id).on('click', function () {
+                    updateOfferStatus($(this).attr('id'), 'ACCEPTED');
                 });
-                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').on('click', function () {
-                    updateOfferStatus(senderconnId, 'DECLINED');
+                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline').attr('id', id).on('click', function () {
+                    updateOfferStatus($(this).attr('id'), 'DECLINED');
                 });
                 buttonsContainer.append(acceptButton, declineButton);
-
             }
 
 
@@ -545,12 +545,21 @@
                 if (response.error) {
                     alert(response.error);
                 } else {
-                    // Update the status on the offer card
-                    $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+                    if (status == "ACCEPTED") {
+                        $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+                        $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+                        alert("Offer Accepted");
+                    }
+                    else if (status == "DECLINED") {
+                        $('.decline-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+                        $('.decline-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+                        alert("Offer Declined");
+                    } else {
 
-                    // Hide the button group
-                    $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-                    alert("Offer Updated");
+                        $('.withdraw-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
+                        $('.withdraw-button[id="' + offerId + '"]').closest('.buttons-container').hide();
+                        alert("Offer Withdrawn");
+                    }
 
                 }
             },
@@ -612,7 +621,6 @@
         // Display the renting period
         $("#RentingPeriod").val(rentingPeriodDays);
     }
-    document.getElementById('ReturnDate').onchange = calculateRentingPeriod;
-    document.getElementById('RentingDate').onchange = calculateRentingPeriod;
+
 
 </script>

@@ -18,6 +18,7 @@ namespace RentPe.Hubs
 
         public class ChatCustomOffer
         {
+            public int ID { get; set; }
             public string Message { get; set; }
             public string Name { get; set; }
             public string SentBy { get; set; }
@@ -67,6 +68,7 @@ namespace RentPe.Hubs
             conversation.Attachments = message.Attachments;
             conversation.SentByName = message.Name;
             conversation.Item = message.Item;
+            conversation.IsOffer = false;
             // Save the conversation
             ConversationServices.Instance.SaveConversation(conversation);
             
@@ -90,10 +92,21 @@ namespace RentPe.Hubs
             customOffer.RentingPeriod = offer.RentingPeriod;
             customOffer.Status = "PENDING";
             var Ad = AdServices.Instance.GetAd(offer.Item);
-            // Save the conversation
             CustomOfferServices.Instance.SaveCustomOffer(customOffer);
 
-            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(offer.Name,offer.RentingPeriod,offer.RentingDate.ToShortDateString() ,offer.ReturnDate.ToShortDateString(),offer.OfferedPrice,Ad.ItemName,customOffer.Status, Ad.MainImage, offer.Message, Context.ConnectionId);
+            var conversation = new Conversation();
+            conversation.SentBy = offer.SentBy;
+            conversation.RecievedBy = offer.RecievedBy;
+            conversation.Message = offer.Message;
+            conversation.Date = DateTime.Now;
+            conversation.Attachments = offer.Attachments;
+            conversation.SentByName = offer.Name;
+            conversation.Item = offer.Item;
+            conversation.IsOffer = true;
+            ConversationServices.Instance.SaveConversation(conversation);
+            // Save the conversation
+
+            Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(customOffer.ID,offer.Name,offer.RentingPeriod,offer.RentingDate.ToShortDateString() ,offer.ReturnDate.ToShortDateString(),offer.OfferedPrice,Ad.ItemName,customOffer.Status, Ad.MainImage, offer.Message, Context.ConnectionId);
 
         }
 
