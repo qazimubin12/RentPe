@@ -128,14 +128,14 @@
                                     Renting Date: <span class="renting-date">@message.CustomOffer.RentingDate.ToShortDateString()</span><br>
                                     Return Date: <span class="return-date">@message.CustomOffer.ReturnDate.ToShortDateString()</span><br>
                                     Offered Price: <span class="offered-price">@message.CustomOffer.OfferedPrice</span><br>
-                                    Status: <span class="status">@message.CustomOffer.Status</span>
+                                    Status: <span id="s_@message.CustomOffer.ID" class="status">@message.CustomOffer.Status</span>
                                 </p>
                             </div>
                             <div class="offer-actions">
-                                <image src="@Model.Ad.MainImage" style="height:200px;"
+                                <image src="@Model.Ad.MainImage" style="height:200px;"/>
                                 @if (message.CustomOffer.Status == "PENDING")
                                 {
-                                    <div class="buttons-container">
+                                    <div id="b_@message.CustomOffer.ID" class="buttons-container">
                                         @if (Model.SignedInUser.Id == message.CustomOffer.Rentee)
                                         {
                                             <button id="@message.CustomOffer.ID" class="withdraw-button btn btn-sm btn-fill-out">Withdraw</button>
@@ -253,13 +253,16 @@
 
             var offerMessage = $('<p>').addClass('offer-message').text(message);
             var buttonsContainer = $('<div>').addClass('buttons-container');
+            buttonsContainer.attr('id', 'b_' + id)
+
 
             if (SNUSer == SNRENTEE) {
                 var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw').attr('id', id).on('click', function () {
 
                     updateOfferStatus($(this).attr('id'), 'WITHDRAWN');
-                    buttonsContainer.append(withdraw);
                 });
+                buttonsContainer.append(withdraw);
+
             } else {
                 var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept').attr('id', id).on('click', function () {
                     updateOfferStatus($(this).attr('id'), 'ACCEPTED');
@@ -269,6 +272,7 @@
                 });
                 buttonsContainer.append(acceptButton, declineButton);
             }
+            
 
 
 
@@ -279,7 +283,7 @@
             offerCard.append(offerDetails, offerActions);
 
             // Append the offer card to a container element in your page
-            var newLi = $('<li>').addClass('sent-by-user row col-7');
+            var newLi = $('<li>').addClass('received-from-owner row col-7');
             $(newLi).append(offerCard);
             $('.chat-messages').append(newLi);
 
@@ -291,8 +295,96 @@
         };
 
         chat.client.updateStatusToPage = function (ID, Status, senderconnId) {
-            console.log("Offer: " + Status)
+            console.log("Offer: " + Status + "ID: " + ID)
+
+            $("#b_" + ID + "").hide();
+            if (Status == "ACCEPTED") {
+                $("#s_" + ID + "").text("ACCEPTED");
+                alert("Offer Accepted");
+            }
+            else if (Status == "DECLINED") {
+                $("#s_" + ID + "").text("DECLINED");
+
+                alert("Offer Declined");
+            } else {
+
+                $("#s_" + ID + "").text("WITHDRAWN");
+
+                alert("Offer Withdrawn");
+            }
+
         }
+
+        chat.client.changeButtonContainerID = function (ID, senderConnID) {
+           
+
+            var offerCard = $('<div>').addClass('offer-card');
+            var offerDetails = $('<div>').addClass('offer-details');
+            var offerTitle = $('<h3>').addClass('offer-title').text('New Custom Offer');
+            var offerInfo = $('<p>').addClass('offer-info').html('Renting Date: <span class="renting-date">' + $("#RentingDate").val() + '</span><br>' +
+                'Return Date: <span class="return-date">' + $("#ReturnDate").val() + '</span><br>' +
+                'Offered Price: <span class="offered-price">' + $("#OfferedPrice").val() + '</span><br>' +
+                'Status: <span class="status">PENDING</span>');
+            offerDetails.append(offerTitle, offerInfo);
+
+            var offerActions = $('<div>').addClass('offer-actions');
+            var productImage = $('<img>').attr('src', $("#AdMainImage").val()).addClass('product-image').attr('alt', 'Product Image NEW');
+            var offerMessage = $('<p>').addClass('offer-message').text($("Message").val());
+            var buttonsContainer = $('<div>').addClass('buttons-container');
+
+
+            buttonsContainer.attr('id', 'b_' + ID);
+            
+            if ($("#SignedInUserID").val() == $("#SNRentee").val()) {
+                var withdraw = $('<button>')
+                    .addClass('withdraw-button btn btn-sm btn-fill-out')
+                    .text('Withdraw')
+                    .attr('id', ID);
+
+                buttonsContainer.append(withdraw);
+            } else {
+                var acceptButton = $('<button>')
+                    .addClass('accept-button btn btn-sm btn-fill-out')
+                    .text('Accept')
+                    .attr('id', ID);
+
+                var declineButton = $('<button>')
+                    .addClass('decline-button btn btn-sm btn-fill-out')
+                    .text('Decline')
+                    .attr('id', ID);
+
+                buttonsContainer.append(acceptButton, declineButton);
+            }
+
+
+
+            offerActions.append(productImage, offerMessage, buttonsContainer);
+
+            offerCard.append(offerDetails, offerActions);
+
+            if ($("#SignedInUserID").val() == $("#SNRentee").val()) {
+
+                // Append the offer card to a container element in your page
+                var newLi = $('<li>').addClass('sent-by-user row col-7');
+                $(newLi).append(offerCard);
+                $('.chat-messages').append(newLi);
+            } else {
+                // Append the offer card to a container element in your page
+                var newLi = $('<li>').addClass('received-from-owner row col-7');
+                $(newLi).append(offerCard);
+                $('.chat-messages').append(newLi);
+            }
+
+            console.log("Offer Sent");
+
+            console.log("offer Created");
+
+            $("#Message").val('');
+            $("#productimage").attr("src", "");
+            if (SNUSer == SNRENTEE) {
+                $("#OfferControls").toggle();
+            }
+        };
 
         $.connection.hub.start().done(function () {
             $("#sendButton").prop('disabled', true);
@@ -343,7 +435,8 @@
             };
 
 
-        $('.accept-button').click(function () {
+            $('.accept-button').click(function () {
+                debugger
             var RecieverID = $("#RecievedID").val();
 
             var offerId = $(this).attr('id');
@@ -360,7 +453,8 @@
             }
         });
 
-        $('.decline-button').click(function () {
+            $('.decline-button').click(function () {
+                debugger
             var RecieverID = $("#RecievedID").val();
             var offerId = $(this).attr('id');
             var confirmDecline = confirm("Are you sure you want to decline this offer?");
@@ -377,12 +471,12 @@
 
         });
 
-        $('.withdraw-button').click(function () {
-
+            $('.withdraw-button').click(function () {
+                debugger
                 var RecieverID = $("#RecievedID").val();
                 var status = "WITHDRAWN";
                 var offerId = $(this).attr('id');
-                var confirmWithdraw = confirm("Are you sure you want to withdraw this offer?");
+            var confirmWithdraw = confirm("Are you sure you want to withdraw this offer?");
 
                 if (confirmWithdraw) {
                     // Clear the input fields
@@ -418,53 +512,19 @@
                 var Item = $("#Item").val();
                 var AdMain = $("#AdMainImage").val();
                 var OfferedPrice = $("#OfferedPrice").val();
+                var myConnectionId = $("#ConnectionID").val();
                 var ReturnDate = $("#ReturnDate").val();
                 if ($("#OfferControls").is(":visible")) {
 
                     // Clear the input fields
                     getConnectionIDByUserID(RecieverID)
                         .then(function (friendID) {
-                            chat.server.sendPrivateOffer({ Name: Name, Item: Item, OfferedPrice: OfferedPrice, RentingDate: RentingDate, ReturnDate: ReturnDate, SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, FriendUniqueId: friendID });
-                            console.log("Offer Sent");
-                            var offerCard = $('<div>').addClass('offer-card');
-                            var offerDetails = $('<div>').addClass('offer-details');
-                            var offerTitle = $('<h3>').addClass('offer-title').text('New Custom Offer');
-                            var offerInfo = $('<p>').addClass('offer-info').html('Renting Date: <span class="renting-date">' + $("#RentingDate").val() + '</span><br>' +
-                                'Return Date: <span class="return-date">' + $("#ReturnDate").val() + '</span><br>' +
-                                'Offered Price: <span class="offered-price">' + $("#OfferedPrice").val() + '</span><br>' +
-                                'Status: <span class="status">PENDING</span>');
-                            offerDetails.append(offerTitle, offerInfo);
-
-                            var offerActions = $('<div>').addClass('offer-actions');
-                            var productImage = $('<img>').attr('src', AdMain).addClass('product-image').attr('alt', 'Product Image NEW');
-                            var offerMessage = $('<p>').addClass('offer-message').text($("Message").val());
-                            var buttonsContainer = $('<div>').addClass('buttons-container');
-
-                            if (SNUSer == SNRENTEE) {
-                                var withdraw = $('<button>').addClass('withdraw-button btn btn-sm btn-fill-out').text('Withdraw');
-                                buttonsContainer.append(withdraw);
-                            } else {
-                                var acceptButton = $('<button>').addClass('accept-button btn btn-sm btn-fill-out').text('Accept');
-                                var declineButton = $('<button>').addClass('decline-button btn btn-sm btn-fill-out').text('Decline');
-                                buttonsContainer.append(acceptButton, declineButton);
-                            }
 
 
-                            offerActions.append(productImage, offerMessage, buttonsContainer);
+                            chat.server.sendPrivateOffer({ Name: Name, Item: Item, OfferedPrice: OfferedPrice, RentingDate: RentingDate, ReturnDate: ReturnDate, SentBy: sentBy, RecievedBy: receivedBy, Attachments: imageURL, Message: message, MyUniequeID: myConnectionId, FriendUniqueId: friendID });                            
+                          
 
-                            offerCard.append(offerDetails, offerActions);
 
-                            // Append the offer card to a container element in your page
-                            var newLi = $('<li>').addClass('sent-by-user row col-7');
-                            $(newLi).append(offerCard);
-                            $('.chat-messages').append(newLi);
-                            console.log("offer Created");
-
-                            $("#Message").val('');
-                            $("#productimage").attr("src", "");
-                            if (SNUSer == SNRENTEE) {
-                                $("#OfferControls").toggle();
-                            }
 
 
                         })
@@ -512,29 +572,30 @@
 
         });
 
+        function updateOfferStatus(offerId, status) {
+
+            $("#b_" + offerId + "").hide();
+            if (status == "ACCEPTED") {
+                $("#s_" + offerId + "").text("ACCEPTED");
+                alert("Offer Accepted");
+            }
+            else if (status == "DECLINED") {
+                $("#s_" + offerId + "").text("DECLINED");
+
+                alert("Offer Declined");
+            } else {
+
+                $("#s_" + offerId + "").text("WITHDRAWN");
+
+                alert("Offer Withdrawn");
+            }
+
+        }
 
     });
 
 
 
-    function updateOfferStatus(offerId, status) {
-
-        if (status == "ACCEPTED") {
-            $('.accept-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-            $('.accept-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-            alert("Offer Accepted");
-        }
-        else if (status == "DECLINED") {
-            $('.decline-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-            $('.decline-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-            alert("Offer Declined");
-        } else {
-
-            $('.withdraw-button[id="' + offerId + '"]').closest('.offer-card').find('.status').text(response.updatedStatus);
-            $('.withdraw-button[id="' + offerId + '"]').closest('.buttons-container').hide();
-            alert("Offer Withdrawn");
-        }
-    }
 
     $(document).ready(function () {
         ScrollToEnd();

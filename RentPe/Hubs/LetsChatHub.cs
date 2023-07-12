@@ -32,7 +32,7 @@ namespace RentPe.Hubs
             public string RecievedBy { get; set; }
             public string Attachments { get; set; }
             public string FriendUniqueId { get; set; }
-
+            public string MyUniequeID { get; set; }
             public int Item { get; set; }
             public float OfferedPrice { get; set; }
             public DateTime RentingDate { get; set; }
@@ -144,7 +144,7 @@ namespace RentPe.Hubs
             // Save the conversation
 
             Clients.Client(offer.FriendUniqueId).addNewPrivateOfferToPage(customOffer.ID,offer.Name,offer.RentingPeriod,offer.RentingDate.ToShortDateString() ,offer.ReturnDate.ToShortDateString(),offer.OfferedPrice,Ad.ItemName,customOffer.Status, Ad.MainImage, offer.Message, Context.ConnectionId);
-
+            Clients.Client(offer.MyUniequeID).changeButtonContainerID(customOffer.ID,Context.ConnectionId);
         }
 
 

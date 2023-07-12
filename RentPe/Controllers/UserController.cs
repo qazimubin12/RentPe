@@ -192,6 +192,7 @@ namespace RentPe.Controllers
             model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
 
 
+
             //foreach (var item in mergedChats)
             //{
             //    item.
@@ -204,6 +205,16 @@ namespace RentPe.Controllers
             }
             model.InboxList = InboxList;
             return View("Dashboard", "_Layout",model);
+        }
+
+
+        [HttpGet]
+        public JsonResult GetLastCustomOfferId(string sentBy, string receivedBy)
+        {
+         
+            var customOfferId = CustomOfferServices.Instance.GetCustomOfferByRentee(sentBy).Where(x=>x.Owner == receivedBy).OrderByDescending(x=>x.ID).FirstOrDefault().ID;
+
+            return Json(new { ID = customOfferId }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
