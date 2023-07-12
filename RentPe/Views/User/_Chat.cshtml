@@ -241,8 +241,10 @@
             console.log("you got a new Offer " + message);
             var offerCard = $('<div>').addClass('offer-card');
             var offerDetails = $('<div>').addClass('offer-details');
-            var offerTitle = $('<h3>').addClass('offer-title').text('Offer');
-            var offerInfo = $('<p>').addClass('offer-info').html('Renting Date: <span class="renting-date">' + rentingDate + '</span><br>' +
+            var offerTitle = $('<h3>').addClass('offer-title').text('Offer by ' + name);
+            var offerInfo = $('<p>').addClass('offer-info').html('Ad: <span class="renting-date">' + ItemName + '</span><br>' +
+            'Renting Date: <span class="renting-date">' + rentingDate + '</span><br>' +
+                
                 'Return Date: <span class="return-date">' + returnDate + '</span><br>' +
                 'Offered Price: <span class="offered-price">' + OfferedPrice + '</span><br>' +
                 'Status: <span class="status">' + Status + '</span>');
@@ -454,7 +456,7 @@
         });
 
             $('.decline-button').click(function () {
-                debugger
+                
             var RecieverID = $("#RecievedID").val();
             var offerId = $(this).attr('id');
             var confirmDecline = confirm("Are you sure you want to decline this offer?");
@@ -472,7 +474,7 @@
         });
 
             $('.withdraw-button').click(function () {
-                debugger
+                
                 var RecieverID = $("#RecievedID").val();
                 var status = "WITHDRAWN";
                 var offerId = $(this).attr('id');
