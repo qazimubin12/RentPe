@@ -1,0 +1,211 @@
+﻿@model RentPe.ViewModels.PaymentViewModel
+
+<style>
+    #actionButton.loader {
+        position: relative;
+    }
+
+        #actionButton.loader:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            animation: spin 0.8s linear infinite;
+        }
+
+    @@keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+</style>
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+            </button>
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="popup_content">
+                        <div class="popup-text">
+                            <div class="heading_s4">
+                                <h4>Payment</h4>
+                            </div>
+                            <p>Please provide the screenshot or picture mentioning the account number properly.</p>
+                            <br />
+                            <p><b>After Submitting this form our QA team will verify the payment, and deliver the product to you.
+                                </b></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Account
+                                            </th>
+                                            <td>
+                                                Details
+                                            </td>
+                                        </tr>
+                                        
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                EasyPaisa
+                                            </td>
+                                            <td>
+                                                QAZI MUBIN AHMED (0300 9259266)
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Jazz Cash
+                                            </td>
+                                            <td>
+                                                QAZI MUBIN AHMED (0300 9259266)
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                MEEZAN BANK
+                                            </td>
+                                            <td>
+                                                QAZI MUBEEN AHMED (01710105989058)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"> 
+                                                <span>Your Payment will be secured at RentPe
+                                               </span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form class="col-md-8" id="ActionForm">
+                                
+                                <div class="form-group mb-3">
+                                    <label>Item</label>
+                                    <input class="form-control" type="text" disabled name="Item" value="@Model.OrderFull.Item">
+
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label>Attach Proof</label>
+                                    <input class="form-control" id="ProofUpload" name="ProofUpload" type="file" accept=".png, .jpg, .jpeg, .pdf" />
+                                    <input class="form-control rounded-0" hidden name="Proof" id="Proof">
+                                </div>
+
+
+                               
+                                <div class="form-group mb-3">
+                                    <textarea name="Remarks" id="Remarks"  class="form-control rounded-0" placeholder="Enter Transaction ID (if recieved)"></textarea>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
+
+                                </div>
+                            </form>
+                            
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+}
+
+<script>
+
+
+   $("#actionButton").click(function () {
+    var button = document.getElementById('actionButton');
+    button.classList.add('loader');
+    button.disabled = true;
+
+    // Check if Proof field is empty
+    var proofValue = $("#Proof").val();
+    if (proofValue === "") {
+        alert("Proof field cannot be empty.");
+        button.classList.remove('loader');
+        button.disabled = false;
+        return; // Stop further execution
+    }
+
+    $.ajax({
+        url: '@Url.Action("SavePayment", "User")',
+        type: "post",
+        data: $("#ActionForm").serialize()
+    })
+    .done(function (response) {
+        if (response.success) {
+            window.location.href = '@Url.Action("Dashboard", "User")';
+        }
+        else {
+            $(".errorDiv").html(response.Message);
+        }
+    });
+});
+
+
+
+
+      $("#ProofUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadProof", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+
+                console.log(response);
+                if (response.success) {
+                    $("#Proof").val(response.DocURL);
+
+                }
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+</script>

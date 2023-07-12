@@ -125,6 +125,14 @@
     <Compile Include="Migrations\202307081826512_changes1.designer.cs">
       <DependentUpon>202307081826512_changes1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307121749423_orderupdate.cs" />
+    <Compile Include="Migrations\202307121749423_orderupdate.designer.cs">
+      <DependentUpon>202307121749423_orderupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307121930143_alldetails.cs" />
+    <Compile Include="Migrations\202307121930143_alldetails.designer.cs">
+      <DependentUpon>202307121930143_alldetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DSContext.cs" />
@@ -190,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307081826512_changes1.resx">
       <DependentUpon>202307081826512_changes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307121749423_orderupdate.resx">
+      <DependentUpon>202307121749423_orderupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307121930143_alldetails.resx">
+      <DependentUpon>202307121930143_alldetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

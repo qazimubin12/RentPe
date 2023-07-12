@@ -1092,6 +1092,7 @@
     <Content Include="Views\Owner\Dashboard.cshtml" />
     <Content Include="Views\Home\_CustomOffer.cshtml" />
     <Content Include="Views\User\_Chat.cshtml" />
+    <Content Include="Views\User\_Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

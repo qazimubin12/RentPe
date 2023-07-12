@@ -192,6 +192,29 @@ namespace RentPe.Controllers
             model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
 
 
+            var listOfOrder = new List<OrderViewModel>();
+            var Order = OrderServices.Instance.GetOrderByRentee(model.ID);
+            foreach (var item in Order)
+            {
+                var AdItem = AdServices.Instance.GetAd(int.Parse(item.Item));
+                var Owner = UserManager.FindById(item.Owner);
+                var Rentee = UserManager.FindById(item.Renter);
+                listOfOrder.Add(new OrderViewModel
+                {
+                    ID = item.ID,
+                    Item = AdItem.ItemName,
+                    OrderNo = item.OrderNo,
+                    AmountRemain = item.AmountRemain,
+                    Date = item.Date,
+                    TotalAmount = item.TotalAmount,
+                    AmountPaid = item.AmountPaid,
+                    Owner = Owner.Name,
+                    Renter = Rentee.Name,
+                    Status = item.Status
+
+                });
+            }
+            model.Orders = listOfOrder;
 
             //foreach (var item in mergedChats)
             //{
@@ -205,6 +228,17 @@ namespace RentPe.Controllers
             }
             model.InboxList = InboxList;
             return View("Dashboard", "_Layout",model);
+        }
+
+        [HttpGet]
+        public ActionResult Payment(int ID)
+        {
+            PaymentViewModel model = new PaymentViewModel();
+            var order = OrderServices.Instance.GetOrder(ID);
+            model.OrderFull = order;
+            model.Name = order.Renter;
+            
+            return PartialView("_Payment",model);
         }
 
 

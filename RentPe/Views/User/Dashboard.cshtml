@@ -56,12 +56,15 @@
     .row {
         margin-left: calc(0 * var(--bs-gutter-x))
     }
-    ul, li, ol{
-        list-style-type:none;
+
+    ul, li, ol {
+        list-style-type: none;
     }
+
     .card-body {
         padding: 1rem 2rem;
     }
+
     .card-header {
         padding: 1rem 1rem;
     }
@@ -88,8 +91,12 @@
                                 <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="orderInfo-tab" data-bs-toggle="tab" href="#orderInfo" role="tab" aria-controls="orderInfo" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="false"><i class="ti-comment"></i>Chats</a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><i class="ti-lock"></i>Logout</a>
                             </li>
@@ -109,7 +116,10 @@
                                 <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="true"><i class="ti-comment"></i>Chats</a>
+                                <a class="nav-link" id="order-detail-tab" data-bs-toggle="tab" href="#order-detail" role="tab" aria-controls="order-detail" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="true"><i class="ti-comment"></i>Chats</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><i class="ti-lock"></i>Logout</a>
@@ -132,6 +142,14 @@
                                     <h3>Dashboard</h3>
                                 </div>
                                 <div class="card-body">
+                                    <h5 class="text-danger">
+                                        @if (Model.CustomOffers.Where(x => x.Status == "ACCEPTED" && x.Owner.Id != Model.SignedInUser.Id).Count() > 0)
+                                        {
+                                            <b>
+                                                > Kindly Clear your Payment to Process your Order <
+                                            </b>
+                                        }
+                                    </h5>
                                     <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses edit your password and account details.</p>
                                 </div>
                             </div>
@@ -145,6 +163,14 @@
                                     <h3>Dashboard</h3>
                                 </div>
                                 <div class="card-body">
+                                    <h5 class="text-danger">
+                                        @if (Model.CustomOffers.Where(x => x.Status == "ACCEPTED").Count() > 0)
+                                        {
+                                            <b>
+                                               > Kindly Clear your Payment to Process your Order <
+                                            </b>
+                                        }
+                                    </h5>
                                     <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addressesedit your password and account details.</p>
                                 </div>
                             </div>
@@ -166,7 +192,10 @@
                                                 <th>Offered Rent</th>
                                                 <th>Rent Date</th>
                                                 <th>Return Date</th>
+                                                <th>Action</th>
+
                                                 <th>Status</th>
+                                                <th>Payment Status </th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -186,7 +215,35 @@
                                                         <td><a href="@Url.Action("View", "Home", new { ID = item.Item.ID })" class="btn btn-fill-out btn-sm">View</a></td>
                                                         @if (item.Status == "PENDING")
                                                         {
-                                                        <td id="CustomOfferBtnTD"><button type="button" id="CancelOffer" data-id="@item.ID" class="btn btn-fill-out btn-sm">CANCEL OFFER</button></td>
+                                                            <td>Not Applicable</td>
+                                                            <td id="CustomOfferBtnTD"><button type="button" id="CancelOffer" data-id="@item.ID" class="btn btn-fill-out btn-sm">CANCEL OFFER</button></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            if (item.Status == "WITHDRAWN")
+                                                            {
+                                                                <td>Not Applicable</td>
+                                                                <td id="PaymentButton">
+                                                                    <button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                                </td>
+                                                            }
+                                                            else if (item.Status == "DECLINED")
+                                                            {
+                                                                <td>Not Applicable</td>
+                                                                <td id="PaymentButton">
+                                                                    <button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>
+                                                                    Awating Payment
+                                                                </td>
+                                                                <td id="PaymentButton">
+                                                                    <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                                </td>
+                                                            }
+
                                                         }
                                                     </tr>
                                                 }
@@ -199,6 +256,61 @@
                         </div>
                     </div>
 
+
+                    <div class="tab-pane fade" id="order-detail" role="tabpanel" aria-labelledby="order-detail-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Orders</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order No</th>
+                                                <th>Date</th>
+                                                <th>Item</th>
+                                                <th>Total</th>
+                                                <th>Remaining</th>
+                                                <th>Paid</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Orders != null)
+                                            {
+                                                foreach (var item in Model.Orders)
+                                                {
+                                                    <tr>
+                                                        <td>@item.OrderNo</td>
+                                                        <td>@item.Date</td>
+                                                        <td>@item.Item</td>
+                                                        <td>@item.TotalAmount</td>
+                                                        <td>@item.AmountRemain</td>
+                                                        <td>@item.AmountPaid</td>
+                                                        <td id="OrderStatus_@item.ID">@item.Status</td>
+                                                        @if (item.Status == "PAYMENT PENDING")
+                                                        {
+                                                            <td id="PaymentButton">
+                                                                <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button></td>
+
+                                                        }
+                                                    </tr>
+                                                }
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @*//USer Info*@
                     <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
 
@@ -369,7 +481,21 @@
     </div>
 </div>
 
+<div class="modal fade subscribe_popup" id="custom-offer-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+    </div>
+</div>
+
 <script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#custom-offer-modal .modal-dialog").html(response);
+            });
+    });
     $('.categories_btn').on('click', function () {
         // Slide down the navCatContent element
         $('#navCatContent').toggleClass('show');
@@ -486,7 +612,7 @@
             var recivedby = $(this).data('recieved-id');
             var sentby = $(this).data('sentby-id');
             var item = $(this).data('item-id');
-            
+
             $button.prop('disabled', true).html('<span class="spinner"></span>Loading...'); // Disable the button and change its content
 
             openChat(sentby, recivedby,item, $button);
@@ -499,7 +625,7 @@
 
 
         function openChat(sentby, recievedby, item, $button) {
-            
+
             var $originalButton = $button; // Store reference to the button outside the callback
             $.ajax({
                 url: '@Url.Action("ChatPartial", "User")',

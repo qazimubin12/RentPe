@@ -25,11 +25,12 @@ namespace RentPe.Database
         public DbSet<ItemCategory> ItemCategories { get; set; }
         public DbSet<AdImage> AdImages { get; set; }
         public DbSet<CustomOffer> CustomOffers { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<Ad> Ads { get; set; }
         public DbSet<UserRating> UserRatings { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
 
         public DbSet<Query> Queries { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
     }
 }

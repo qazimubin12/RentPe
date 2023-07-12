@@ -33,6 +33,35 @@ namespace RentPe.Controllers
         }
 
 
+        public JsonResult UploadProof()
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            try
+            {
+                var file = Request.Files[0];
+
+                var fileName = DateTime.Now.ToString("dd-MM-yyyy") + file.FileName;
+                var directoryPath = Server.MapPath("~/Proofs/");
+
+                var path = Path.Combine(directoryPath, fileName);
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath); // Create the directory if it doesn't exist
+                }
+                file.SaveAs(path);
+                result.Data = new { success = true, DocURL = string.Format("/Proofs/{0}", fileName) };
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { success = false, Message = ex.Message };
+                throw;
+            }
+            return result;
+        }
+
+
         public JsonResult UploadImages()
         {
             JsonResult result = new JsonResult();

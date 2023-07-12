@@ -7,6 +7,7 @@ using RentPe.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using static RentPe.Hubs.LetsChatHub;
@@ -22,7 +23,6 @@ namespace RentPe.Hubs
             public int OfferID { get; set; }
             public string status { get; set; }
         }
-
         public class ChatCustomOffer
         {
             public int ID { get; set; }
@@ -90,6 +90,18 @@ namespace RentPe.Hubs
             offer.Status= offerStatus.status;
             CustomOfferServices.Instance.UpdateCustomOffer(offer);
 
+            var Order = new Order();
+            Order.Status = "PAYMENT PENDING";
+            Order.Owner = offer.Owner;
+            Order.Renter = offer.Rentee;
+            Order.Date = DateTime.Now;
+            Order.OrderNo = DateTime.Now.ToString("ddmmhhss");
+            Order.Item = offer.Item.ToString();
+            Order.TotalAmount = offer.OfferedPrice;
+            Order.AmountPaid = 0;
+            Order.AmountRemain = offer.OfferedPrice;
+
+            OrderServices.Instance.SaveOrder(Order);
             Clients.Client(offerStatus.FriendUniqueId).updateStatusToPage(offer.ID, offer.Status,Context.ConnectionId);
 
         }

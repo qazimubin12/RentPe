@@ -14,6 +14,7 @@ namespace RentPe.ViewModels
         public Ad Ad { get; set; }
         public UserInfo UserInfo { get; set; }
         public List<CustomerOfferModel> CustomOffers { get; set; }
+        public List<OrderViewModel> Orders { get; set; }
         public string Name { get; set; }
 
         public string ID { get; set; }
@@ -58,6 +59,33 @@ namespace RentPe.ViewModels
         public string Contact { get; set; }
         public string SearchTerm { get; set; }
 
+    }
+
+
+    public class PaymentViewModel
+    {
+        public string Name { get; set; }
+        public Order OrderFull { get; set; }
+        public string Proof { get; set; }
+        public int OrderID { get; set; }
+    }
+
+
+    public class OrderViewModel
+    {
+        public int ID { get; set; }
+        public string OrderNo { get; set; }
+        public string Owner { get; set; }
+        public User OwnerFull { get; set; }
+        public float AmountPaid { get; set; }
+        public float AmountRemain { get; set; }
+        public float TotalAmount { get; set; }
+        public string Renter { get; set; }
+        public User RenterFull { get; set; }
+        public string Item { get; set; }
+        public Ad ItemFull { get; set; }
+        public DateTime Date { get; set; }
+        public string Status { get; set; }
     }
 
     public class CustomerOfferModel

@@ -78,8 +78,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderServices.cs" />
     <Compile Include="ConversationServices.cs" />
     <Compile Include="CustomOfferServices.cs" />
+    <Compile Include="PaymentServices.cs" />
     <Compile Include="QueryServices.cs" />
     <Compile Include="UserInfoServices.cs" />
     <Compile Include="UserRatingServices.cs" />
