@@ -390,9 +390,13 @@
 
         $.connection.hub.start().done(function () {
             $("#sendButton").prop('disabled', true);
-            //Who Ever loggeed in get's their ConnectionID saved in their DB
+            $(".accept-button").prop('disabled', true);
+            $(".decline-button").prop('disabled', true);
+            $(".withdraw-button").prop('disabled', true);
+               //Who Ever loggeed in get's their ConnectionID saved in their DB
             $("#ConnectionID").val($.connection.hub.id);
             var ConnectionIDOFCurrentSignedInUser = $("#ConnectionID").val();
+    
             var SignedInUserID = $("#SignedInUserID").val();
 
             $.ajax({
@@ -404,6 +408,9 @@
                     if (response.success) {
                         console.log("Logged In UserID saved in DB");
                         $("#sendButton").prop('disabled', false);
+                        $(".accept-button").prop('disabled', false);
+                        $(".decline-button").prop('disabled', false);
+                        $(".withdraw-button").prop('disabled', false);
 
                     }
                     else {
@@ -438,7 +445,7 @@
 
 
             $('.accept-button').click(function () {
-                debugger
+                
             var RecieverID = $("#RecievedID").val();
 
             var offerId = $(this).attr('id');
