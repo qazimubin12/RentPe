@@ -64,8 +64,12 @@ namespace RentPe.ViewModels
 
     public class PaymentViewModel
     {
+        public float AmountPaid { get; set; }
+        public User Renter { get; set; }
+        public Ad AdFull { get; set; }
         public string Name { get; set; }
         public Order OrderFull { get; set; }
+        public string  Remarks { get; set; }
         public string Proof { get; set; }
         public int OrderID { get; set; }
     }

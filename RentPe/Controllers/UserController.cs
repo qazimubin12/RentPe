@@ -202,7 +202,7 @@ namespace RentPe.Controllers
                 listOfOrder.Add(new OrderViewModel
                 {
                     ID = item.ID,
-                    Item = AdItem.ItemName,
+                    ItemFull = AdItem,
                     OrderNo = item.OrderNo,
                     AmountRemain = item.AmountRemain,
                     Date = item.Date,
@@ -237,8 +237,38 @@ namespace RentPe.Controllers
             var order = OrderServices.Instance.GetOrder(ID);
             model.OrderFull = order;
             model.Name = order.Renter;
-            
+            var Rentee = UserManager.FindById(model.OrderFull.Renter);
+            var AD = AdServices.Instance.GetAd(int.Parse(model.OrderFull.Item));
+            model.AdFull = AD;
+            model.Renter = Rentee;
             return PartialView("_Payment",model);
+        }
+
+        [HttpPost]
+        public ActionResult SavePayment(PaymentViewModel model)
+        {
+
+            var order = OrderServices.Instance.GetOrder(model.OrderID);
+            order.AmountPaid += model.AmountPaid;
+            order.AmountRemain += order.TotalAmount - order.AmountPaid;
+            if(order.AmountRemain == 0)
+            {
+                order.Status = "PAYMENT COMPLETED";
+            }
+            else
+            {
+                order.Status = "HALF PAID";
+            }
+            OrderServices.Instance.UpdateOrder(order);
+
+            var payment = new Payment();
+            payment.Remarks = model.Remarks;
+            payment.Proof = model.Proof;
+            payment.OrderID = model.OrderID;
+            payment.Name = model.Name;
+            PaymentServices.Instance.SavePayment(payment);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
         }
 
 

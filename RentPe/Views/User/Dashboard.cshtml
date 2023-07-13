@@ -298,8 +298,17 @@
                                                         }
                                                         else
                                                         {
-                                                            <td><button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button></td>
+                                                            if (item.Status == "HALF PAID")
+                                                            {
+                                                                <td id="PaymentButton">
+                                                                    <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                                </td>
 
+                                                            }
+                                                            else
+                                                            {
+                                                            <td><button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button></td>
+                                                            }
                                                         }
                                                     </tr>
                                                 }
