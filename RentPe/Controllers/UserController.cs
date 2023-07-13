@@ -249,16 +249,13 @@ namespace RentPe.Controllers
         {
 
             var order = OrderServices.Instance.GetOrder(model.OrderID);
-            order.AmountPaid += model.AmountPaid;
-            order.AmountRemain += order.TotalAmount - order.AmountPaid;
+            order.AmountPaid = model.AmountPaid;
+            order.AmountRemain  = 0;
             if(order.AmountRemain == 0)
             {
-                order.Status = "PAYMENT COMPLETED";
+                order.Status = "VERIFYING PAYMENT";
             }
-            else
-            {
-                order.Status = "HALF PAID";
-            }
+           
             OrderServices.Instance.UpdateOrder(order);
 
             var payment = new Payment();

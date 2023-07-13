@@ -113,8 +113,13 @@
                                 </div>
 
                                 <div class="form-group mb-3">
+                                    <label>Amount Needs to be Paid:</label>
+                                    <input class="form-control rounded-0" disabled value="@Model.OrderFull.TotalAmount" name="AmountNeedsToBePaid" id="AmountNeedsToBePaid">
+                                </div>
+
+                                <div class="form-group mb-3">
                                     <label>Amount Paid:</label>
-                                    <input class="form-control rounded-0"  name="AmountPaid" id="AmountPaid">
+                                    <input class="form-control rounded-0" name="AmountPaid" id="AmountPaid">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label>Attach Proof</label>
@@ -162,7 +167,13 @@
         button.classList.remove('loader');
         button.disabled = false;
         return; // Stop further execution
-    }
+       }
+       if ($("#AmountPaid").val() < $("#AmountNeedsToBePaid")) {
+           alert("Amount should be correct.");
+           button.classList.remove('loader');
+           button.disabled = false;
+           return;
+       }
 
     $.ajax({
         url: '@Url.Action("SavePayment", "User")',

@@ -97,9 +97,9 @@ namespace RentPe.Hubs
             Order.Date = DateTime.Now;
             Order.OrderNo = DateTime.Now.ToString("ddmmhhss");
             Order.Item = offer.Item.ToString();
-            Order.TotalAmount = offer.OfferedPrice;
+            Order.TotalAmount = (float)Math.Floor(offer.OfferedPrice * 0.025f);
             Order.AmountPaid = 0;
-            Order.AmountRemain = offer.OfferedPrice;
+            Order.AmountRemain = (float)Math.Floor(offer.OfferedPrice * 0.025f);
 
             OrderServices.Instance.SaveOrder(Order);
             Clients.Client(offerStatus.FriendUniqueId).updateStatusToPage(offer.ID, offer.Status,Context.ConnectionId);

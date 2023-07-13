@@ -140,6 +140,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3>Dashboard</h3>
+                                    
                                 </div>
                                 <div class="card-body">
                                     <h5 class="text-danger">
@@ -151,6 +152,9 @@
                                         }
                                     </h5>
                                     <p>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses edit your password and account details.</p>
+
+                                    <br />
+                                    <b>Note: Enjoy RentPe with transparent and convenient transactions, featuring a nominal 2.5% processing fee.</b>
                                 </div>
                             </div>
                         </div>
@@ -164,10 +168,17 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="text-danger">
-                                        @if (Model.CustomOffers.Where(x => x.Status == "ACCEPTED").Count() > 0)
+                                        @if (Model.Orders.Where(x => x.Status == "PENDING PAYMENT").Count() > 0)
                                         {
                                             <b>
-                                               > Kindly Clear your Payment to Process your Order <
+                                                > Kindly Clear your Payment to Process your Order <
+                                            </b>
+                                        }
+                                        else if (Model.Orders.Where(x => x.Status == "VERIFYING PAYMENT").Count() > 0)
+                                        {
+
+                                            <b>
+                                                > Some of your payments are being verified. Please Hold <
                                             </b>
                                         }
                                     </h5>
@@ -285,7 +296,7 @@
                                                     <tr>
                                                         <td>@item.OrderNo</td>
                                                         <td>@item.Date</td>
-                                                        <td>@item.Item</td>
+                                                        <td>@item.ItemFull.ItemName</td>
                                                         <td>@item.TotalAmount</td>
                                                         <td>@item.AmountRemain</td>
                                                         <td>@item.AmountPaid</td>
