@@ -197,17 +197,20 @@ namespace RentPe.Controllers
                 //{
                 //    AdServices.Instance.DeleteAdImage(item.ID);
                 //}
-                if (model.otherImages.Count() != 0)
+                if (model.otherImages != null)
                 {
-                    foreach (var item in model.otherImages)
+                    if (model.otherImages.Count() != 0)
                     {
-                        var adImage = new AdImage();
-                        adImage.AdID = ad.ID;
-                        adImage.ImageURL = item;
-                        AdServices.Instance.SaveAdImage(adImage);
+                        foreach (var item in model.otherImages)
+                        {
+                            var adImage = new AdImage();
+                            adImage.AdID = ad.ID;
+                            adImage.ImageURL = item;
+                            AdServices.Instance.SaveAdImage(adImage);
+
+                        }
 
                     }
-
                 }
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }

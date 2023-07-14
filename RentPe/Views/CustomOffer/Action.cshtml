@@ -1,0 +1,246 @@
+﻿@model RentPe.ViewModels.CustomOfferActionViewModel
+
+@{
+    ViewBag.Title = "Action";
+    string imageurl = "/Content/template/assets/images/product_img5.jpg";
+
+}
+
+<style>
+    #ActionButton.loader {
+        position: relative;
+    }
+
+        #ActionButton.loader:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            animation: spin 0.8s linear infinite;
+        }
+
+    @@keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+</style>
+<form id="PostAdForm" name="enq">
+    <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+    @Html.TextBox("EntryDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%; display:none", @id = "EntryDate", @class = "form-control", type = "date" })
+
+<div class="row">
+    <div class="form-group col-md-6 mb-3">
+        <label for="item-name">Select Owner</label>
+        <select class="form-select" name="Owner" id="Owner">
+            @foreach (var item in Model.Owners)
+            {
+                if (Model.Owner == item.Id)
+                {
+                    <option selected value="@item.Id">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group col-md-6 mb-3">
+        <label for="item-name">Select Renter</label>
+        <select class="form-select" name="Rentee" id="Rentee">
+            @foreach (var item in Model.Rentees)
+            {
+                if (Model.Rentee == item.Id)
+                {
+                    <option selected value="@item.Id">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="entry-date">Offer Date</label>
+        @if (Model.ID != 0)
+        {
+            @Html.TextBox("OfferDate", Model.OfferDate, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "OfferDate", @class = "form-control", type = "date" })
+
+        }
+        else
+        {
+            @Html.TextBox("OfferDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "OfferDate", @class = "form-control", type = "date" })
+        }
+    </div>
+
+
+
+
+
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="item-name">Select Ad</label>
+        <select class="form-select" name="Item" id="Item">
+            @foreach (var item in Model.Ads)
+            {
+                if (Model.Item == item.ID)
+                {
+                    <option data-image=@item.MainImage selected value="@item.ID">@item.ItemName</option>
+                }
+                else
+                {
+                    <option data-image=@item.MainImage value="@item.ID">@item.ItemName</option>
+
+                }
+            }
+        </select>
+        <hr />
+        <img src="@imageurl" id="ImageThumb" style="height:100px;" />
+    </div>
+
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="contact">Status</label>
+        <select class="form-select">
+            @foreach (var item in Model.StatusList)
+            {
+
+                if (Model.Status == item)
+                {
+                    <option selected value="@item.">@item</option>
+                }
+                else
+                {
+                    <option value="@item">@item</option>
+
+                }
+
+            }
+        </select>
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="Privacy">Offered Price</label>
+        <input placeholder="Enter Offered Price *" id="OfferedPrice" value="@Model.OfferedPrice" class="form-control" name="OfferedPrice" type="text">
+
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="entry-date">Renting Date</label>
+        @if (Model.ID != 0)
+        {
+            @Html.TextBox("RentingDate", Model.RentingDate, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+
+        }
+        else
+        {
+            @Html.TextBox("RentingDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "RentingDate", @class = "form-control", type = "date" })
+        }
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="entry-date">Return Date</label>
+        @if (Model.ID != 0)
+        {
+            @Html.TextBox("ReturnDate", Model.ReturnDate, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+
+        }
+        else
+        {
+            @Html.TextBox("ReturnDate", DateTime.Now, "{0:yyyy-MM-dd}", new { @style = "width:100%", @id = "ReturnDate", @class = "form-control", type = "date" })
+        }
+    </div>
+   
+    
+    
+    
+    <div class="col-md-12 mb-3">
+        @if (Model.ID != 0)
+        {
+
+
+            <button type="button" title="Submit Your Message!" class="btn btn-info" id="ActionButton">UPDATE</button>
+        }
+        else
+        {
+            <button type="button" title="Submit Your Message!" class="btn btn-primary" id="ActionButton">SAVE</button>
+
+        }
+    </div>
+    <div class="col-md-12 mb-3">
+        <div id="alert-msg" class="alert-msg text-center"></div>
+    </div>
+</div>
+</form>
+
+<script>
+    // Function to calculate the renting period
+    function calculateRentingPeriod() {
+        // Get the values of the "Available From" and "Available To" fields
+        var availableFrom = new Date(document.getElementById('RentingDate').value);
+        var availableTo = new Date(document.getElementById('ReturnDate').value);
+
+        // Calculate the renting period in milliseconds
+        var rentingPeriodMs = availableTo - availableFrom;
+
+        // Convert the renting period to days
+        var rentingPeriodDays = Math.ceil(rentingPeriodMs / (1000 * 60 * 60 * 24));
+
+        // Display the renting period
+        $("#RentingPeriod").val(rentingPeriodDays);
+    }
+
+    // Add onchange event listeners to the date pickers
+    document.getElementById('AvailableFrom').onchange = calculateRentingPeriod;
+    document.getElementById('AvailableTo').onchange = calculateRentingPeriod;
+
+    // Get the values of the "Available From" and "Available To" fields
+
+
+
+    $("#ActionButton").click(function () {
+        var button = document.getElementById('ActionButton');
+        button.classList.add('loader');
+        button.disabled = true;
+        $.ajax({
+            url: '@Url.Action("Action", "CustomOffer")',
+            type: "POST",
+            data: $("#PostAdForm").serialize()
+        })
+            .done(function (response) {
+                if (response.success) {
+
+                    window.location.href = '@Url.Action("Index", "CustomOffer")';
+                } else {
+                    $(".errorDiv").html(response.Message);
+                }
+            })
+            .fail(function (xhr, status, error) {
+                console.error(xhr.responseText);
+            });
+    });
+
+        
+
+
+
+
+
+
+</script>
+

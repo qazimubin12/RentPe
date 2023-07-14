@@ -1,0 +1,97 @@
+﻿@model RentPe.ViewModels.CustomOfferListingViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+   
+    <div class="col-lg-12 grid-margin stretch-card">
+        @if (Model != null && Model.CustomOffers != null)
+        {
+            <div class="card">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Owner
+                                </th>
+                                <th>
+                                    Offer Date
+                                </th>
+                                <th>
+                                    Renter
+                                </th>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    OfferedPrice
+                                </th>
+                                <th>
+                                    Renting Date
+                                </th>
+                                <th>
+                                    Return Date
+                                </th>
+                                <th>
+                                    Renting Period
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var CustomOffer in Model.CustomOffers)
+                            {
+                                <tr>
+                                    <td>@CustomOffer.Owner.Name</td>
+                                    <td>@CustomOffer.CustomOffer.OfferDate</td>
+                                    <td>@CustomOffer.Renter.Name</td>
+                                    <td>@CustomOffer.CustomOffer.Status</td>
+                                    <td>@CustomOffer.CustomOffer.OfferDate</td>
+                                    <td>@CustomOffer.CustomOffer.RentingDate</td>
+                                    <td>@CustomOffer.CustomOffer.ReturnDate</td>
+                                    <td>@CustomOffer.CustomOffer.RentingPeriod</td>
+
+                                    <td>
+                                        <a href="@Url.Action("Action", "CustomOffer", new { ID = CustomOffer.CustomOffer.ID })" type="button" class="btn btn-outline-info btn-icon-text"><i class="mdi mdi-pencil"></i> EDIT</a>
+                                        <button data-href="@Url.Action("Delete", "CustomOffer", new { ID = CustomOffer.CustomOffer.ID })" type="button" class="data-btn btn btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning col-md-12" role="alert">
+                Sorry! No records exist.
+            </div>
+        }
+    </div>
+    
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+</script>
+
+
+

@@ -13,7 +13,7 @@ namespace RentPe.Entities
         public DateTime OfferDate { get; set; }
         public string Rentee { get; set; }
         public int Item { get; set; }
-        public string Status { get; set; }  //ACCEPTED //DECLINE // PENDING //WITHDRAWN
+        public string Status { get; set; }          //ACCEPTED //DECLINE // PENDING //WITHDRAWN
         public float OfferedPrice { get; set; }
         public DateTime RentingDate { get; set; }
         public DateTime ReturnDate { get; set; }
