@@ -40,8 +40,19 @@ namespace RentPe.Services
         }
 
 
+        public List<Order> GetOrders()
+        {
+            using (var context = new DSContext())
+            {
 
-    
+                return context.Orders.ToList();
+
+            }
+        }
+
+
+
+
         public List<Order> GetOrderByRentee(string Rentee)
         {
             using (var context = new DSContext())

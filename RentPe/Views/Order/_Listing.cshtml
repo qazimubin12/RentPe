@@ -1,0 +1,113 @@
+﻿@model RentPe.ViewModels.OrderListingViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+   
+    <div class="col-lg-12 grid-margin stretch-card">
+        @if (Model != null && Model.Orders != null)
+        {
+            <div class="card">
+
+                <div class="table-responsive">
+                    <table  style="font-size:13px;" class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Order No
+                                </th>
+                                <th>
+                                    Owner
+                                </th>
+                                <th>
+                                    Amount Paid
+                                </th>
+                                <th>
+                                    Amount Remaining
+                                </th>
+                                <th>
+                                   Total Amount
+                                </th>
+                                <th>
+                                    Renter
+                                </th>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    OfferedPrice
+                                </th>
+                                <th>
+                                    Unboxing
+                                </th>
+                                <th>
+                                    Packing
+                                </th>
+                               
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>@Order.Order.OrderNo</td>
+                                    <td>@Order.Owner.Name</td>
+                                    <td>@Order.Order.AmountPaid</td>
+                                    <td>@Order.Order.AmountRemain</td>
+                                    <td>@Order.Order.TotalAmount</td>
+                                    <td>@Order.Renter.Name</td>
+                                    <td>@Order.Ad.ItemName</td>
+                                    <td>@Order.Order.Date</td>
+                                    <td>@Order.Order.Status</td>
+                                    <td>
+                                        <button type="button" class="data-btn btn btn-primary data-btn" data-href="@Order.Order.VideoOfPacking">Video Of Packing</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="data-btn btn btn-primary data-btn" data-href="@Order.Order.VideoOfUnboxing">Video Of Unboxing</button>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Action", "Order", new { ID = Order.Order.ID })" type="button" class="btn btn-sm btn-rounded btn-outline-info btn-icon-text"><i class="mdi mdi-pencil"></i> EDIT</a>
+                                        <button data-href="@Url.Action("Delete", "Order", new { ID = Order.Order.ID })" type="button" class="data-btn btn btn-sm btn-rounded btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning col-md-12" role="alert">
+                Sorry! No records exist.
+            </div>
+        }
+    </div>
+    
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+</script>
+
+
+

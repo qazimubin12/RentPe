@@ -345,6 +345,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemCategoryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
@@ -1103,6 +1104,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Photos\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
