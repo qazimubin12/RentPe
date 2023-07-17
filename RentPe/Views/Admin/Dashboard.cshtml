@@ -12,9 +12,112 @@
     td {
         width: 200px;
     }
+    .button {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 20px;
+        transition: background-color 0.3s;
+    }
 
+        .button:hover {
+            background-color: #23527c;
+        }
+
+    .dashboard-image {
+        margin-top: 40px;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+    .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    .feature-card {
+        width: 200px;
+        padding: 20px;
+        margin: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .feature-icon {
+        font-size: 48px;
+        color: #337ab7;
+        margin-bottom: 20px;
+    }
+
+    .feature-title {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .feature-description {
+        font-size: 14px;
+        color: #666;
+    }
+    .feature-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
 </style>
-<div class="container">
-    <h2>Dashboard - Welcome @Model.SignedInUser.Name</h2>
+@*<div class="container">
+    <h1 style="color:orange" class="text-center">Welcome @Model.SignedInUser.Name</h1>
 
+</div>*@
+<div class="container">
+    <h1>Welcome <b>@Model.SignedInUser.Name</b> to Your Dashboard</h1>
+    <div class="feature-title mb-0 mt-3">
+        <p class="mb-1">What you can do:</p>
+     </div>
+    <div class="features">
+        <div class="feature-card">
+            <span class="feature-icon">&#128100;</span>
+            <div class="feature-title">Roles</div>
+            <div class="feature-description">Manage user roles and permissions</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">&#128101;</span>
+            <div class="feature-title">Users</div>
+            <div class="feature-description">Manage registered users</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">&#128203;</span>
+            <div class="feature-title">Ads</div>
+            <div class="feature-description">Manage rental ads</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">&#127752;</span>
+            <div class="feature-title">Categories</div>
+            <div class="feature-description">Manage item categories</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">&#128203;</span>
+            <div class="feature-title">Custom Offers</div>
+            <div class="feature-description">Manage custom rental offers</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">&#128722;</span>
+            <div class="feature-title">Orders</div>
+            <div class="feature-description">Manage rental orders</div>
+        </div>
+    </div>
 </div>
