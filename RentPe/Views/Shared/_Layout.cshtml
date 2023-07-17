@@ -3,7 +3,10 @@
 
 <head>
     <!-- Meta -->
+    <link rel="manifest" href="~/manifest.json" />
+    <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="theme-color" content="#F4A100" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="Anil z" name="author">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +45,7 @@
     <link rel="stylesheet" href="~/Content/template/assets/css/responsive.css">
     <script src="~/Content/template/assets/js/jquery-3.6.0.min.js"></script>
     <script src="~/Content/template/assets/js/jquery-ui.js"></script>
-   
+
 </head>
 
 <body>
@@ -82,15 +85,19 @@
             .cart_box .cart_list::-webkit-scrollbar-track {
                 background-color: #f1f1f1;
             }
-        .fa fa-solid fa-heart{
-            cursor:pointer;
+
+        .fa fa-solid fa-heart {
+            cursor: pointer;
         }
+
         footer .widget_title {
-            font-size:25px
+            font-size: 25px
         }
+
         .widget_links li a {
             font-size: 18px
         }
+
         .contact_info i + * {
             font-size: 18px
         }
@@ -171,7 +178,7 @@
                                     <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Books" })"><img style="padding-right:4px; padding-left:4px;width:27px" src="~/Content/template/RentPeContent/book.png" /> <span style="padding-left:5px">Books</span></a></li>
                                     <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Jewellery" })"><i class="flaticon-necklace"></i> <span>Jewellery</span></a></li>
                                     <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Property" })"><img style="padding-right:5px;width:30px;" src="~/Content/template/RentPeContent/property.png" /> <span>Property</span></a></li>
-                                 
+
                                     <li>
                                         <ul class="more_slide_open">
                                             <li><a class="dropdown-item nav-link nav_item" href="@Url.Action("ShopByCategory", "Home", new { Category = "Electronics & Appliances" })"><i class="flaticon-music-system"></i> <span>Electronics & Appliances</span></a></li>
@@ -214,8 +221,8 @@
                                     <li><a id="Contact" class="nav-link nav_item mx-2" href="@Url.Action("Contact", "Home")">Contact us</a></li>
                                     <li><a id="Shop" class="nav-link nav_item mx-2" href="@Url.Action("Shop", "Home")">Shop</a></li>
 
-                                    
-                                    
+
+
                                 </ul>
                             </div>
                             <ul class="navbar-nav attr-nav align-items-center">
@@ -309,8 +316,8 @@
                             </ul>
                         </div>
                     </div>
-                    
-                    
+
+
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="widget">
                             <h6 class="widget_title">Contact Info</h6>
@@ -346,7 +353,7 @@
                         <p class="mb-md-0 text-center text-md-start">© 2023 All Rights Reserved by RentPe</p>
                     </div>
                     <div class="col-md-6">
-                        
+
                     </div>
                 </div>
             </div>
@@ -356,7 +363,20 @@
 
     <a href="~/Content/template/#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
 
+    </script>
     <script src="~/Content/template/assets/js/popper.min.js"></script>
     <script src="~/Content/template/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/template/assets/owlcarousel/js/owl.carousel.min.js"></script>
@@ -379,12 +399,12 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var divToRemove = document.querySelector("div[style='position: fixed; z-index: 999999; width: 100%; height: 55px; padding: 10px; background-color: rgba(17, 16, 16, 0.93); bottom: 0px; left: 0px; right: 0px; display: flex; align-items: center; justify-content: center; gap: 20px; color: white;']");
 
-        if (divToRemove) {
-            divToRemove.remove();
-        }
+  
+     $(document).ready(function () {
+        $("body").mouseover(function () {
+            $("div[style='position: fixed; z-index: 999999; width: 100%; height: 55px; padding: 10px; background-color: rgba(17, 16, 16, 0.93); bottom: 0px; left: 0px; right: 0px; display: flex; align-items: center; justify-content: center; gap: 20px; color: white;']").hide();
+        });
     });
 
     function SearchProductsInShop() {

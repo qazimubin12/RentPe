@@ -1017,6 +1017,7 @@
     <Content Include="Content\template\AdminTemplate\assets\plugins\summernote\dist\font\summernote.eot" />
     <Content Include="Content\template\AdminTemplate\assets\plugins\summernote\dist\font\summernote.ttf" />
     <Content Include="Content\template\AdminTemplate\assets\plugins\summernote\dist\font\summernote.woff" />
+    <Content Include="manifest.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
@@ -1034,6 +1035,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="service-worker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
