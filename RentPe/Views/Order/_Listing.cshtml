@@ -2,89 +2,106 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+    .dropdown-toggle::after {
+        display: none;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+    }
+    .red-row{
+        background-color:firebrick;
+        color:white;
+    }
+    .orange-row{
+        background-color:chocolate;
+        color:white;
+    }
+</style>
 <div class="row">
-   
+
     <div class="col-lg-12 grid-margin stretch-card">
         @if (Model != null && Model.Orders != null)
         {
             <div class="card">
 
-                <div class="table-responsive">
-                    <table  style="font-size:13px;" class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Order No
-                                </th>
-                                <th>
-                                    Owner
-                                </th>
-                                <th>
-                                    Amount Paid
-                                </th>
-                                <th>
-                                    Amount Remaining
-                                </th>
-                                <th>
-                                   Total Amount
-                                </th>
-                                <th>
-                                    Renter
-                                </th>
-                                <th>
-                                    Item
-                                </th>
-                                <th>
-                                    Date
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    OfferedPrice
-                                </th>
-                                <th>
-                                    Unboxing
-                                </th>
-                                <th>
-                                    Packing
-                                </th>
-                               
-                                <th>
-                                    Action
-                                </th>
+                <table style="font-size:13px;" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Order No
+                            </th>
+                            <th>
+                                Owner
+                            </th>
+                            <th>
+                                Amount Paid
+                            </th>
+                            <th>
+                                Amount Remaining
+                            </th>
+                            <th>
+                                Total Amount
+                            </th>
+                            <th>
+                                Renter
+                            </th>
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Status
+                            </th>
+
+
+
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Order in Model.Orders)
+                        {
+
+                            <tr class="@((Order.Order.VideoOfUnboxing == "" || Order.Order.VideoOfUnboxing == null) ? "red-row" : (Order.Order.VideoOfPacking == "" || Order.Order.VideoOfPacking == null) ? "orange-row" : "")">
+                                <td>@Order.Order.OrderNo</td>
+                                <td>@Order.Owner.Name</td>
+                                <td>@Order.Order.AmountPaid</td>
+                                <td>@Order.Order.AmountRemain</td>
+                                <td>@Order.Order.TotalAmount</td>
+                                <td>@Order.Renter.Name</td>
+                                <td>@Order.Ad.ItemName</td>
+                                <td>@Order.Order.Date</td>
+                                <td>@Order.Order.Status</td>
+
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-sm btn-outline-light dropdown-toggle dropdown-toggle-split">
+                                            <!-- Three dots icon -->
+                                            <img style="height:25px;" src="~/Content/template/assets/icons8-ellipsis-50.png" />
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="@Url.Action("Action", "Order", new { ID = Order.Order.ID })" class="dropdown-item"><i class="mdi mdi-pencil"></i> EDIT</a>
+                                            <button data-href="@Url.Action("Delete", "Order", new { ID = Order.Order.ID })" type="button" class="data-btn dropdown-item" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
+                                            <div class="dropdown-divider"></div>
+                                            <button type="button" class="data-btn dropdown-item" data-href="@Order.Order.VideoOfPacking">Video Of Packing</button>
+                                            <button type="button" class="data-btn dropdown-item" data-href="@Order.Order.VideoOfUnboxing">Video Of Unboxing</button>
+                                        </div>
+                                    </div>
+                                </td>
+
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var Order in Model.Orders)
-                            {
-                                <tr>
-                                    <td>@Order.Order.OrderNo</td>
-                                    <td>@Order.Owner.Name</td>
-                                    <td>@Order.Order.AmountPaid</td>
-                                    <td>@Order.Order.AmountRemain</td>
-                                    <td>@Order.Order.TotalAmount</td>
-                                    <td>@Order.Renter.Name</td>
-                                    <td>@Order.Ad.ItemName</td>
-                                    <td>@Order.Order.Date</td>
-                                    <td>@Order.Order.Status</td>
-                                    <td>
-                                        <button type="button" class="data-btn btn btn-primary data-btn" data-href="@Order.Order.VideoOfPacking">Video Of Packing</button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="data-btn btn btn-primary data-btn" data-href="@Order.Order.VideoOfUnboxing">Video Of Unboxing</button>
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Action", "Order", new { ID = Order.Order.ID })" type="button" class="btn btn-sm btn-rounded btn-outline-info btn-icon-text"><i class="mdi mdi-pencil"></i> EDIT</a>
-                                        <button data-href="@Url.Action("Delete", "Order", new { ID = Order.Order.ID })" type="button" class="data-btn btn btn-sm btn-rounded btn-outline-danger btn-icon-text" data-toggle="modal" data-target="#actionModal"><i class="mdi mdi-delete"></i>DELETE</button>
-
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
 
             </div>
         }
@@ -95,7 +112,7 @@
             </div>
         }
     </div>
-    
+
 </div>
 
 <script>

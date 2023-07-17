@@ -1,0 +1,152 @@
+﻿@model RentPe.ViewModels.OrderActionViewModel
+
+<style>
+    #actionButton.loader {
+        position: relative;
+    }
+
+        #actionButton.loader:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            animation: spin 0.8s linear infinite;
+        }
+
+    @@keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+</style>
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+            </button>
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="popup_content">
+                        <div class="popup-text">
+                            <div class="heading_s4">
+                                <h4>Upload @Model.Type Video</h4>
+                            </div>
+                            <p><b>Please upload the @Model.Type Video of the Product</b></p>
+                            <br />
+                            
+                        </div>
+                        
+                        <div class="row">
+                            <form class="col-md-8" id="ActionForm">
+                                <div class="form-group mb-3">
+                                    <label for="video-file" class="form-label">Choose a video file:</label>
+                                    <input type="hidden" class="form-control" id="Video" name="Video">
+                                    <input type="file" class="form-control" id="VideoUpload" name="VideoUpload" accept="video/*">
+                                </div>
+                                <input type="hidden" value="@Model.Type" name="Type" id="Type" />
+                                <input type="hidden" value="@Model.ID" name="OrderID" id="OrderID" />
+
+                                <div class="form-group mb-3">
+                                    <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i>SUBMIT</button>
+
+                                </div>
+                            </form>
+                            <div class="col-md-4 embed-responsive">
+                                <embed id="VideoEmbed" style="height:200px;" />
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+}
+
+<script>
+
+
+   $("#actionButton").click(function () {
+    var button = document.getElementById('actionButton');
+    button.classList.add('loader');
+    button.disabled = true;
+
+    // Check if Proof field is empty
+    var proofValue = $("#Video").val();
+    if (proofValue === "") {
+        alert("Video field cannot be empty.");
+        button.classList.remove('loader');
+        button.disabled = false;
+        return; // Stop further execution
+       }
+      
+
+    $.ajax({
+        url: '@Url.Action("SaveVideo", "User")',
+        type: "post",
+        data: $("#ActionForm").serialize()
+    })
+    .done(function (response) {
+        if (response.success) {
+            alert("Video Saved. Our Team will Verify the Video and our Rider will come to you now.");
+            window.location.href = '@Url.Action("Dashboard", "User")';
+        }
+        else {
+            $(".errorDiv").html(response.Message);
+        }
+    });
+});
+
+
+
+
+    $("#VideoUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadVideos", "Shared")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+
+                console.log(response);
+                if (response.success) {
+                    $("#Video").val(response.DocURL);
+                    $("#VideoEmbed").attr("src", response.DocURL);
+                    alert("Video Uploaded Successfully");
+                }
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            })
+    });
+</script>

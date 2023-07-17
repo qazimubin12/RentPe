@@ -58,7 +58,7 @@ namespace RentPe.Services
             using (var context = new DSContext())
             {
                 var Orders = context.Orders
-            .Where(c => c.Renter == Rentee || c.Renter == Rentee)
+            .Where(c => c.Renter == Rentee || c.Owner == Rentee)
             .GroupBy(c => new { Rentee = c.Renter == Rentee ? c.Renter : c.Renter, c.Item })
             .Select(g => g.OrderByDescending(c => c.Date).FirstOrDefault())
             .ToList();

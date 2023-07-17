@@ -65,6 +65,7 @@ namespace RentPe.Controllers
         // GET: Ad
         public ActionResult Index(string SearchTerm = "")
         {
+            Session["ACTIVERADMIN"] = "Ad";
             AdListingViewModel model = new AdListingViewModel();
             model.SearchTerm = SearchTerm;
             model.Ads = AdServices.Instance.GetAd(SearchTerm);
@@ -74,6 +75,7 @@ namespace RentPe.Controllers
         [HttpGet]
         public ActionResult AdAction(int ID=0)
         {
+            Session["ACTIVERADMIN"] = "Ad";
             AdActionViewModel model = new AdActionViewModel();
             model.ItemCategories = CategoryServices.Instance.GetRentItemCategories();
             if(ID != 0)

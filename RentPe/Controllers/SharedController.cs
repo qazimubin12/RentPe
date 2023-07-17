@@ -31,6 +31,33 @@ namespace RentPe.Controllers
             }
             return result;
         }
+        public JsonResult UploadVideos()
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            try
+            {
+                var file = Request.Files[0];
+
+                var fileName = DateTime.Now.ToString("dd-MM-yyyy") + file.FileName;
+                var directoryPath = Server.MapPath("~/Videos/");
+
+                var path = Path.Combine(directoryPath, fileName);
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath); // Create the directory if it doesn't exist
+                }
+                file.SaveAs(path);
+                result.Data = new { success = true, DocURL = string.Format("/Videos/{0}", fileName) };
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { success = false, Message = ex.Message };
+                throw;
+            }
+            return result;
+        }
 
 
         public JsonResult UploadProof()

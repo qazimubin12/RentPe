@@ -65,6 +65,8 @@ namespace RentPe.Controllers
         }
         public ActionResult Index(string SearchTerm = "")
         {
+            Session["ACTIVERADMIN"] = "CustomOffer";
+
             CustomOfferListingViewModel model = new CustomOfferListingViewModel();
             model.SearchTerm = SearchTerm;
             var NewCustomOffers = new List<CustomOfferModel>();
@@ -90,6 +92,8 @@ namespace RentPe.Controllers
         [HttpGet]
         public ActionResult Action(int ID = 0)
         {
+            Session["ACTIVERADMIN"] = "CustomOffer";
+
             CustomOfferActionViewModel model = new CustomOfferActionViewModel();
             model.Owners = SearchUsersByRole("Owner").ToList();
             model.Rentees = SearchUsersByRole("User").ToList();

@@ -69,6 +69,8 @@ namespace RentPe.Controllers
         // GET: User
         public ActionResult Index(string searchterm)
         {
+            Session["ACTIVERADMIN"] = "User";
+
             UsersListingViewModel model = new UsersListingViewModel();
             model.Users = SearchUsers(searchterm);
             model.Roles = RolesManager.Roles.ToList();
@@ -210,7 +212,10 @@ namespace RentPe.Controllers
                     AmountPaid = item.AmountPaid,
                     Owner = Owner.Name,
                     Renter = Rentee.Name,
-                    Status = item.Status
+                    Status = item.Status,
+                    VideoOfPacking  = item.VideoOfPacking,
+                    VideoOfUnboxing = item.VideoOfUnboxing
+
 
                 });
             }
@@ -242,6 +247,34 @@ namespace RentPe.Controllers
             model.AdFull = AD;
             model.Renter = Rentee;
             return PartialView("_Payment",model);
+        }
+
+        [HttpGet]
+        public ActionResult UploadVideo(int ID,string Type)
+        {
+            OrderActionViewModel model = new OrderActionViewModel();
+            var order = OrderServices.Instance.GetOrder(ID);
+            model.OrderFull = order;
+            model.Type = Type;
+            model.ID = order.ID;
+            return PartialView("_UploadVideo", model);
+        }
+
+
+        [HttpPost]
+        public ActionResult SaveVideo(OrderActionViewModel model)
+        {
+            var order = OrderServices.Instance.GetOrder(model.OrderID);
+            if(model.Type == "Packing")
+            {
+                order.VideoOfPacking = model.Video;
+            }
+            else
+            {
+                order.VideoOfUnboxing = model.Video;
+            }
+            OrderServices.Instance.UpdateOrder(order);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

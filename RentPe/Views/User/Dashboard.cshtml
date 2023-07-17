@@ -286,6 +286,7 @@
                                                 <th>Paid</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -301,24 +302,39 @@
                                                         <td>@item.AmountRemain</td>
                                                         <td>@item.AmountPaid</td>
                                                         <td id="OrderStatus_@item.ID">@item.Status</td>
-                                                        @if (item.Status == "PAYMENT PENDING")
+                                                        @if (item.ItemFull.UserID == Model.SignedInUser.Id)
                                                         {
-                                                            <td id="PaymentButton">
-                                                                <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                            <td>
+                                                                @if (item.VideoOfPacking == "" || item.VideoOfPacking == null)
+                                                                {
+                                                                    <button data-href="@Url.Action("UploadVideo", "User", new { ID = item.ID, Type = "Packing" })" type="button" class="data-btn btn btn-sm btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-cloud-upload"></i>Upload Packing Video</button>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>UPLOADED </span>
+                                                                    @*<button data-href="@Url.Action("UploadVideo", "User", new { ID = item.ID, Type = "Packing" })" type="button" class="data-btn btn btn-sm btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-cloud-upload"></i>Upload Packing Video</button>*@
+
+                                                                }
                                                             </td>
                                                         }
                                                         else
                                                         {
-                                                            if (item.Status == "HALF PAID")
+                                                            if (item.Status == "PAYMENT PENDING")
                                                             {
-                                                                <td id="PaymentButton">
-                                                                    <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
-                                                                </td>
-
+                                                            <td id="PaymentButton">
+                                                                <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-sm btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                            </td>
                                                             }
                                                             else
                                                             {
-                                                            <td><button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button></td>
+
+                                                    <td>
+                                                        <button disabled data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-sm btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                        <button data-href="@Url.Action("UploadVideo", "User", new { ID = item.ID,Type="Unboxing" })" type="button" class="data-btn btn btn-sm btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-cloud-upload"></i>Upload Unboxing Video</button>
+
+                                                    </td>
+
                                                             }
                                                         }
                                                     </tr>

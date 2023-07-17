@@ -61,6 +61,8 @@ namespace RentPe.Controllers
 
         public ActionResult Dashboard()
         {
+            Session["ACTIVERADMIN"] = "Dashboard";
+
             AdminViewModel model = new AdminViewModel();
             var user = UserManager.FindById(User.Identity.GetUserId());
             model.SignedInUser = user;

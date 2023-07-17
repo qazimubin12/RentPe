@@ -193,46 +193,40 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">
-                            <span>Main</span>
+                            <span>Admin Menu</span>
                         </li>
-                        <li class="active">
-                            <a href="index.html"><i class="fe fe-home text-primary"></i> <span>Dashboard</span></a>
+                        <li id="Dashboard">
+                            <a href="@Url.Action("Dashboard","Admin")"><i class="fe fe-home text-primary"></i> <span>Dashboard</span></a>
                         </li>
-                        <li>
+                        <li id="Role">
                             <a href="@Url.Action("Index","Role")"><i class="fe fe-user-minus text-success"></i> <span>Roles</span></a>
                         </li>
-                        <li>
+                        <li id="User">
                             <a href="@Url.Action("Index","User")"><i class="fe fe-users text-success"></i> <span>Users</span></a>
                         </li>
                         @*<li>
-                            <a href="@Url.Action("Index","Item")"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
-                        </li>*@
+            <a href="@Url.Action("Index","Item")"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
+        </li>*@
 
-                        <li>
+                        <li id="Ad">
                             <a href="@Url.Action("Index","Ad")"><i class="fe fe-book text-warning"></i> <span>Ads</span></a>
                         </li>
-                        <li>
+                        <li id="Category">
                             <a href="@Url.Action("Index","ItemCategory")"><i class="fe fe-layer text-success"></i> <span>Categories</span></a>
                         </li>
-                        <li>
+                        <li id="CustomOffer">
                             <a href="@Url.Action("Index","CustomOffer")"><i class="fe fe-layer text-info"></i> <span>Custom Offers</span></a>
                         </li>
-                        <li>
-                            <a href="shops.html"><i class="fe fe-cart text-warning"></i> <span>Orders</span></a>
+                        <li id="Order">
+                            <a href="@Url.Action("Index","Order")"><i class="fe fe-cart text-warning"></i> <span>Orders</span></a>
                         </li>
-                      
-                        
-                        <li class="submenu">
-                            <a href="#"><i class="fe fe-gear  text-warning"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="general-settings.html">General Settings</a></li>
-                                <li><a href="email-settings.html">Email Settings</a></li>
-                                <li><a href="stripe-gateway.html">Payment Gateway</a></li>
 
-                                <li><a href="smtp-settings.html">SMTP</a></li>
-                            </ul>
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fe fe-logout text-danger"></i> <span>Logout</span></a>
                         </li>
-                       
+
+
+
                     </ul>
                 </div>
             </div>
@@ -665,6 +659,44 @@
 </html>
 
 <script>
+        $(document).ready(function () {
+
+            var data = '@Session["ACTIVERADMIN"]';
+            if (data == 'Dashboard') {
+                var elem = document.getElementById("Dashboard");
+
+                elem.className += ' active';
+            }
+
+            if (data == 'User') {
+                var elem = document.getElementById("User");
+                elem.className += ' active';
+            }
+
+            if (data == 'Ad') {
+                var elem = document.getElementById("Ad");
+                elem.className += ' active';
+            }
+
+
+            if (data == 'CustomOffer') {
+                var elem = document.getElementById("CustomOffer");
+                elem.className += ' active';
+            }
+            if (data == 'Order') {
+                var elem = document.getElementById("Order");
+                elem.className += ' active';
+            }
+            if (data == 'Category') {
+                var elem = document.getElementById("Category");
+                elem.className += ' active';
+            }
+
+
+
+
+
+       });
 
     $(document).ready(function () {
         $("body").mouseover(function () {

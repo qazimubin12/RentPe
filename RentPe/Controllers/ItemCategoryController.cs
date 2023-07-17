@@ -66,6 +66,8 @@ namespace RentPe.Controllers
 
         public ActionResult Index(string SearchTerm = "")
         {
+            Session["ACTIVERADMIN"] = "Category";
+
             ItemCategoryListingViewModel model = new ItemCategoryListingViewModel();
             model.SearchTerm = SearchTerm;
             model.ItemCategories = CategoryServices.Instance.GetRentItemCategories(SearchTerm);
@@ -76,6 +78,8 @@ namespace RentPe.Controllers
         [HttpGet]
         public ActionResult Action(int ID = 0)
         {
+            Session["ACTIVERADMIN"] = "Category";
+
             ItemCategoryActionViewModel model = new ItemCategoryActionViewModel();
             if (ID != 0)
             {

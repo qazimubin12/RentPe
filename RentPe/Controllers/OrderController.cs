@@ -64,6 +64,8 @@ namespace RentPe.Controllers
         }
         public ActionResult Index(string SearchTerm = "")
         {
+            Session["ACTIVERADMIN"] = "Order";
+
             OrderListingViewModel model = new OrderListingViewModel();
             model.SearchTerm = SearchTerm;
             var NewOrders = new List<OrderViewModelNew>();
@@ -89,6 +91,8 @@ namespace RentPe.Controllers
         [HttpGet]
         public ActionResult Action(int ID = 0)
         {
+            Session["ACTIVERADMIN"] = "Order";
+
             OrderActionViewModel model = new OrderActionViewModel();
             model.Owners = SearchUsersByRole("Owner").ToList();
             model.Renters = SearchUsersByRole("User").ToList();

@@ -363,6 +363,7 @@
     <Compile Include="ViewModels\CustomOfferViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ItemCategoryViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
@@ -648,6 +649,7 @@
     <Content Include="Content\template\assets\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\template\assets\fonts\slick.svg" />
     <Content Include="Content\template\assets\fonts\themify.svg" />
+    <Content Include="Content\template\assets\icons8-ellipsis-50.png" />
     <Content Include="Content\template\assets\images\about_img.jpg" />
     <Content Include="Content\template\assets\images\ajax-loader.gif" />
     <Content Include="Content\template\assets\images\amarican_express.png" />
@@ -1100,11 +1102,15 @@
     <Content Include="Views\CustomOffer\_Listing.cshtml" />
     <Content Include="Views\CustomOffer\Action.cshtml" />
     <Content Include="Views\CustomOffer\Index.cshtml" />
+    <Content Include="Views\Order\_Delete.cshtml" />
+    <Content Include="Views\Order\_Listing.cshtml" />
+    <Content Include="Views\Order\Action.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\User\_UploadVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Photos\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

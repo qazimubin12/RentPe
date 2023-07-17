@@ -20,6 +20,7 @@
 
                 </div>
             </form>
+            
         </div>
     </div>
     <div class="row" style="margin-top:10px;">
@@ -38,12 +39,5 @@
 </div>
 
 <script>
-    $(".data-btn").click(function () {
-        $.ajax({
-            url: $(this).attr("data-href"),
-        })
-            .done(function (response) {
-                $("#actionModal .modal-dialog").html(response);
-            });
-    });
+ 
 </script>

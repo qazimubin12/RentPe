@@ -61,7 +61,6 @@ namespace RentPe.ViewModels
 
     }
 
-
     public class PaymentViewModel
     {
         public float AmountPaid { get; set; }
@@ -90,6 +89,9 @@ namespace RentPe.ViewModels
         public Ad ItemFull { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
+        public string Packing { get; set; }
+        public string VideoOfUnboxing { get; set; }
+        public string VideoOfPacking { get; set; }
     }
 
     public class CustomerOfferModel

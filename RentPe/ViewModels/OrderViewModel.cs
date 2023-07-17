@@ -22,6 +22,10 @@ namespace RentPe.ViewModels
 
     public class OrderActionViewModel
     {
+        public int OrderID { get; set; }
+        public Order OrderFull { get; set; }
+        public string Type { get; set; } //Unboxing or Packing
+        public string Video { get; set; }
         public List<User> Owners { get; set; }
         public List<User> Renters { get; set; }
         public List<Ad> Ads { get; set; }
@@ -34,7 +38,7 @@ namespace RentPe.ViewModels
         public string Renter { get; set; }
         public User RenterFull { get; set; }
         public string Item { get; set; }
-        public User AdFull { get; set; }
+        public Ad AdFull { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
         public string VideoOfUnboxing { get; set; }
