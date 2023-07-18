@@ -5,7 +5,6 @@
 <style>
     .chat-messages {
         list-style-type: none;
-        padding: 0;
     }
 
     .message-info {
@@ -24,6 +23,7 @@
         padding: 10px;
         margin-bottom: 10px;
         float: right;
+        margin-right: 10px;
     }
 
     .received-from-owner {
@@ -33,43 +33,58 @@
         margin-bottom: 10px;
         float: left;
     }
-</style>
-<div class="row">
 
-    <div class="card">
+    input.message-checkbox {
+        width: 40px;
+        height: 40px;
+    }
+</style>
+<div style="display: flex; justify-content: flex-end;">
+    <button  class="btn btn-danger" type="submit">Delete Selected</button>
+</div>
+
+<div class="row">
+    <div class="card col-12 m-3">
         <div class="card-body">
-            <div class="row">
+            <div class="row ml-2">
 
                 <h2 class="card-title text-center">
                     Chat of @Model.USentBy.Name with @Model.URecievedBy.Name
                 </h2>
             </div>
             <hr />
+
             <form id="deleteForm" method="post" action="@Url.Action("DeleteBulkMessages","Chat")">
                 <ul id="messagingChatBox" style="max-height: 300px; overflow-y: scroll; overflow-x: clip;" class="chat-messages">
                     @foreach (var message in Model.Chats)
                     {
-                        <li class="@(message.Chats.SentBy == Model.USentBy.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
+                        <li class="@(message.Chats.SentBy == Model.USentBy.Id ? "sent-by-user col-7" : "received-from-owner col-7")">
+
                             <div class="message-date">
-                                @message.Chats.Date
+                                <b>@message.Chats.SentByName</b>
                                 <br />
-                                @message.Chats.SentByName
+                                @message.Chats.Date
                             </div>
                             <div class="message-info">
                             </div>
-                            <div class="message-content">
-                                @message.Chats.Message
-                                @if (message.Chats.Attachments != null && message.Chats.Attachments != "")
-                                {
-                                    <br />
-                                    <img src="@message.Chats.Attachments" style="height:200px" />
-                                    <br />
-                                }
+
+                            <div class="row">
+                                <div class="message-content col-10">
+                                    @message.Chats.Message
+                                    @if (message.Chats.Attachments != null && message.Chats.Attachments != "")
+                                    {
+                                        <br />
+                                        <img src="@message.Chats.Attachments" style="height:200px" />
+                                        <br />
+                                    }
+                                </div>
+                                <div class="message-checkbox col-2">
+                                    <input style="width:18px ; height:18px" type="checkbox" name="selectedIds" value="@message.Chats.ID" />
+                                </div>
+
                             </div>
 
-                            <div class="message-checkbox">
-                                <input type="checkbox" name="selectedIds" value="@message.Chats.ID" />
-                            </div>
+
 
                             @if (message.CustomOffer != null)
                             {
@@ -88,14 +103,12 @@
                         </li>
                     }
                 </ul>
-
-                <button class="btn btn-primary" type="submit">Delete Selected</button>
             </form>
 
 
 
         </div>
-        
+
 
 
     </div>
