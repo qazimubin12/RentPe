@@ -1,11 +1,11 @@
-﻿@model RentPe.ViewModels.OrderActionViewModel
+﻿@model RentPe.ViewModels.ChatActionViewModel
 
 @if (Model != null)
 {
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title">
-            <span>Delete Order</span>
+            <span>Delete Chat</span>
         </h5>
         <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close mr-1"></i></button>
     </div>
@@ -14,7 +14,7 @@
             <input type="hidden" name="ID" value="@Model.ID" />
         </form>
         <div class="alert alert-danger" role="alert">
-            Are you sure you want to delete this Order?
+            Are you sure you want to delete this Chat?
         </div>
     </div>
     <div class="modal-footer">
@@ -27,14 +27,14 @@
 <script>
 	$("#actionButton").click(function () {
 		$.ajax({
-			url: '@Url.Action("Delete", "Order")',
+			url: '@Url.Action("Delete", "Chat")',
 			type: "post",
 			data: $("#actionForm").serialize()
 		})
 		.done(function (response) {
             if (response.success)
 			{
-				window.location.href = "@Url.Action("Index", "Order")";
+				window.location.href = "@Url.Action("Index", "Chat")";
 			}
 			else {
 				$(".errorDiv").html(response.Message);

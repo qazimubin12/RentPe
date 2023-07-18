@@ -3,6 +3,10 @@
     ViewBag.Title = "Index";
 }
 <style>
+    .statusIcon {
+        height: 30px;
+        width: 30px;
+    }
     .dropdown-toggle::after {
         display: none;
         margin-left: 0.255em;
@@ -39,13 +43,11 @@
                                 Owner
                             </th>
                             <th>
-                                Amount Paid
+                               Paid
                             </th>
+                            
                             <th>
-                                Amount Remaining
-                            </th>
-                            <th>
-                                Total Amount
+                                Total
                             </th>
                             <th>
                                 Renter
@@ -59,6 +61,12 @@
                             <th>
                                 Status
                             </th>
+                            <th>
+                                Packing
+                            </th>
+                            <th>
+                                Unboxing
+                            </th>
 
 
 
@@ -71,17 +79,53 @@
                         @foreach (var Order in Model.Orders)
                         {
 
-                            <tr class="@((Order.Order.VideoOfUnboxing == "" || Order.Order.VideoOfUnboxing == null) ? "red-row" : (Order.Order.VideoOfPacking == "" || Order.Order.VideoOfPacking == null) ? "orange-row" : "")">
+                            <tr class="@((Order.Order.VideoOfPacking == "" || Order.Order.VideoOfPacking == null) ? "red-row" : (Order.Order.VideoOfUnboxing == "" || Order.Order.VideoOfUnboxing == null) ? "orange-row" : "")">
                                 <td>@Order.Order.OrderNo</td>
                                 <td>@Order.Owner.Name</td>
                                 <td>@Order.Order.AmountPaid</td>
-                                <td>@Order.Order.AmountRemain</td>
                                 <td>@Order.Order.TotalAmount</td>
                                 <td>@Order.Renter.Name</td>
                                 <td>@Order.Ad.ItemName</td>
                                 <td>@Order.Order.Date</td>
                                 <td>@Order.Order.Status</td>
+                                <td class="text-center">
+                                    @if (Order.Order.VideoOfPacking != null && Order.Order.VideoOfPacking != "")
+                                    {
+                                        <svg class="statusIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                             viewBox="0 0 50 50"
+                                             style="fill:#40C057;">
+                                            <path d="M25,48C12.318,48,2,37.682,2,25S12.318,2,25,2s23,10.318,23,23S37.682,48,25,48z"></path>
+                                        </svg>
 
+                                    }
+                                    else
+                                    {
+                                        <svg class="statusIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                             viewBox="0 0 50 50"
+                                             style="fill:#737373;">
+                                            <path d="M25,48C12.317,48,2,37.682,2,25S12.317,2,25,2s23,10.318,23,23S37.683,48,25,48z"></path>
+                                        </svg>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (Order.Order.VideoOfUnboxing != null && Order.Order.VideoOfUnboxing != "")
+                                    {
+                                        <svg class="statusIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                             viewBox="0 0 50 50"
+                                             style="fill:#40C057;">
+                                            <path d="M25,48C12.318,48,2,37.682,2,25S12.318,2,25,2s23,10.318,23,23S37.682,48,25,48z"></path>
+                                        </svg>
+
+                                    }
+                                    else
+                                    {
+                                        <svg class="statusIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                             viewBox="0 0 50 50"
+                                             style="fill:#737373;">
+                                            <path d="M25,48C12.317,48,2,37.682,2,25S12.317,2,25,2s23,10.318,23,23S37.683,48,25,48z"></path>
+                                        </svg>
+                                    }
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-sm btn-outline-light dropdown-toggle dropdown-toggle-split">

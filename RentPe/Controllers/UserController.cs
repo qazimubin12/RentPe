@@ -192,6 +192,13 @@ namespace RentPe.Controllers
             model.CustomOffers = listOfOffers;
             var InboxList = new List<ChatInboxModel>();
             model.Chats = ConversationServices.Instance.GetConversationChat(model.SignedInUser.Id);
+            foreach (var item in model.Chats)
+            {
+                var SentBy =UserManager.FindById(item.SentBy);
+                var RecivedBy = UserManager.FindById(item.RecievedBy);
+                InboxList.Add(new ChatInboxModel {Item=item.Item, RecievedBy = RecivedBy, SentBy = SentBy, Message = item.Message, Date = item.Date });
+            }
+            model.InboxList = InboxList;
 
 
             var listOfOrder = new List<OrderViewModel>();
@@ -225,13 +232,6 @@ namespace RentPe.Controllers
             //{
             //    item.
             //}
-            foreach (var item in model.Chats)
-            {
-                var SentBy =UserManager.FindById(item.SentBy);
-                var RecivedBy = UserManager.FindById(item.RecievedBy);
-                InboxList.Add(new ChatInboxModel {Item=item.Item, RecievedBy = RecivedBy, SentBy = SentBy, Message = item.Message, Date = item.Date });
-            }
-            model.InboxList = InboxList;
             return View("Dashboard", "_Layout",model);
         }
 

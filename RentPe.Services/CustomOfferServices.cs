@@ -47,6 +47,23 @@ namespace RentPe.Services
 
             }
         }
+        public List<CustomOffer> GetCustomOfferByRenteeCheckViceVersa(string UserID,string SecondID)
+        {
+            using (var context = new DSContext())
+            {
+
+                var offer =  context.CustomOffers.Where(x => x.Rentee == UserID).ToList();
+                if (offer.Count() == 0)
+                {
+                    var offernew = context.CustomOffers.Where(x => x.Rentee == SecondID).ToList();
+                    return offernew;
+                }
+                else
+                {
+                    return offer;
+                }
+            }
+        }
 
 
         public CustomOffer GetCustomOffer(int ID)

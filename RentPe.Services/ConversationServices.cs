@@ -41,7 +41,16 @@ namespace RentPe.Services
 
 
 
-    
+
+        public Conversation GetLastConversation()
+        {
+            using (var context = new DSContext())
+            {
+
+                return context.Conversations.OrderByDescending(x=>x.ID).FirstOrDefault();
+
+            }
+        }
         public List<Conversation> GetConversationChat(string Rentee)
         {
             using (var context = new DSContext())
@@ -55,6 +64,20 @@ namespace RentPe.Services
                 return conversations;
             }
         }
+
+        public List<Conversation> GetConversationChat()
+        {
+            using (var context = new DSContext())
+            {
+                var conversations = context.Conversations
+                    .GroupBy(c => new { c.SentBy,c.RecievedBy, c.Item })
+                    .Select(g => g.OrderByDescending(c => c.Date).FirstOrDefault())
+                    .ToList();
+
+                return conversations;
+            }
+        }
+
 
         public Conversation GetConversation(int ID)
         {

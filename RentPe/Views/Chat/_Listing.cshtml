@@ -1,0 +1,138 @@
+﻿@model RentPe.ViewModels.ChatListingViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .chat-messages {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .message-info {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .message-date {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .sent-by-user {
+        background-color: #DCF8C6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: right;
+    }
+
+    .received-from-owner {
+        background-color: #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: left;
+    }
+</style>
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                <h2 class="card-title text-center">
+                    Chat of @Model.USentBy.Name with @Model.URecievedBy.Name
+                </h2>
+            </div>
+            <hr />
+            <form id="deleteForm" method="post" action="@Url.Action("DeleteBulkMessages","Chat")">
+                <ul id="messagingChatBox" style="max-height: 300px; overflow-y: scroll; overflow-x: clip;" class="chat-messages">
+                    @foreach (var message in Model.Chats)
+                    {
+                        <li class="@(message.Chats.SentBy == Model.USentBy.Id ? "sent-by-user row col-7" : "received-from-owner row col-7")">
+                            <div class="message-date">
+                                @message.Chats.Date
+                                <br />
+                                @message.Chats.SentByName
+                            </div>
+                            <div class="message-info">
+                            </div>
+                            <div class="message-content">
+                                @message.Chats.Message
+                                @if (message.Chats.Attachments != null && message.Chats.Attachments != "")
+                                {
+                                    <br />
+                                    <img src="@message.Chats.Attachments" style="height:200px" />
+                                    <br />
+                                }
+                            </div>
+
+                            <div class="message-checkbox">
+                                <input type="checkbox" name="selectedIds" value="@message.Chats.ID" />
+                            </div>
+
+                            @if (message.CustomOffer != null)
+                            {
+                                <div class="offer-card">
+                                    <div class="offer-details">
+                                        <h3>Offer</h3>
+                                        <p class="offer-info">
+                                            Renting Date: <span class="renting-date">@message.CustomOffer.RentingDate.ToShortDateString()</span><br>
+                                            Return Date: <span class="return-date">@message.CustomOffer.ReturnDate.ToShortDateString()</span><br>
+                                            Offered Price: <span class="offered-price">@message.CustomOffer.OfferedPrice</span><br>
+                                            Status: <span id="s_@message.CustomOffer.ID" class="status">@message.CustomOffer.Status</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+
+                <button class="btn btn-primary" type="submit">Delete Selected</button>
+            </form>
+
+
+
+        </div>
+        
+
+
+    </div>
+
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+
+    document.getElementById("deleteForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        var selectedIds = [];
+        var checkboxes = document.getElementsByName("selectedIds");
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedIds.push(checkboxes[i].value);
+            }
+        }
+
+        var selectedIdsInput = document.createElement("input");
+        selectedIdsInput.setAttribute("type", "hidden");
+        selectedIdsInput.setAttribute("name", "selectedIds");
+        selectedIdsInput.setAttribute("value", selectedIds.join());
+        this.appendChild(selectedIdsInput);
+
+        this.submit(); // Submit the form
+    });
+</script>
+
+
+

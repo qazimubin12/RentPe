@@ -1,0 +1,68 @@
+﻿@model RentPe.ViewModels.ChatListingViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+
+            <h2>Chats</h2>
+            <div class="input-group">
+                <a class="btn btn-primary" href="@Url.Action("Index", "Chat")"><i class="fa fa-refresh"></i> </a>
+            </div>
+
+
+            <form>
+
+                <div class="input-group-append">
+                    <select class="form-select" name="SentBy" id="SentBy">
+                        @foreach (var item in Model.Users)
+                        {
+                            if (Model.SentBy == item.Id)
+                            {
+                                <option selected value="@item.Id">@item.Name - @item.PhoneNumber</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name - @item.PhoneNumber</option>
+
+                            }
+                        }
+                    </select>
+                    <span class="mb-2">WITH</span>
+                    <select class="form-select" name="RecievedBy" id="RecievedBy">
+                        @foreach (var item in Model.Users)
+                        {
+                            if (Model.RecievedBy == item.Id)
+                            {
+                                <option selected value="@item.Id">@item.Name - @item.PhoneNumber</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name - @item.PhoneNumber</option>
+
+                            }
+                        }
+                    </select>
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search mr-1"></i></button>
+
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col col-lg-12">
+            @{
+                Html.RenderPartial("_Listing", Model);
+            }
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="actionModal" tabindex="-1" RentIem="dialog">
+    <div class="modal-dialog" RentIem="document">
+    </div>
+</div>
+
+<script>
+ 
+</script>
