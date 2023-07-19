@@ -928,12 +928,16 @@
     <Content Include="Content\template\RentPeContent\book.png" />
     <Content Include="Content\template\RentPeContent\logo-title-white.png" />
     <Content Include="Content\template\RentPeContent\property.png" />
+    <Content Include="Content\template\RentPeContent\quote_banners-01.png" />
+    <Content Include="Content\template\RentPeContent\quote_banners-02.png" />
+    <Content Include="Content\template\RentPeContent\quote_banners-03.png" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-04.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-05.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeBanners-06.jpg" />
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoDesktop2.png" />
     <Content Include="Content\template\RentPeContent\RentPeLogoMobile.png" />
+    <Content Include="Content\template\RentPeContent\shop_banner-04.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img1.2.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img1.png" />
     <Content Include="Content\template\RentPeContent\shop_banner_img2.2.png" />
