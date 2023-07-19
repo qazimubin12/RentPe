@@ -178,6 +178,7 @@ namespace RentPe.Controllers
                 var Rentee = UserManager.FindById(item.Rentee);
                 listOfOffers.Add(new CustomerOfferModel
                 {
+                    ID = item.ID,
                     Item = AdItem,
                     OfferedPrice = item.OfferedPrice,
                     OfferDate = item.OfferDate,
@@ -238,6 +239,7 @@ namespace RentPe.Controllers
         [HttpGet]
         public ActionResult Payment(int ID)
         {
+
             PaymentViewModel model = new PaymentViewModel();
             var order = OrderServices.Instance.GetOrder(ID);
             model.OrderFull = order;
@@ -247,6 +249,23 @@ namespace RentPe.Controllers
             model.AdFull = AD;
             model.Renter = Rentee;
             return PartialView("_Payment",model);
+        }
+
+
+        [HttpGet]
+        public ActionResult PaymentOnCustomOffer(int ID)
+        {
+
+            PaymentViewModel model = new PaymentViewModel();
+            var customOffer = CustomOfferServices.Instance.GetCustomOffer(ID);
+            var order = OrderServices.Instance.GetOrders().Where(x => x.Owner == customOffer.Owner && x.Renter == customOffer.Rentee && int.Parse(x.Item) == customOffer.Item).FirstOrDefault();
+            model.OrderFull = order;
+            model.Name = order.Renter;
+            var Rentee = UserManager.FindById(model.OrderFull.Renter);
+            var AD = AdServices.Instance.GetAd(int.Parse(model.OrderFull.Item));
+            model.AdFull = AD;
+            model.Renter = Rentee;
+            return PartialView("_Payment", model);
         }
 
         [HttpGet]

@@ -14,6 +14,17 @@
             background-color: #fca311 !important;
             border: 1px solid #fca311 !important
         }
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+        }
         
     </style>
 
@@ -79,7 +90,7 @@
                         <p class="account-subtitle">Access to our dashboard</p>
 
                         <!-- Form -->
-                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", onsubmit = "return onSubmitForm(event)" }))
                         {
                             @Html.AntiForgeryToken()
 
@@ -140,6 +151,13 @@
         </div>
     </div>
     <!-- jQuery -->
+    <div id="loader" class="loader">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
     <script src="~/Content/template/AdminTemplate/assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Bootstrap Core JS -->
@@ -156,6 +174,52 @@
 
 
 <script>
+    function onSubmitForm(event) {
+        // Disable the button
+        document.getElementById("submitButton").disabled = true;
+
+        // You can perform additional actions here if needed
+        showLoader();
+        // Allow the form to be submitted
+        return true;
+    }
+    function showLoader() {
+        $("#loader").show();
+    }
+    $(document).ready(function () {
+        // Function to show the loader
+        function showLoader() {
+            $("#loader").show();
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            $("#loader").hide();
+        }
+
+        // Attach click event to all anchor tags except those with the 'exclude-loader' class
+        $(document).on("click", "a:not(.exclude-loader)", function (event) {
+            var targetUrl = $(this).attr("href"); // Get the target URL from the 'href' attribute
+
+            // If the anchor tag is a link to a different page
+            if (targetUrl && targetUrl !== "#" && !targetUrl.startsWith("javascript:")) {
+                event.preventDefault(); // Prevent the default anchor tag behavior (e.g., navigating to the link)
+                showLoader();
+
+                // Optionally, you can simulate a delay (e.g., 1 second) before navigating to the link
+                // This is just to demonstrate the loader; you can remove this if you don't want the delay
+                setTimeout(function () {
+                    window.location.href = targetUrl;
+                }, 1000);
+            }
+        });
+
+        // Optionally, you can handle the AJAX complete event to hide the loader when the action is done.
+        $(document).ajaxComplete(function () {
+            hideLoader();
+        });
+    });
+
     $(document).ready(function () {
         $("body").mouseover(function () {
             $("div[style='position: fixed; z-index: 999999; width: 100%; height: 55px; padding: 10px; background-color: rgba(17, 16, 16, 0.93); bottom: 0px; left: 0px; right: 0px; display: flex; align-items: center; justify-content: center; gap: 20px; color: white;']").hide();

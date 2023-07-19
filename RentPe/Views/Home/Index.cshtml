@@ -80,13 +80,13 @@
                         </button>
                         <ul class="nav nav-tabs justify-content-center justify-content-md-end" id="tabmenubar" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="featured-tab" data-bs-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Featured</a>
+                                <a class="nav-link active exclude-loader" id="featured-tab" data-bs-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Featured</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " id="arrival-tab" data-bs-toggle="tab" href="#arrival" role="tab" aria-controls="arrival" aria-selected="true">Latest</a>
+                                <a class="nav-link exclude-loader" id="arrival-tab" data-bs-toggle="tab" href="#arrival" role="tab" aria-controls="arrival" aria-selected="true">Latest</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="sellers-tab" data-bs-toggle="tab" href="#sellers" role="tab" aria-controls="sellers" aria-selected="false">Exclusive</a>
+                                <a class="nav-link exclude-loader" id="sellers-tab" data-bs-toggle="tab" href="#sellers" role="tab" aria-controls="sellers" aria-selected="false">Exclusive</a>
                             </li>
 
 
@@ -116,7 +116,7 @@
                                                     <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
 
                                                     <li class="add-to-favorites">
-                                                        <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                        <a class="exclude-loader" data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
                                                             <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
                                                         </a>
                                                     </li>
@@ -162,7 +162,7 @@
                                                 <ul class="list_none pr_action_btn">
                                                     <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
                                                     <li class="add-to-favorites">
-                                                        <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                                        <a class="exclude-loader" data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
                                                             <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
                                                         </a>
                                                     </li>
@@ -535,7 +535,7 @@
                                     <ul class="list_none pr_action_btn">
                                         <li class="add-to-cart"><a href="@Url.Action("View", "Home", new {ID=item.Ad.ID})"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
                                         <li class="add-to-favorites">
-                                            <a data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
+                                            <a class="exclude-loader" data-id="@item.Ad.ID" onclick="addToFavorites('@item.Ad.ID')">
                                                 <i data-flow="@item.Ad.ID" class="fa fa-solid fa-heart" style="color: black;"></i>
                                             </a>
                                         </li>
@@ -611,7 +611,7 @@
                 <div id="accordion" class="accordion accordion_style1">
                     <div class="card">
                         <div class="card-header" id="headingOne">
-                            <h6 class="mb-0"> <a class="collapsed" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How can I rent an item?</a> </h6>
+                            <h6 class="mb-0"> <a class="collapsed exclude-loader" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How can I rent an item?</a> </h6>
                         </div>
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                             <div class="card-body">
@@ -630,7 +630,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingTwo">
-                            <h6 class="mb-0"> <a class="collapsed" data-bs-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What are the rental charges?</a> </h6>
+                            <h6 class="mb-0"> <a class="collapsed exclude-loader" data-bs-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What are the rental charges?</a> </h6>
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                             <div class="card-body">
@@ -640,7 +640,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingThree">
-                            <h6 class="mb-0"> <a class="collapsed" data-bs-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">What is the duration of the rental period?</a> </h6>
+                            <h6 class="mb-0"> <a class="collapsed exclude-loader" data-bs-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">What is the duration of the rental period?</a> </h6>
                         </div>
                         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
                             <div class="card-body">
@@ -651,7 +651,7 @@
                     <div class="card">
                         <div class="card-header" id="headingFour">
                             <h6 class="mb-0">
-                                <a class="collapsed"                         data-bs-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">What if I need to extend the rental period?</a> </h6>
+                                <a class="collapsed exclude-loader"  data-bs-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">What if I need to extend the rental period?</a> </h6>
                         </div>
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
                             <div class="card-body">
@@ -661,7 +661,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingFive">
-                            <h6 class="mb-0"> <a class="collapsed" data-bs-toggle="collapse" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">What happens if I return the item late?</a> </h6>
+                            <h6 class="mb-0"> <a class="collapsed exclude-loader" data-bs-toggle="collapse" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">What happens if I return the item late?</a> </h6>
                         </div>
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
                             <div class="card-body">

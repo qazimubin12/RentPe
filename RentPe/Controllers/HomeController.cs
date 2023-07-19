@@ -7,6 +7,7 @@ using RentPe.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -393,7 +394,7 @@ namespace RentPe.Controllers
                 htmlBuilder.Append("</div>");
                 htmlBuilder.Append("</div>");
                 htmlBuilder.Append("<div class='product_info'>");
-                htmlBuilder.Append($"<h6 class='product_title'><a href='@Url.Action(\"View\", \"Home\", new {{ID=item.Ad.ID }})'>{item.Ad.ItemName}</a></h6>");
+                htmlBuilder.Append($"<h6 class='product_title'><a href='{Url.Action("View", "Home", new { ID = item.Ad.ID })}'>{item.Ad.ItemName}</a></h6>");
                 htmlBuilder.Append("<div class='product_price'>");
                 htmlBuilder.Append($"<span class='price'>{item.Ad.Price} PKR</span>");
                 htmlBuilder.Append("</div>");
@@ -405,9 +406,15 @@ namespace RentPe.Controllers
                 htmlBuilder.Append("</div>");
                 htmlBuilder.Append("<div class='list_product_action_box'>");
                 htmlBuilder.Append("<ul class='list_none pr_action_btn'>");
-                htmlBuilder.Append("<li class='add-to-cart'><a href='#'><i class='icon-basket-loaded'></i> Add To Cart</a></li>");
-                htmlBuilder.Append("<li><a href='shop-compare.html' class='popup-ajax'><i class='icon-shuffle'></i></a></li>");
-                htmlBuilder.Append("<li><a href='shop-quick-view.html' class='popup-ajax'><i class='icon-magnifier-add'></i></a></li>");
+                if (User.Identity.IsAuthenticated)
+                {
+                    htmlBuilder.Append("<button data-href='" + Url.Action("View", "Home", new { ID = item.Ad.ID }) + "' type='button' class='data-btn btn btn-fill-out' data-bs-toggle='modal' data-bs-target='#custom-offer-modal'><i class='icon-basket-loaded'></i>Send Custom Offer</button>");
+                }
+                else
+                {
+                    htmlBuilder.Append("<a href='" + Url.Action("Login", "Account")+ "' type='button' class='data-btn btn btn-fill-out' data-bs-toggle='modal' data-bs-target='#custom-offer-modal'><i class='icon-basket-loaded'></i>Login to Send Custom Offer</a>");
+
+                }
                 htmlBuilder.Append("<li class='add-to-favorites'>");
                 htmlBuilder.Append($"<a data-id='{item.Ad.ID}' onclick='addToFavorites(\"{item.Ad.ID}\")'>");
                 htmlBuilder.Append($"<i data-flow='{item.Ad.ID}' class='fa fa-solid fa-heart' style='color: black;'></i>");
@@ -558,8 +565,8 @@ namespace RentPe.Controllers
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
             model.ItemCategory = CategoryServices.Instance.GetRentItemCategories();
-
-            var ads = AdServices.Instance.GetAdWithTime();
+            var now = DateTime.Now;
+            var ads = AdServices.Instance.GetAdWithTime().Where(x => x.AvailableFrom <= now && x.AvailableTo >= now);
             var List = new List<AdWithTimeModel>();
             foreach (var ad in ads)
             {
@@ -609,7 +616,8 @@ namespace RentPe.Controllers
 
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
-            var ads = AdServices.Instance.GetAdWithTime(Category,SearchTerm);
+            var now = DateTime.Now;
+            var ads = AdServices.Instance.GetAdWithTime(Category,SearchTerm).Where(x => x.AvailableFrom <= now && x.AvailableTo >= now); ;
             var List = new List<AdWithTimeModel>();
             foreach (var ad in ads)
             {
@@ -660,7 +668,8 @@ namespace RentPe.Controllers
             Session["ACTIVER"] = "SHOP";
             HomeShopViewModel model = new HomeShopViewModel();
             model.ItemsCategories = CategoryServices.Instance.GetRentItemCategories();
-            var ads = AdServices.Instance.GetAdWithTime().Where(x=>x.ItemCategory == Category).ToList();
+            var now = DateTime.Now;
+            var ads = AdServices.Instance.GetAdWithTime().Where(x=>x.ItemCategory == Category &&  x.AvailableFrom <= now && x.AvailableTo >= now).ToList();
             var List = new List<AdWithTimeModel>();
             foreach (var ad in ads)
             {

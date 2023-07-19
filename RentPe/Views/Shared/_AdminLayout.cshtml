@@ -29,10 +29,24 @@
         <script src="~/Content/template/AdminTemplate/assets/js/respond.min.js"></script>
     <![endif]-->
 
+    <style>
 
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
 <body>
+   
 
     <!-- Main Wrapper -->
     <div class="main-wrapper">
@@ -69,7 +83,6 @@
                 </li>
 
                 <!-- App Lists -->
-                
                 <!-- /Notifications -->
                 <!-- User Menu -->
                 <li class="nav-item dropdown has-arrow">
@@ -123,8 +136,8 @@
                             <a href="@Url.Action("Index","User")"><i class="fe fe-users text-success"></i> <span>Users</span></a>
                         </li>
                         @*<li>
-            <a href="@Url.Action("Index","Item")"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
-        </li>*@
+                            <a href="@Url.Action("Index","Item")"><i class="fe fe-shopping-bag text-info"></i> <span> Product</span></a>
+                        </li>*@
 
                         <li id="AdTAB">
                             <a href="@Url.Action("Index","Ad")"><i class="fe fe-book text-warning"></i> <span>Ads</span></a>
@@ -160,11 +173,17 @@
                 {
                     @Html.AntiForgeryToken()}
                 @RenderBody()
-               
+
             </div>
         </div>
         <!-- /Page Wrapper -->
-
+        <div id="loader" class="loader">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /Main Wrapper -->
     <!-- jQuery -->
@@ -201,7 +220,39 @@
 
 <script>
     
+    $(document).ready(function () {
+        // Function to show the loader
+        function showLoader() {
+            $("#loader").show();
+        }
 
+        // Function to hide the loader
+        function hideLoader() {
+            $("#loader").hide();
+        }
+
+        // Attach click event to all anchor tags except those with the 'exclude-loader' class
+        $(document).on("click", "a:not(.exclude-loader)", function (event) {
+            var targetUrl = $(this).attr("href"); // Get the target URL from the 'href' attribute
+
+            // If the anchor tag is a link to a different page
+            if (targetUrl && targetUrl !== "#" && !targetUrl.startsWith("javascript:")) {
+                event.preventDefault(); // Prevent the default anchor tag behavior (e.g., navigating to the link)
+                showLoader();
+
+                // Optionally, you can simulate a delay (e.g., 1 second) before navigating to the link
+                // This is just to demonstrate the loader; you can remove this if you don't want the delay
+                setTimeout(function () {
+                    window.location.href = targetUrl;
+                }, 1000);
+            }
+        });
+
+        // Optionally, you can handle the AJAX complete event to hide the loader when the action is done.
+        $(document).ajaxComplete(function () {
+            hideLoader();
+        });
+    });
         $(document).ready(function () {
 
             var data = '@Session["ACTIVERADMIN"]';

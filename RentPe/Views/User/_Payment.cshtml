@@ -133,7 +133,7 @@
                                     <textarea name="Remarks" id="Remarks" class="form-control rounded-0" placeholder="Enter Transaction ID (if recieved)"></textarea>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> Send Offer</button>
+                                    <button id="actionButton" type="button" class="btn btn-fill-line btn-block text-uppercase rounded-0"><i class="fas fa-sharp fa-light fa-money-bill"></i> SUBMIT PAYMENT</button>
 
                                 </div>
                             </form>
@@ -168,7 +168,7 @@
         button.disabled = false;
         return; // Stop further execution
        }
-       if ($("#AmountPaid").val() < $("#AmountNeedsToBePaid")) {
+       if ($("#AmountPaid").val() < $("#AmountNeedsToBePaid").val()) {
            alert("Amount should be correct.");
            button.classList.remove('loader');
            button.disabled = false;

@@ -35,7 +35,7 @@
                     <div class="product-image vertical_gallery">
                         <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-vertical="true" data-vertical-swiping="true" data-slides-to-show="5" data-slides-to-scroll="1" data-infinite="false">
                             <div class="item">
-                                <a href="#" class="product_gallery_item active" data-image="@Model.MainImage" data-zoom-image="@Model.MainImage">
+                                <a href="#" class="product_gallery_item active exclude-loader" data-image="@Model.MainImage" data-zoom-image="@Model.MainImage">
                                     <img src="@Model.MainImage" alt="Image" />
                                 </a>
                             </div>
@@ -43,7 +43,7 @@
                             @foreach (var item in Model.otherImages)
                             {
                                 <div class="item">
-                                    <a href="#" class="product_gallery_item active" data-image="@item" data-zoom-image="@item">
+                                    <a href="#" class="product_gallery_item active exclude-loader" data-image="@item" data-zoom-image="@item">
                                         <img src="@item" alt="Image" />
                                     </a>
                                 </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="product_img_box">
                             <img id="product_img" style="width:100%;height:auto;" src='@Model.MainImage' data-zoom-image="@Model.MainImage" alt="product_img1" />
-                            <a href="#" class="product_img_zoom" title="Zoom">
+                            <a href="#" class="product_img_zoom exclude-loader" title="Zoom">
                                 <span class="linearicons-zoom-in"></span>
                             </a>
                         </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product_description">
-                        <h4 class="product_title"><a href="#">@Model.ItemName</a></h4>
+                        <h4 class="product_title"><a class="exclude-loader" href="#">@Model.ItemName</a></h4>
                         <div class="product_price">
                             <span class="price">PKR @Model.Price</span>
 
@@ -121,19 +121,19 @@
                     <div class="tab-style3">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Description</a>
+                                <a class="nav-link active exclude-loader" id="Description-tab" data-bs-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Description</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">Additional info</a>
+                                <a class="nav-link exclude-loader" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">Additional info</a>
                             </li>
                             <li class="nav-item">
                                 @if (Model.UserRatings != null)
                                 {
-                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (@Model.UserRatings.Count())</a>
+                                    <a class="nav-link exclude-loader" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (@Model.UserRatings.Count())</a>
                                 }
                                 else
                                 {
-                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (0)</a>
+                                    <a class="nav-link exclude-loader" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews (0)</a>
 
                                 }
                             </li>

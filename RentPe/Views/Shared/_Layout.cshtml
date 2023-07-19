@@ -54,7 +54,6 @@
             max-width: 90%;
         }
 
-        <style >
         /* Custom scrollbar styles */
         .cart_box {
             overflow: hidden;
@@ -64,6 +63,18 @@
         .cart_box .cart_list {
             height: 300px; /* Set the desired height for the scrollable area */
             overflow: auto;
+        }
+
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
         }
 
         /* Add custom scrollbar styles using SimpleBar */
@@ -359,6 +370,13 @@
             </div>
         </div>
     </footer>
+    <div id="loader" class="loader">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>   
+    </div>
     <!-- END FOOTER -->
 
     <a href="~/Content/template/#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
@@ -405,8 +423,42 @@
         $("body").mouseover(function () {
             $("div[style='position: fixed; z-index: 999999; width: 100%; height: 55px; padding: 10px; background-color: rgba(17, 16, 16, 0.93); bottom: 0px; left: 0px; right: 0px; display: flex; align-items: center; justify-content: center; gap: 20px; color: white;']").hide();
         });
-    });
+     });
 
+
+    $(document).ready(function () {
+        // Function to show the loader
+        function showLoader() {
+            $("#loader").show();
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            $("#loader").hide();
+        }
+
+        // Attach click event to all anchor tags except those with the 'exclude-loader' class
+        $(document).on("click", "a:not(.exclude-loader)", function (event) {
+            var targetUrl = $(this).attr("href"); // Get the target URL from the 'href' attribute
+
+            // If the anchor tag is a link to a different page
+            if (targetUrl && targetUrl !== "#" && !targetUrl.startsWith("javascript:")) {
+                event.preventDefault(); // Prevent the default anchor tag behavior (e.g., navigating to the link)
+                showLoader();
+
+                // Optionally, you can simulate a delay (e.g., 1 second) before navigating to the link
+                // This is just to demonstrate the loader; you can remove this if you don't want the delay
+                setTimeout(function () {
+                    window.location.href = targetUrl;
+                }, 1000);
+            }
+        });
+
+        // Optionally, you can handle the AJAX complete event to hide the loader when the action is done.
+        $(document).ajaxComplete(function () {
+            hideLoader();
+        });
+    });
     function SearchProductsInShop() {
         var Category = $("#Category").val();
         var SearchTerm = $("#SearchTerm").val();

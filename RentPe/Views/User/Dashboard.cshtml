@@ -79,22 +79,22 @@
                         @if (Model.ChatActiveOrNot == "Chat Active")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true"><i class="ti-layout-grid2"></i>Dashboard</a>
+                                <a class="nav-link exclude-loader" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true"><i class="ti-layout-grid2"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Custom Offers</a>
+                                <a class="nav-link exclude-loader" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Custom Offers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>User Information</a>
+                                <a class="nav-link exclude-loader" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>User Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
+                                <a class="nav-link exclude-loader" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="orderInfo-tab" data-bs-toggle="tab" href="#orderInfo" role="tab" aria-controls="orderInfo" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
+                                <a class="nav-link exclude-loader" id="orderInfo-tab" data-bs-toggle="tab" href="#orderInfo" role="tab" aria-controls="orderInfo" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="false"><i class="ti-comment"></i>Chats</a>
+                                <a class="nav-link active exclude-loader" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="false"><i class="ti-comment"></i>Chats</a>
                             </li>
 
                             <li class="nav-item">
@@ -104,22 +104,22 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link active " id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
+                                <a class="nav-link active exclude-loader " id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Custom Offers</a>
+                                <a class="nav-link exclude-loader" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Custom Offers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>User Information</a>
+                                <a class="nav-link exclude-loader" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>User Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
+                                <a class="nav-link exclude-loader" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="order-detail-tab" data-bs-toggle="tab" href="#order-detail" role="tab" aria-controls="order-detail" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
+                                <a class="nav-link exclude-loader" id="order-detail-tab" data-bs-toggle="tab" href="#order-detail" role="tab" aria-controls="order-detail" aria-selected="true"><i class="ti-id-badge"></i>Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="true"><i class="ti-comment"></i>Chats</a>
+                                <a class="nav-link exclude-loader" id="chats-tab" data-bs-toggle="tab" href="#chats" role="tab" aria-controls="chats" aria-selected="true"><i class="ti-comment"></i>Chats</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><i class="ti-lock"></i>Logout</a>
@@ -251,7 +251,7 @@
                                                                     Awating Payment
                                                                 </td>
                                                                 <td id="PaymentButton">
-                                                                    <button data-href="@Url.Action("Payment", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
+                                                                    <button data-href="@Url.Action("PaymentOnCustomOffer", "User", new { ID = item.ID })" type="button" class="data-btn btn btn-fill-out" data-bs-toggle="modal" data-bs-target="#custom-offer-modal"><i class="icon-basket-loaded"></i>PAY NOW</button>
                                                                 </td>
                                                             }
 

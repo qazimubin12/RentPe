@@ -135,9 +135,15 @@ namespace RentPe.Controllers
                 Order.AmountRemain = model.AmountRemain;
                 Order.TotalAmount = model.TotalAmount;
                 Order.Renter = model.Renter;
+                Order.Status = model.Status;
+                if(Order.Status == "PAYMENT CONFIRMED")
+                {
+                    var Ad = AdServices.Instance.GetAd(int.Parse(model.Item));
+                    Ad.AdStatus = "inactive";
+                    AdServices.Instance.UpdateAd(Ad);
+                }
                 Order.Item = model.Item;
                 Order.Date = model.Date;
-                Order.Status = model.Status;
                 Order.VideoOfUnboxing = model.VideoOfUnboxing;
                 Order.VideoOfPacking = model.VideoOfPacking;
                 OrderServices.Instance.UpdateOrder(Order);

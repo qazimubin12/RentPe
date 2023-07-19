@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "net.bsite.rentpeonline.twa",
+        "sha256_cert_fingerprints": ["E3:CA:D9:3A:3A:83:94:E0:02:92:4A:27:FF:C8:F2:B9:16:57:5F:74:36:D3:3E:08:53:BD:D9:52:6D:2D:5C:9F"]
+      }
+    }]
