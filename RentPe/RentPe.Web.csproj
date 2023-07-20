@@ -348,6 +348,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ItemCategoryViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PaymentViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
@@ -1231,6 +1233,9 @@
     <Content Include="Views\Chat\_Delete.cshtml" />
     <Content Include="Views\Chat\_Listing.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Payment\_Delete.cshtml" />
+    <Content Include="Views\Payment\_Listing.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

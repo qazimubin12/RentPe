@@ -1,0 +1,43 @@
+﻿@model RentPe.ViewModels.PaymentListingViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+
+            <h2>Payments</h2>
+            <div class="input-group">
+                <a class="btn btn-primary" href="@Url.Action("Index", "Payment")"><i class="fa fa-refresh"></i> </a>
+            </div>
+
+            
+
+        </div>
+        <div class="col-lg-4">
+            <form>
+                <div class="input-group-append">
+                    <input type="text" name="searchterm" class="form-control" placeholder="Search." value="@Model.SearchTerm">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search mr-1"></i></button>
+
+                </div>
+            </form>
+           
+            
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col col-lg-12">
+            @{
+                Html.RenderPartial("_Listing", Model);
+            }
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="actionModal" tabindex="-1" RentIem="dialog">
+    <div class="modal-dialog" RentIem="document">
+    </div>
+</div>
+
+<script>
+ 
+</script>
